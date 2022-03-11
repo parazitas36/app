@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import AddBlockBtn from '../components/AddBlockBtn';
 import AddTextBlock from '../components/blocks/AddTextBlock';
 import Button from '../components/Button';
+import CreateBlockModal from '../components/modals/CreateBlockModal';
 
 const CreateGuide = () => {
     const [title, setTitle] = React.useState(null);
@@ -25,11 +26,21 @@ const CreateGuide = () => {
 
     return (
         <View>
-            <TextInput style={styles.txtInput} placeholder='Title' onChangeText={setTitle} />
+            <CreateBlockModal
+                visible={showBlock}
+                goBack={() => setShowBlock(false)}
+                onChangeText={setText}
+                onPress={() => AddBlock()}
+            />
+            <TextInput
+                style={styles.txtInput}
+                placeholder='Title'
+                onChangeText={setTitle}
+            />
             {blocks.map((blk) => {
                 return <Text>{blk}</Text>
             })}
-            {showBlock ? <AddTextBlock onChangeText={setText} onPress={() => { AddBlock() }} /> : <AddBlockBtn onPress={() => setShowBlock(true)} />}
+            <AddBlockBtn onPress={() => setShowBlock(true)} />
         </View>
     )
 }
