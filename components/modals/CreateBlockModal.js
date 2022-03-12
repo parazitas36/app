@@ -3,6 +3,7 @@ import { Dimensions, StyleSheet, ScrollView, Modal, View } from 'react-native';
 import { CreateGuideContext } from '../../screens/CreateGuide';
 import AddPhotoBlock from '../blocks/AddPhotoBlock';
 import AddTextBlock from '../blocks/AddTextBlock';
+import AddVideoBlock from '../blocks/AddVideoBlock';
 import Button from '../Button';
 import PhotoBlockBtn from '../PhotoBlockBtn';
 import TextBlockBtn from '../TextBlockBtn';
@@ -57,6 +58,7 @@ const CreateBlockModal = (props) => {
     const [showBlock, setShowBlock] = showBlocks;
     const [text, setText] = texts;
     const [photo, setPhoto] = photos;
+    const [video, setVideo] = videos;
 
     return (
         <Modal animationType='slide' visible={showBlock}>
@@ -96,6 +98,21 @@ const CreateBlockModal = (props) => {
                             if(photo === null) { return; }
                             setShowBlock(false);
                             setBlocks(blocks=>[...blocks, {type:'img', object: photo}])
+                            setChosenBlock(null);
+                        }}
+                        resetChosen={setChosenBlock}
+                    />
+                </ScrollView>
+            }
+            {
+                chosenBlock === 'Video' &&
+                <ScrollView>
+                    <AddVideoBlock
+                        videos={videos}
+                        onPress={() => {
+                            if(video === null) { return; }
+                            setShowBlock(false);
+                            setBlocks(blocks=>[...blocks, {type:'video', object: video}])
                             setChosenBlock(null);
                         }}
                         resetChosen={setChosenBlock}

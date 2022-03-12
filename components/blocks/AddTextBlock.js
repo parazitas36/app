@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
 
   },
   btntxt: {
+    color: 'black',
 
   },
   input: {
@@ -42,6 +43,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     margin: 2,
     borderRadius: 5,
+    color: 'black',
   }
 })
 

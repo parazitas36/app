@@ -1,10 +1,14 @@
 import React, { createContext } from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { Dimensions, ScrollView, Text, StyleSheet, Image } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import Video from 'react-native-video';
 import AddBlockBtn from '../components/AddBlockBtn';
 import AddTextBlock from '../components/blocks/AddTextBlock';
 import Button from '../components/Button';
 import CreateBlockModal from '../components/modals/CreateBlockModal';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 export const CreateGuideContext = createContext();
 
@@ -25,25 +29,22 @@ const CreateGuide = () => {
     }
 
     React.useLayoutEffect(() => {
-        if (text !== null && showBlock === true) {
+        if ((text !== null || photo !== null || video !== null)
+            && showBlock === true) {
             setText(null);
+            setPhoto(null);
+            setVideo(null);
         }
     }, [showBlock]);
 
-    const AddBlock = () => {
-        if (text === null) { return; }
-        setShowBlock(false);
-        setBlocks(blocks => [...blocks, text]);
-    }
+
 
     return (
         <CreateGuideContext.Provider value={value}>
-            <View>
+            <ScrollView>
                 <CreateBlockModal
                     visible={showBlock}
                     goBack={() => setShowBlock(false)}
-                    onChangeText={setText}
-                    onPress={() => AddBlock()}
                 />
                 <TextInput
                     style={styles.txtInput}
@@ -51,15 +52,24 @@ const CreateGuide = () => {
                     onChangeText={setTitle}
                 />
                 {blocks.map((blk) => {
-                    switch(blk.type){
+                    switch (blk.type) {
                         case 'text':
                             return <Text>{blk.object}</Text>
                         case 'img':
-                            return <Image style={{width: 100, height: 100}} source={{uri:photo.assets[0].uri}}/>
+                            return <Image
+                                style={{ width: 100, height: 100 }}
+                                source={{ uri: blk.object.assets[0].uri }}
+                            />
+                        case 'video':
+                            return <Video
+                                paused={true}
+                                style={{ height: windowHeight * .6 }}
+                                source={{ uri: blk.object.assets[0].uri }}
+                            />
                     }
                 })}
                 <AddBlockBtn onPress={() => setShowBlock(true)} />
-            </View>
+            </ScrollView>
         </CreateGuideContext.Provider>
     )
 }

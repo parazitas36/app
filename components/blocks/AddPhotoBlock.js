@@ -5,6 +5,13 @@ import Button from '../Button';
 
 const AddPhotoBlock = (props) => {
     const [photo, setPhoto] = props.photos;
+
+    React.useLayoutEffect(()=> {
+        if(photo !== null){
+            setPhoto(null);
+        }
+    }, [])
+
     const uploadPhoto = async() => {
         const options = {
             mediaType: 'photo'
@@ -28,6 +35,7 @@ const styles = StyleSheet.create({
 
     },
     btntxt:{
+        color: 'black',
 
     }
 });

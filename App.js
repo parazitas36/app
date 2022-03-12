@@ -62,7 +62,7 @@ const Tab = createBottomTabNavigator();
 
 const App = () => {
   const [loggedIn, setLoggedIn] = React.useState(false);
-
+ 
   return (
     <Context.Provider value={{ loggedIn, setLoggedIn }}>
       <NavigationContainer>
@@ -85,32 +85,32 @@ const App = () => {
             }}
           >
             <Tab.Screen
-              name="Home"
+              name="HomeTab"
               component={HomeScreen}
               options={{
                 tabBarLabel: "Home",
                 tabBarIcon: () => (
-                  <FontAwesome5 name={"home"} size={windowHeight*.04} />
+                  <FontAwesome5 name={"home"} size={windowHeight*.04} color={'black'}/>
                 )
               }}
             />
             <Tab.Screen
-              name="Guide Creation"
+              name="GuideCreationTab"
               component={CreateGuideScreen}
               options={{
                 tabBarLabel: "Guide Creation",
                 tabBarIcon: () => (
-                  <FontAwesome5 name={"plus-circle"} size={windowHeight*.04} />
+                  <FontAwesome5 name={"plus-circle"} size={windowHeight*.04} color={'black'}/>
                 )
               }}
             />
             <Tab.Screen
-              name="Profile"
+              name="ProfileTab"
               component={ProfileScreen}
               options={{
                 tabBarLabel: "Profile",
                 tabBarIcon: () => (
-                  <Ionicons name={"person-outline"} size={windowHeight*.04} />
+                  <Ionicons name={"person-outline"} size={windowHeight*.04} color={'black'} />
                 )
               }}
             />
