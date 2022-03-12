@@ -1,6 +1,6 @@
 import React from 'react'
-import { Dimensions, StyleSheet, View, Modal } from 'react-native';
-import { black } from 'react-native-paper/lib/typescript/styles/colors';
+import { Dimensions, StyleSheet, ScrollView, Modal, View } from 'react-native';
+import AddPhotoBlock from '../blocks/AddPhotoBlock';
 import AddTextBlock from '../blocks/AddTextBlock';
 import Button from '../Button';
 import PhotoBlockBtn from '../PhotoBlockBtn';
@@ -66,14 +66,22 @@ const CreateBlockModal = (props) => {
             }
             {
                 chosenBlock === 'Text' &&
-                <View>
+                <ScrollView>
                     <AddTextBlock
                         styles={styles}
                         onChangeText={props.onChangeText}
                         onPress={props.onPress}
                         resetChosen={setChosenBlock}
                     />
-                </View>
+                </ScrollView>
+            }
+            {
+                chosenBlock === 'Photo' &&
+                <ScrollView>
+                    <AddPhotoBlock 
+                     resetChosen={setChosenBlock}
+                    />
+                </ScrollView>
             }
         </Modal>
     )

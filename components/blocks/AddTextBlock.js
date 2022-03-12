@@ -1,28 +1,49 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Button from '../Button';
 
 const AddTextBlock = (props) => {
   return (
-      <View>
-        <TextInput style={styles.input} multiline={true} numberOfLines={10} onChangeText={props.onChangeText}/>
-        <Button title='Accept' styles={styles} onPress={() => {props.onPress(); props.resetChosen(null)}} />
-        <Button title='Go Back' styles={styles} onPress={() => {props.resetChosen(null)}} />
-      </View>
+    <ScrollView>
+      <TextInput
+        style={styles.input}
+        multiline={true}
+        numberOfLines={10}
+        onChangeText={props.onChangeText}
+        placeholder="Enter your text"
+      />
+      <Button
+        title='Accept'
+        styles={styles}
+        onPress={() => {
+           props.onPress(); 
+           props.resetChosen(null) 
+          }
+        }
+      />
+      <Button
+        title='Go Back'
+        styles={styles}
+        onPress={() => { props.resetChosen(null) }}
+      />
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-    btn: {
+  btn: {
 
-    },
-    btntxt: {
+  },
+  btntxt: {
 
-    },
-    input:{
-      textAlignVertical: 'top'
-    }
+  },
+  input: {
+    textAlignVertical: 'top',
+    borderWidth: 1,
+    margin: 2,
+    borderRadius: 5,
+  }
 })
 
 export default AddTextBlock;
