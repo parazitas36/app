@@ -17,8 +17,7 @@ const AddTextBlock = (props) => {
         title='Accept'
         styles={styles}
         onPress={() => {
-           props.onPress(); 
-           props.resetChosen(null) 
+            props.onPress();
           }
         }
       />

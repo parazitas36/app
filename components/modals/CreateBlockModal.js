@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Dimensions, StyleSheet, ScrollView, Modal, View } from 'react-native';
+import { CreateGuideContext } from '../../screens/CreateGuide';
 import AddPhotoBlock from '../blocks/AddPhotoBlock';
 import AddTextBlock from '../blocks/AddTextBlock';
 import Button from '../Button';
@@ -50,9 +51,15 @@ const backBtnStyle = StyleSheet.create({
 
 const CreateBlockModal = (props) => {
     const [chosenBlock, setChosenBlock] = React.useState(null);
+    const { texts, photos, videos, blocks_arr, showBlocks } = useContext(CreateGuideContext);
+
+    const [blocks, setBlocks] = blocks_arr;
+    const [showBlock, setShowBlock] = showBlocks;
+    const [text, setText] = texts;
+    const [photo, setPhoto] = photos;
 
     return (
-        <Modal animationType='slide' visible={props.visible}>
+        <Modal animationType='slide' visible={showBlock}>
             {
                 chosenBlock === null &&
                 <View style={styles.modalBtn}>
@@ -69,8 +76,13 @@ const CreateBlockModal = (props) => {
                 <ScrollView>
                     <AddTextBlock
                         styles={styles}
-                        onChangeText={props.onChangeText}
-                        onPress={props.onPress}
+                        onChangeText={setText}
+                        onPress={() => {
+                            if (text === null) { return; }
+                            setShowBlock(false);
+                            setBlocks(blocks => [...blocks, { type: 'text', object: text }])
+                            setChosenBlock(null);
+                        }}
                         resetChosen={setChosenBlock}
                     />
                 </ScrollView>
@@ -78,8 +90,15 @@ const CreateBlockModal = (props) => {
             {
                 chosenBlock === 'Photo' &&
                 <ScrollView>
-                    <AddPhotoBlock 
-                     resetChosen={setChosenBlock}
+                    <AddPhotoBlock
+                        photos={photos}
+                        onPress={() => {
+                            if(photo === null) { return; }
+                            setShowBlock(false);
+                            setBlocks(blocks=>[...blocks, {type:'img', object: photo}])
+                            setChosenBlock(null);
+                        }}
+                        resetChosen={setChosenBlock}
                     />
                 </ScrollView>
             }
