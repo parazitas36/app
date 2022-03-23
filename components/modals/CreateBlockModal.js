@@ -5,9 +5,9 @@ import AddPhotoBlock from '../blocks/AddPhotoBlock';
 import AddTextBlock from '../blocks/AddTextBlock';
 import AddVideoBlock from '../blocks/AddVideoBlock';
 import Button from '../Button';
-import PhotoBlockBtn from '../PhotoBlockBtn';
-import TextBlockBtn from '../TextBlockBtn';
-import VideoBlockBtn from '../VideoBlockBtn';
+import PhotoBlockBtn from '../buttons/PhotoBlockBtn';
+import TextBlockBtn from '../buttons/TextBlockBtn';
+import VideoBlockBtn from '../buttons/VideoBlockBtn';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -52,13 +52,14 @@ const backBtnStyle = StyleSheet.create({
 
 const CreateBlockModal = (props) => {
     const [chosenBlock, setChosenBlock] = React.useState(null);
-    const { texts, photos, videos, blocks_arr, showBlocks } = useContext(CreateGuideContext);
+    const { texts, photos, videos, blocks_arr, showBlocks, blockids } = useContext(CreateGuideContext);
 
     const [blocks, setBlocks] = blocks_arr;
     const [showBlock, setShowBlock] = showBlocks;
     const [text, setText] = texts;
     const [photo, setPhoto] = photos;
     const [video, setVideo] = videos;
+    const [block_id, setBlockID] = blockids;
 
     return (
         <Modal animationType='slide' visible={showBlock}>
@@ -82,7 +83,8 @@ const CreateBlockModal = (props) => {
                         onPress={() => {
                             if (text === null) { return; }
                             setShowBlock(false);
-                            setBlocks(blocks => [...blocks, { type: 'text', object: text }])
+                            setBlocks(blocks => [...blocks, { type: 'text', object: text, id: block_id}])
+                            setBlockID(block_id+1);
                             setChosenBlock(null);
                         }}
                         resetChosen={setChosenBlock}
@@ -97,7 +99,8 @@ const CreateBlockModal = (props) => {
                         onPress={() => {
                             if(photo === null) { return; }
                             setShowBlock(false);
-                            setBlocks(blocks=>[...blocks, {type:'img', object: photo}])
+                            setBlocks(blocks=>[...blocks, {type:'img', object: photo, id: block_id}])
+                            setBlockID(block_id+1);
                             setChosenBlock(null);
                         }}
                         resetChosen={setChosenBlock}
@@ -112,7 +115,8 @@ const CreateBlockModal = (props) => {
                         onPress={() => {
                             if(video === null) { return; }
                             setShowBlock(false);
-                            setBlocks(blocks=>[...blocks, {type:'video', object: video}])
+                            setBlocks(blocks=>[...blocks, {type:'video', object: video, id: block_id}])
+                            setBlockID(block_id+1);
                             setChosenBlock(null);
                         }}
                         resetChosen={setChosenBlock}

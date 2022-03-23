@@ -21,8 +21,6 @@ const AddVideoBlock = (props) => {
             mediaType: 'video'
         }
         const result = await launchImageLibrary(options);
-        console.log('RESULT')
-        console.log(result);
         setVideo(result);
     }
     return (

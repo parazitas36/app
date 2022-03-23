@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Dimensions } from 'react-native';
+import { Dimensions, StatusBar } from 'react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -27,7 +27,7 @@ const CreateGuideScreenStack = createStackNavigator();
 const WelcomeScreen = () => {
   return (
     <WelcomeScreenStack.Navigator>
-      <WelcomeScreenStack.Screen name="Welcome" component={Welcome} />
+      <WelcomeScreenStack.Screen options={{headerShown: false}} name="Welcome" component={Welcome} />
       <WelcomeScreenStack.Screen name="Login" component={Login} />
       <WelcomeScreenStack.Screen name="Register" component={Register} />
     </WelcomeScreenStack.Navigator>
@@ -53,7 +53,7 @@ const ProfileScreen = () => {
 const CreateGuideScreen = () => {
   return (
     <CreateGuideScreenStack.Navigator>
-      <CreateGuideScreenStack.Screen name="Guide Creation" component={CreateGuide} />
+      <CreateGuideScreenStack.Screen name="Create Guide" component={CreateGuide} />
     </CreateGuideScreenStack.Navigator>
   );
 }
@@ -65,6 +65,7 @@ const App = () => {
  
   return (
     <Context.Provider value={{ loggedIn, setLoggedIn }}>
+      <StatusBar barStyle="dark-content" backgroundColor="#eeeeee"/>
       <NavigationContainer>
         {
           loggedIn === true
@@ -73,6 +74,10 @@ const App = () => {
             screenOptions={{
               tabBarStyle: {
                 height: windowHeight*.08,
+                borderRadius: 10,
+                width: '96%',
+                marginLeft: '2%',
+                marginBottom: 10,
               },
               tabBarIconStyle:{
                 width: windowHeight*.04,
@@ -86,7 +91,7 @@ const App = () => {
           >
             <Tab.Screen
               name="HomeTab"
-              component={HomeScreen}
+              component={Home}
               options={{
                 tabBarLabel: "Home",
                 tabBarIcon: () => (
@@ -96,9 +101,9 @@ const App = () => {
             />
             <Tab.Screen
               name="GuideCreationTab"
-              component={CreateGuideScreen}
+              component={CreateGuide}
               options={{
-                tabBarLabel: "Guide Creation",
+                tabBarLabel: "Create Guide",
                 tabBarIcon: () => (
                   <FontAwesome5 name={"plus-circle"} size={windowHeight*.04} color={'black'}/>
                 )
@@ -106,7 +111,7 @@ const App = () => {
             />
             <Tab.Screen
               name="ProfileTab"
-              component={ProfileScreen}
+              component={Profile}
               options={{
                 tabBarLabel: "Profile",
                 tabBarIcon: () => (

@@ -22,7 +22,7 @@ const AddTextBlock = (props) => {
         }
       />
       <Button
-        title='Go Back'
+        title='Return'
         styles={styles}
         onPress={() => { props.resetChosen(null) }}
       />
