@@ -1,18 +1,24 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { Dimensions, View, Text, StyleSheet, Image } from 'react-native';
 import React from 'react';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Button from '../Button';
+import UploadBtn from '../buttons/UploadBtn';
+import AgreeBtn from '../buttons/AgreeBtn';
+import DiscardBtn from '../buttons/DiscardBtn';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const AddPhotoBlock = (props) => {
     const [photo, setPhoto] = props.photos;
 
-    React.useLayoutEffect(()=> {
-        if(photo !== null){
+    React.useLayoutEffect(() => {
+        if (photo !== null) {
             setPhoto(null);
         }
     }, [])
 
-    const uploadPhoto = async() => {
+    const uploadPhoto = async () => {
         const options = {
             mediaType: 'photo'
         }
@@ -20,23 +26,54 @@ const AddPhotoBlock = (props) => {
         console.log(result.assets[0].uri)
         setPhoto(result);
     }
-  return (
-    <View>
-        {photo !== null && <Image style={{width: 100, height: 100}} source={{uri:photo.assets[0].uri}}/> }
-      <Button styles={styles} onPress={() => uploadPhoto()} title={'upload'} />
-      <Button title='Accept' styles={styles} onPress={() => {props.onPress()}} />
-      <Button title='Go Back' styles={styles} onPress={() => {props.resetChosen(null)}} />
-    </View>
-  )
+    return (
+        <View style={styles.view}>
+            <UploadBtn onPress={uploadPhoto} />
+            {photo !== null &&
+                <View style={styles.imageView}>
+                    <Image
+                        resizeMode='contain'
+                        style={
+                            {
+                                flex: 1,
+                                height: undefined,
+                                width: undefined
+                            }
+                        }
+                        source={{ uri: photo.assets[0].uri }}
+                    />
+                </View>
+            }
+            <View style={styles.viewButtons}>
+                <AgreeBtn onPress={() => { props.onPress() }} />
+                <DiscardBtn onPress={() => { props.resetChosen(null) }} />
+            </View>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
-    btn:{
+    btn: {
 
     },
-    btntxt:{
+    btntxt: {
         color: 'black',
 
+    },
+    view: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    viewButtons: {
+        flex: 1,
+        flexDirection: 'row',
+        marginTop: 20
+    },
+    imageView: {
+        height: windowHeight*.6,
+        width: '90%'
     }
 });
 

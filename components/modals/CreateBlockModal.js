@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
         alignContent: 'center'
     },
     btntxt: {
-        textAlign: 'center'
+        textAlign: 'center',
+        color: 'black'
     },
     modal: {
         flex: 1,
@@ -33,8 +34,10 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        alignSelf: 'center',
+        alignContent: 'center',
         marginBottom: 100
-    }
+    },
 });
 
 const backBtnStyle = StyleSheet.create({

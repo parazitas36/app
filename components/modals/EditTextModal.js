@@ -1,8 +1,9 @@
-import { ScrollView, TextInput, Modal, StyleSheet } from 'react-native'
-import React, { useContext } from 'react'
-import { CreateGuideContext } from '../../screens/CreateGuide'
-import Button from '../Button'
-
+import { ScrollView, TextInput, Modal, StyleSheet, View } from 'react-native';
+import React, { useContext } from 'react';
+import { CreateGuideContext } from '../../screens/CreateGuide';
+import Button from '../Button';
+import AgreeBtn from '../buttons/AgreeBtn';
+import DiscardBtn from '../buttons/DiscardBtn';
 
 const EditTextModal = (props) => {
     const { texts, blocks_arr, showBlocks, blockids, editText, editId } = useContext(CreateGuideContext);
@@ -26,23 +27,20 @@ const EditTextModal = (props) => {
                         defaultValue={blocks[editID].object}
                         placeholder="Enter your text"
                     />
-                    <Button
-                        title='Accept'
-                        styles={styles}
-                        onPress={() => {
-                            if (text === null) { return; }
-                            else {
-                                blocks[editID].object = text;
-                                setShowEditText(false);
-                            }
-                        }
-                        }
-                    />
-                    <Button
-                        title='Return'
-                        styles={styles}
-                        onPress={() => { setShowEditText(false); }}
-                    />
+                    <View style={styles.viewButtons}>
+                        <AgreeBtn
+                            onPress={() => {
+                                if (text === null) { return; }
+                                else {
+                                    blocks[editID].object = text;
+                                    setShowEditText(false);
+                                }
+                            }}
+                        />
+                        <DiscardBtn
+                            onPress={() => { setShowEditText(false); }}
+                        />
+                    </View>
                 </ScrollView>
             </Modal>
         )
@@ -66,7 +64,13 @@ const styles = StyleSheet.create({
         margin: 2,
         borderRadius: 5,
         color: 'black',
-    }
+    },
+    viewButtons: {
+        flex: 1,
+        flexDirection: 'row',
+        marginTop: 20,
+        justifyContent: 'center'
+    },
 })
 
 export default EditTextModal

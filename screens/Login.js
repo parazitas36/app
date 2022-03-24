@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
         width: windowWidth *.5,
         textAlign: 'center',
         fontSize: 17,
+        color: 'grey'
     },
     txt: {
         color: "#000",

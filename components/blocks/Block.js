@@ -23,7 +23,8 @@ const Block = (item, Up, Down, Edit, Remove) => {
             marginBottom: 5,
             alignItems: 'center',
             width: '96%',
-            marginLeft: '2%'
+            marginLeft: '2%',
+            paddingHorizontal: 5
         },
         arrowView: {
             flex: 1,

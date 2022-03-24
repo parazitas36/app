@@ -117,7 +117,7 @@ const CreateGuide = () => {
 
     return (
         <CreateGuideContext.Provider value={value}>
-            <ScrollView>
+            <ScrollView contentContainerStyle={styles.container}>
                 <CreateBlockModal
                     visible={showBlock}
                     goBack={() => setShowBlock(false)}
@@ -151,12 +151,16 @@ const styles = StyleSheet.create({
         borderLeftWidth: 0,
         borderRightWidth: 0,
         alignSelf: 'center',
-        textAlign: 'center'
+        textAlign: 'center',
+        color: 'grey'
     }, btn: {
 
     },
     btntxt: {
-
+        color: 'black'
+    },
+    container: {
+        paddingVertical: 10,
     }
 })
 

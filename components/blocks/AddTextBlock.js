@@ -1,7 +1,9 @@
 import React from 'react'
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Button from '../Button';
+import AgreeBtn from '../buttons/AgreeBtn';
+import DiscardBtn from '../buttons/DiscardBtn';
 
 const AddTextBlock = (props) => {
   return (
@@ -13,19 +15,16 @@ const AddTextBlock = (props) => {
         onChangeText={props.onChangeText}
         placeholder="Enter your text"
       />
-      <Button
-        title='Accept'
-        styles={styles}
-        onPress={() => {
+      <View style={styles.viewButtons}>
+        <AgreeBtn
+          onPress={() => {
             props.onPress();
-          }
-        }
-      />
-      <Button
-        title='Return'
-        styles={styles}
-        onPress={() => { props.resetChosen(null) }}
-      />
+          }}
+        />
+        <DiscardBtn
+          onPress={() => { props.resetChosen(null) }}
+        />
+      </View>
     </ScrollView>
   )
 }
@@ -44,7 +43,13 @@ const styles = StyleSheet.create({
     margin: 2,
     borderRadius: 5,
     color: 'black',
-  }
+  },
+  viewButtons: {
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: 20,
+    justifyContent: 'center'
+  },
 })
 
 export default AddTextBlock;

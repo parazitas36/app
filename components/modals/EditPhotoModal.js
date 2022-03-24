@@ -1,9 +1,14 @@
-import { ScrollView, TextInput, Modal, StyleSheet, Image } from 'react-native'
+import { Dimensions, ScrollView, TextInput, View, Modal, StyleSheet, Image } from 'react-native'
 import React, { useContext } from 'react'
 import { CreateGuideContext } from '../../screens/CreateGuide'
 import Button from '../Button'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import UploadBtn from '../buttons/UploadBtn';
+import AgreeBtn from '../buttons/AgreeBtn';
+import DiscardBtn from '../buttons/DiscardBtn';
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const EditPhotoModal = (props) => {
     const { photos, blocks_arr, showBlocks, blockids, editPhoto, editId } = useContext(CreateGuideContext);
@@ -28,24 +33,32 @@ const EditPhotoModal = (props) => {
         return (
             <Modal animationType='slide' visible={showEditPhoto}>
                 <ScrollView>
-                    {photo !== null && <Image style={{ width: 100, height: 100 }} source={{ uri: photo.assets[0].uri }} />}
-                    <Button styles={styles} onPress={() => uploadPhoto()} title={'upload'} />
-                    <Button
-                        title='Accept'
-                        styles={styles}
-                        onPress={() => {
-                            if (photo === null) { return; }
-                            else {
-                                setShowEditPhoto(false);
+                    <View style={styles.view}>
+                        <UploadBtn onPress={uploadPhoto} />
+                        {photo !== null &&
+                            <View style={styles.imageView}>
+                                <Image
+                                    style={{ flex: 1, height: undefined, width: undefined }}
+                                    source={{ uri: photo.assets[0].uri }} />
+                            </View>
+                        }
+                        <View style={styles.viewButtons}>
+                            <AgreeBtn
+                                onPress={
+                                    () => {
+                                        if (photo === null) { return; }
+                                        else {
+                                            setShowEditPhoto(false);
+                                        }
+                                    }
+                                }
+                            />
+                            <DiscardBtn onPress={
+                                () => { setShowEditPhoto(false); }
                             }
-                        }
-                        }
-                    />
-                    <Button
-                        title='Return'
-                        styles={styles}
-                        onPress={() => { setShowEditPhoto(false); }}
-                    />
+                            />
+                        </View>
+                    </View>
                 </ScrollView>
             </Modal>
         )
@@ -69,6 +82,21 @@ const styles = StyleSheet.create({
         margin: 2,
         borderRadius: 5,
         color: 'black',
+    },
+    view: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    viewButtons: {
+        flex: 1,
+        flexDirection: 'row',
+        marginTop: 20
+    },
+    imageView: {
+        height: windowHeight * .6,
+        width: '90%'
     }
 })
 

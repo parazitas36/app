@@ -78,13 +78,20 @@ const App = () => {
                 width: '96%',
                 marginLeft: '2%',
                 marginBottom: 10,
+                backgroundColor: "white"
               },
               tabBarIconStyle:{
-                width: windowHeight*.04,
-                height: windowHeight*.04,
+                width: windowHeight*.05,
+                height: windowHeight*.05,
+                flex: 1,
+                justifyContent: 'center',
+                alignContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'center'
               },
               tabBarLabelStyle:{
                 fontSize: 13,
+                color: 'grey'
               },
               headerShown: false
             }}

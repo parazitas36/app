@@ -1,9 +1,12 @@
-import { Dimensions, ScrollView, TextInput, Modal, StyleSheet } from 'react-native'
+import { Dimensions, ScrollView, TextInput, View,  Modal, StyleSheet } from 'react-native'
 import React, { useContext } from 'react'
 import { CreateGuideContext } from '../../screens/CreateGuide'
 import Button from '../Button'
 import Video from 'react-native-video'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import UploadBtn from '../buttons/UploadBtn'
+import AgreeBtn from '../buttons/AgreeBtn'
+import DiscardBtn from '../buttons/DiscardBtn'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -31,29 +34,32 @@ const EditVideoModal = (props) => {
         return (
             <Modal animationType='slide' visible={showEditVideo}>
                 <ScrollView>
-                    {video !== null &&
-                    <Video
-                        controls={false}
-                        style={{ height: windowHeight*.6}}
-                        source={{ uri: video.assets[0].uri }}
-                    />}
-                    <Button styles={styles} onPress={() => uploadVideo()} title={'upload'} />
-                    <Button
-                        title='Accept'
-                        styles={styles}
-                        onPress={() => {
-                            if (video === null) { return; }
-                            else {
-                                setShowEditVideo(false);
-                            }
+                    <View style={styles.view}>
+                        <UploadBtn onPress={uploadVideo} />
+                        {video !== null &&
+                            <View style={styles.videoView}>
+                                <Video
+                                    controls={false}
+                                    resizeMode='contain'
+                                    style={{ flex: 1, height: undefined, width: undefined}}
+                                    source={{ uri: video.assets[0].uri }}
+                                />
+                            </View>
                         }
-                        }
-                    />
-                    <Button
-                        title='Return'
-                        styles={styles}
-                        onPress={() => { setShowEditVideo(false); }}
-                    />
+                        <View style={styles.viewButtons}>
+                            <AgreeBtn
+                                onPress={() => {
+                                    if (video === null) { return; }
+                                    else {
+                                        setShowEditVideo(false);
+                                    }
+                                }}
+                            />
+                            <DiscardBtn
+                                onPress={() => { setShowEditVideo(false); }}
+                            />
+                        </View>
+                    </View>
                 </ScrollView>
             </Modal>
         )
@@ -77,6 +83,23 @@ const styles = StyleSheet.create({
         margin: 2,
         borderRadius: 5,
         color: 'black',
+    },
+    view: {
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
+    viewButtons: {
+        flex: 1,
+        flexDirection: 'row',
+        marginTop: 20
+    },
+    videoView: {
+        flex: 1,
+        height: windowHeight * .6,
+        width: '100%'
     }
 })
 
