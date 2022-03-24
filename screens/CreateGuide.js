@@ -73,7 +73,7 @@ const CreateGuide = () => {
         }
     }
 
-    // Nustato kokio tipo bloka redaguoti
+    // Nustato kokio tipo bloka redaguoti, pagal tai atidaromas langas
     const Edit = (id) => {
         const obj = blocks[id];
 
@@ -91,6 +91,16 @@ const CreateGuide = () => {
                 setEditID(id);
                 break;
         }
+    }
+
+    // Pasalina bloka
+    const Remove = (id) => {
+        for(var i = id; i < blocks.length-1; i++){
+            blocks[i] = blocks[i+1];
+            blocks[i].id--;
+        }
+        blocks.pop();
+        setBlockID(block_id-1);
     }
 
     React.useLayoutEffect(() => {
@@ -123,7 +133,7 @@ const CreateGuide = () => {
                 />
                 {
                     blocks.map((item) => {
-                        return Block(item, Up, Down, Edit);
+                        return Block(item, Up, Down, Edit, Remove);
                     })
                 }
                 <AddBlockBtn onPress={() => setShowBlock(true)} />

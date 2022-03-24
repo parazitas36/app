@@ -6,7 +6,7 @@ import ArrowDownBtn from '../buttons/ArrowDownBtn';
 import EditBlockBtn from '../buttons/EditBlockBtn';
 import RemoveBlockBtn from '../buttons/RemoveBlockBtn';
 
-const Block = (item, Up, Down, Edit) => {
+const Block = (item, Up, Down, Edit, Remove) => {
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
 
@@ -62,7 +62,7 @@ const Block = (item, Up, Down, Edit) => {
                         </View>
                         <View style={styles.buttonView}>
                             <EditBlockBtn onPress={() => Edit(item.id)} />
-                            <RemoveBlockBtn onPress={() => console.log('clicked')} />
+                            <RemoveBlockBtn onPress={() => Remove(item.id)} />
                         </View>
                     </View>
                 )
@@ -82,7 +82,7 @@ const Block = (item, Up, Down, Edit) => {
                         </View>
                         <View style={styles.buttonView}>
                             <EditBlockBtn onPress={() => Edit(item.id)} />
-                            <RemoveBlockBtn onPress={() => console.log('clicked')} />
+                            <RemoveBlockBtn onPress={() => Remove(item.id)} />
                         </View>
                     </View>
                 )
@@ -96,14 +96,18 @@ const Block = (item, Up, Down, Edit) => {
                         <View style={styles.contentView}>
                             <Video
                                 key={item.key}
+                                resizeMode="contain"
                                 paused={false}
-                                style={{ width: windowWidth * 0.6 }}
+                                style={{
+                                    aspectRatio: 1,
+                                    width: "100%"
+                                }}
                                 source={{ uri: item.object.assets[0].uri }}
                             />
                         </View>
                         <View style={styles.buttonView}>
                             <EditBlockBtn onPress={() => Edit(item.id)} />
-                            <RemoveBlockBtn onPress={() => console.log('clicked')} />
+                            <RemoveBlockBtn onPress={() => Remove(item.id)} />
                         </View>
                     </View>
                 )
