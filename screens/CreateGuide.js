@@ -130,6 +130,7 @@ const CreateGuide = () => {
                     placeholder='Title'
                     multiline={true}
                     onChangeText={setTitle}
+                    placeholderTextColor={'grey'}
                 />
                 {
                     blocks.map((item) => {

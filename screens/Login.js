@@ -20,8 +20,8 @@ const Login = () => {
     return (
         <View style={styles.loginForm}>
             <Text style={styles.txt}>Login</Text>
-            <TextInput style={styles.txtInput} onChangeText={setUsername} placeholder={"Enter your username"}/>
-            <TextInput style={styles.txtInput} onChangeText={setPassword} placeholder={"Enter your password"}/>
+            <TextInput style={styles.txtInput} onChangeText={setUsername} placeholder={"Enter your username"} placeholderTextColor={'grey'}/>
+            <TextInput style={styles.txtInput} onChangeText={setPassword} placeholder={"Enter your password"}  placeholderTextColor={'grey'}/>
             <Button styles={styles} title='Login' onPress={() => {console.log(username, password); setLoggedIn(true)}}/>
         </View>
     );
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
         width: windowWidth *.5,
         textAlign: 'center',
         fontSize: 17,
-        color: 'grey'
+        color: 'black',
     },
     txt: {
         color: "#000",

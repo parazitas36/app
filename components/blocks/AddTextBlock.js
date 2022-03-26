@@ -14,6 +14,7 @@ const AddTextBlock = (props) => {
         numberOfLines={10}
         onChangeText={props.onChangeText}
         placeholder="Enter your text"
+        placeholderTextColor={'grey'}
       />
       <View style={styles.viewButtons}>
         <AgreeBtn

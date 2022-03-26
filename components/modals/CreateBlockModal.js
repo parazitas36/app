@@ -84,7 +84,7 @@ const CreateBlockModal = (props) => {
                         styles={styles}
                         onChangeText={setText}
                         onPress={() => {
-                            if (text === null) { return; }
+                            if (text === null || text === "") { alert('No text has been entered!'); return; }
                             setShowBlock(false);
                             setBlocks(blocks => [...blocks, { type: 'text', object: text, id: block_id }])
                             setBlockID(block_id + 1);

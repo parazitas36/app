@@ -10,7 +10,7 @@ const EditBlockBtn = (props) => {
     return (
         <TouchableOpacity>
             <Pressable onPress={props.onPress}>
-                <FontAwesome name='pencil' size={windowWidth*.1} color="black"/>
+                <FontAwesome name='pencil' size={windowWidth*.1} color="#434343"/>
             </Pressable>
         </TouchableOpacity>
     );

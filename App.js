@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Dimensions, StatusBar } from 'react-native';
+import { Dimensions, StatusBar, View } from 'react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -27,7 +27,7 @@ const CreateGuideScreenStack = createStackNavigator();
 const WelcomeScreen = () => {
   return (
     <WelcomeScreenStack.Navigator>
-      <WelcomeScreenStack.Screen options={{headerShown: false}} name="Welcome" component={Welcome} />
+      <WelcomeScreenStack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
       <WelcomeScreenStack.Screen name="Login" component={Login} />
       <WelcomeScreenStack.Screen name="Register" component={Register} />
     </WelcomeScreenStack.Navigator>
@@ -62,77 +62,84 @@ const Tab = createBottomTabNavigator();
 
 const App = () => {
   const [loggedIn, setLoggedIn] = React.useState(false);
- 
+
   return (
     <Context.Provider value={{ loggedIn, setLoggedIn }}>
-      <StatusBar barStyle="dark-content" backgroundColor="#eeeeee"/>
+      <StatusBar barStyle="dark-content" backgroundColor="#eeeeee" />
       <NavigationContainer>
-        {
-          loggedIn === true
-          &&
-          <Tab.Navigator
-            screenOptions={{
-              tabBarStyle: {
-                height: windowHeight*.08,
-                borderRadius: 10,
-                width: '96%',
-                marginLeft: '2%',
-                marginBottom: 10,
-                backgroundColor: "white"
-              },
-              tabBarIconStyle:{
-                width: windowHeight*.05,
-                height: windowHeight*.05,
-                flex: 1,
-                justifyContent: 'center',
-                alignContent: 'center',
-                alignItems: 'center',
-                alignSelf: 'center'
-              },
-              tabBarLabelStyle:{
-                fontSize: 13,
-                color: 'grey'
-              },
-              headerShown: false
-            }}
-          >
-            <Tab.Screen
-              name="HomeTab"
-              component={Home}
-              options={{
-                tabBarLabel: "Home",
-                tabBarIcon: () => (
-                  <FontAwesome5 name={"home"} size={windowHeight*.04} color={'black'}/>
-                )
-              }}
-            />
-            <Tab.Screen
-              name="GuideCreationTab"
-              component={CreateGuide}
-              options={{
-                tabBarLabel: "Create Guide",
-                tabBarIcon: () => (
-                  <FontAwesome5 name={"plus-circle"} size={windowHeight*.04} color={'black'}/>
-                )
-              }}
-            />
-            <Tab.Screen
-              name="ProfileTab"
-              component={Profile}
-              options={{
-                tabBarLabel: "Profile",
-                tabBarIcon: () => (
-                  <Ionicons name={"person-outline"} size={windowHeight*.04} color={'black'} />
-                )
-              }}
-            />
-          </Tab.Navigator>
-        }
         {
           loggedIn === false
           &&
           <WelcomeScreen />
         }
+        {
+          loggedIn === true
+          &&
+          <View style={{ backgroundColor: 'rgb(242, 242, 242)', height: '100%' }}>
+            <Tab.Navigator
+              screenOptions={{
+                tabBarStyle: {
+                  height: 65,
+                  borderRadius: 10,
+                  width: '96%',
+                  marginLeft: '2%',
+                  marginBottom: 10,
+                  backgroundColor: "white",
+                  paddingBottom: 9,
+                  paddingTop: 6,
+                },
+                tabBarIconStyle: {
+                  width: 32,
+                  height: 32,
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignContent: 'center',
+                  alignItems: 'center',
+                  alignSelf: 'center',
+                  margin: 0
+                },
+                tabBarLabelStyle: {
+                  fontSize: 13,
+                },
+                tabBarActiveTintColor: 'rgba(55, 155, 200, 1)',
+                headerShown: false,
+                tabBarHideOnKeyboard: true
+              }}
+            >
+              <Tab.Screen
+                name="HomeTab"
+                component={Home}
+                options={{
+                  tabBarLabel: "Home",
+                  tabBarIcon: (props) => (
+                    <FontAwesome5 name={"home"} size={props.size} color={props.color} />
+                  )
+                }}
+              />
+              <Tab.Screen
+                name="GuideCreationTab"
+                component={CreateGuide}
+                options={{
+                  tabBarLabel: "Create Guide",
+                  tabBarIcon: (props) => (
+                    <FontAwesome5 name={"plus-circle"} size={props.size} color={props.color} />
+                  )
+                }}
+              />
+              <Tab.Screen
+                name="ProfileTab"
+                component={Profile}
+                options={{
+                  tabBarLabel: "Profile",
+                  tabBarIcon: (props) => (
+                    <Ionicons name={"person-outline"} size={props.size} color={props.color} />
+                  )
+                }}
+              />
+            </Tab.Navigator>
+          </View>
+        }
+
       </NavigationContainer>
     </Context.Provider>
   );

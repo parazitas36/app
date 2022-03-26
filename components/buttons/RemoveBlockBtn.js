@@ -10,7 +10,7 @@ const RemoveBlockBtn = (props) => {
     return (
         <TouchableOpacity>
             <Pressable onPress={props.onPress}>
-                <FontAwesome name='trash-o' size={windowWidth*.1} color="black"/>
+                <FontAwesome name='trash-o' size={windowWidth*.1} color="#D82A17"/>
             </Pressable>
         </TouchableOpacity>
     );

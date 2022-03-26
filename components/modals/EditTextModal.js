@@ -26,11 +26,12 @@ const EditTextModal = (props) => {
                         onChangeText={setText}
                         defaultValue={blocks[editID].object}
                         placeholder="Enter your text"
+                        placeholderTextColor={'grey'}
                     />
                     <View style={styles.viewButtons}>
                         <AgreeBtn
                             onPress={() => {
-                                if (text === null) { return; }
+                                if (text === null || text === "") { alert('No text has been entered!'); return; }
                                 else {
                                     blocks[editID].object = text;
                                     setShowEditText(false);
