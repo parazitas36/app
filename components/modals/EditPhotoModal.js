@@ -20,13 +20,27 @@ const EditPhotoModal = (props) => {
     const [showEditPhoto, setShowEditPhoto] = editPhoto;
     const [editID, setEditID] = editId;
 
+    React.useLayoutEffect(() => {
+        if (showEditPhoto) {
+            setPhoto(blocks[editID].object);
+        }
+    }, [showEditPhoto])
+
     const uploadPhoto = async () => {
         const options = {
             mediaType: 'photo'
         }
-        const result = await launchImageLibrary(options);
-        setPhoto(result);
-        blocks[editID].object = result;
+
+        try {
+            const result = await launchImageLibrary(options);
+            if (!result.didCancel) {
+                setPhoto(result);
+            }
+        }
+        catch (e) {
+            setPhoto(null);
+            blocks[editID] = null;
+        }
     }
 
     if (showEditPhoto) {
@@ -35,7 +49,7 @@ const EditPhotoModal = (props) => {
                 <ScrollView>
                     <View style={styles.view}>
                         <UploadBtn onPress={uploadPhoto} />
-                        {photo !== null &&
+                        {photo &&
                             <View style={styles.imageView}>
                                 <Image
                                     style={{ flex: 1, height: undefined, width: undefined }}
@@ -46,8 +60,9 @@ const EditPhotoModal = (props) => {
                             <AgreeBtn
                                 onPress={
                                     () => {
-                                        if (photo === null) { return; }
+                                        if (photo === null) { alert('No photo has been selected!'); return; }
                                         else {
+                                            blocks[editID].object = photo;
                                             setShowEditPhoto(false);
                                         }
                                     }

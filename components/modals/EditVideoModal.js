@@ -1,4 +1,4 @@
-import { Dimensions, ScrollView, TextInput, View,  Modal, StyleSheet } from 'react-native'
+import { Dimensions, ScrollView, TextInput, View, Modal, StyleSheet } from 'react-native'
 import React, { useContext } from 'react'
 import { CreateGuideContext } from '../../screens/CreateGuide'
 import Button from '../Button'
@@ -21,13 +21,25 @@ const EditVideoModal = (props) => {
     const [showEditVideo, setShowEditVideo] = editVideo;
     const [editID, setEditID] = editId;
 
+    React.useLayoutEffect(() => {
+        if (showEditVideo) {
+            setVideo(blocks[editID].object);
+        }
+    }, [showEditVideo])
+
     const uploadVideo = async () => {
         const options = {
             mediaType: 'video'
         }
-        const result = await launchImageLibrary(options);
-        setVideo(result);
-        blocks[editID].object = result;
+        try {
+            const result = await launchImageLibrary(options);
+            if (!result.didCancel) {
+                setVideo(result);
+            }
+        } catch (e) {
+            setVideo(null);
+            blocks[editID] = null;
+        }
     }
 
     if (showEditVideo) {
@@ -36,12 +48,12 @@ const EditVideoModal = (props) => {
                 <ScrollView>
                     <View style={styles.view}>
                         <UploadBtn onPress={uploadVideo} />
-                        {video !== null &&
+                        {video &&
                             <View style={styles.videoView}>
                                 <Video
                                     controls={false}
                                     resizeMode='contain'
-                                    style={{ flex: 1, height: undefined, width: undefined}}
+                                    style={{ flex: 1, height: undefined, width: undefined }}
                                     source={{ uri: video.assets[0].uri }}
                                 />
                             </View>
@@ -49,8 +61,9 @@ const EditVideoModal = (props) => {
                         <View style={styles.viewButtons}>
                             <AgreeBtn
                                 onPress={() => {
-                                    if (video === null) { return; }
+                                    if (video === null) { alert('No video has been selected!'); return; }
                                     else {
+                                        blocks[editID].object = video;
                                         setShowEditVideo(false);
                                     }
                                 }}

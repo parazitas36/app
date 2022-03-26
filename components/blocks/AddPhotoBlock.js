@@ -22,14 +22,22 @@ const AddPhotoBlock = (props) => {
         const options = {
             mediaType: 'photo'
         }
-        const result = await launchImageLibrary(options);
-        console.log(result.assets[0].uri)
-        setPhoto(result);
+
+        try {
+            const result = await launchImageLibrary(options);
+            if (result.didCancel) {
+                setPhoto(null);
+            } else {
+                setPhoto(result);
+            }
+        } catch (e) {
+            setPhoto(null);
+        }
     }
     return (
         <View style={styles.view}>
             <UploadBtn onPress={uploadPhoto} />
-            {photo !== null &&
+            {photo &&
                 <View style={styles.imageView}>
                     <Image
                         resizeMode='contain'
@@ -72,7 +80,7 @@ const styles = StyleSheet.create({
         marginTop: 20
     },
     imageView: {
-        height: windowHeight*.6,
+        height: windowHeight * .6,
         width: '90%'
     }
 });

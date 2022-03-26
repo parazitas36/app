@@ -86,8 +86,8 @@ const CreateBlockModal = (props) => {
                         onPress={() => {
                             if (text === null) { return; }
                             setShowBlock(false);
-                            setBlocks(blocks => [...blocks, { type: 'text', object: text, id: block_id}])
-                            setBlockID(block_id+1);
+                            setBlocks(blocks => [...blocks, { type: 'text', object: text, id: block_id }])
+                            setBlockID(block_id + 1);
                             setChosenBlock(null);
                         }}
                         resetChosen={setChosenBlock}
@@ -100,10 +100,10 @@ const CreateBlockModal = (props) => {
                     <AddPhotoBlock
                         photos={photos}
                         onPress={() => {
-                            if(photo === null) { return; }
+                            if (photo === null) { alert('No photo has been selected!'); return; }
                             setShowBlock(false);
-                            setBlocks(blocks=>[...blocks, {type:'img', object: photo, id: block_id}])
-                            setBlockID(block_id+1);
+                            setBlocks(blocks => [...blocks, { type: 'img', object: photo, id: block_id }])
+                            setBlockID(block_id + 1);
                             setChosenBlock(null);
                         }}
                         resetChosen={setChosenBlock}
@@ -116,10 +116,10 @@ const CreateBlockModal = (props) => {
                     <AddVideoBlock
                         videos={videos}
                         onPress={() => {
-                            if(video === null) { return; }
+                            if (video === null) { alert('No video has been selected!'); return; }
                             setShowBlock(false);
-                            setBlocks(blocks=>[...blocks, {type:'video', object: video, id: block_id}])
-                            setBlockID(block_id+1);
+                            setBlocks(blocks => [...blocks, { type: 'video', object: video, id: block_id }])
+                            setBlockID(block_id + 1);
                             setChosenBlock(null);
                         }}
                         resetChosen={setChosenBlock}

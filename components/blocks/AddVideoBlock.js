@@ -23,13 +23,23 @@ const AddVideoBlock = (props) => {
         const options = {
             mediaType: 'video'
         }
-        const result = await launchImageLibrary(options);
-        setVideo(result);
+
+        try {
+            const result = await launchImageLibrary(options);
+            if (result.didCancel) {
+                setVideo(null);
+            } else {
+                setVideo(result);
+            }
+
+        } catch (e) {
+            setVideo(null);
+        }
     }
     return (
         <View style={styles.view}>
             <UploadBtn onPress={uploadVideo} />
-            {video !== null &&
+            {video &&
                 <View style={styles.videoView}>
                     <Video
                         resizeMode='contain'
@@ -68,7 +78,7 @@ const styles = StyleSheet.create({
     },
     videoView: {
         flex: 1,
-        height: windowHeight*.6,
+        height: windowHeight * .6,
         width: '100%'
     }
 });
