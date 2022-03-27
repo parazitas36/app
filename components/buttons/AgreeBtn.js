@@ -12,14 +12,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: 120,
-        borderWidth: 4,
+        height: 50,
+        borderWidth: 3,
         borderRadius: 6,
         borderColor: "#1F9B0C",
-        backgroundColor: "#1F9B0C",
+        backgroundColor: "#fefefe",
         marginRight: 3,
     },
     text: {
-        color: 'white',
+        color: '#1F9B0C',
         fontSize: 20,
         fontWeight: 'bold',
         marginLeft: 5
@@ -30,7 +31,7 @@ const AgreeBtn = (props) => {
     return (
         <TouchableOpacity>
             <Pressable style={styles.pressable} onPress={props.onPress}>
-                <FontAwesome5 name='check-square' size={windowWidth*.1} color="white"/>
+                <FontAwesome5 name='check-square' size={windowWidth*.1} color="#1F9B0C"/>
                 <Text style={styles.text}>Add</Text>
             </Pressable>
         </TouchableOpacity>

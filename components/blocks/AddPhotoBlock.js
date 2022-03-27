@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
+        marginTop: 20,
     },
     viewButtons: {
         flex: 1,
