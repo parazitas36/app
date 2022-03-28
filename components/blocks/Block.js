@@ -77,7 +77,12 @@ const Block = (item, Up, Down, Edit, Remove) => {
                         <View style={styles.contentView}>
                             <Image
                                 key={item.key}
-                                style={{ width: 100, height: 100 }}
+                                resizeMode="contain"
+                                paused={false}
+                                style={{
+                                    aspectRatio: 1,
+                                    width: "100%"
+                                }}
                                 source={{ uri: item.object.assets[0].uri }}
                             />
                         </View>
