@@ -46,12 +46,12 @@ const CreateGuide = () => {
     // Pakelia bloka i virsu
     const Up = (id) => {
         console.log(id, blocks[id].object)
-        if(id === 0) { return; }
-        else{
-            const prev = blocks[id-1];
-            blocks[id-1] = blocks[id];
+        if (id === 0) { return; }
+        else {
+            const prev = blocks[id - 1];
+            blocks[id - 1] = blocks[id];
             blocks[id] = prev;
-            blocks[id-1].id = id-1;
+            blocks[id - 1].id = id - 1;
             blocks[id].id = id;
             setBlocks(blocks);
             setRerender(true);
@@ -61,13 +61,13 @@ const CreateGuide = () => {
     // Nuleidzia bloka zemiau
     const Down = (id) => {
         console.log(id, blocks[id].object)
-        if(id === blocks.length-1) { return; }
-        else{
-            const next = blocks[id+1];
-            blocks[id+1] = blocks[id];
+        if (id === blocks.length - 1) { return; }
+        else {
+            const next = blocks[id + 1];
+            blocks[id + 1] = blocks[id];
             blocks[id] = next;
             blocks[id].id = id;
-            blocks[id+1].id = id+1;
+            blocks[id + 1].id = id + 1;
             setBlocks(blocks);
             setRerender(true);
         }
@@ -77,7 +77,7 @@ const CreateGuide = () => {
     const Edit = (id) => {
         const obj = blocks[id];
 
-        switch(obj.type){
+        switch (obj.type) {
             case "text":
                 setShowEditText(true);
                 setEditID(id);
@@ -95,12 +95,12 @@ const CreateGuide = () => {
 
     // Pasalina bloka
     const Remove = (id) => {
-        for(var i = id; i < blocks.length-1; i++){
-            blocks[i] = blocks[i+1];
+        for (var i = id; i < blocks.length - 1; i++) {
+            blocks[i] = blocks[i + 1];
             blocks[i].id--;
         }
         blocks.pop();
-        setBlockID(block_id-1);
+        setBlockID(block_id - 1);
     }
 
     React.useLayoutEffect(() => {
@@ -137,6 +137,52 @@ const CreateGuide = () => {
                         return Block(item, Up, Down, Edit, Remove);
                     })
                 }
+                <Button title='save' styles={styles} onPress={() => {
+                    const formData = new FormData();
+                    for (var i = 0; i < blocks.length; i++) {
+                        switch (blocks[i].type) {
+                            case "text":
+                                formData.append("Texts", blocks[i].object);
+                                formData.append("Blocks", JSON.stringify({
+                                    ID: i,
+                                    Type: "Text"
+                                }));
+                                break
+                            case "video":
+                                formData.append('Videos',
+                                    {
+                                        uri: blocks[i].object.assets[0].uri,
+                                        type: blocks[i].object.assets[0].type + '',
+                                        name: blocks[i].object.assets[0].fileName + '',
+                                    }
+                                );
+                                formData.append("Blocks", JSON.stringify({
+                                    ID: i,
+                                    Type: "Video"
+                                }));
+                                break;
+                            case "img":
+                                formData.append('Images',
+                                    {
+                                        uri: blocks[i].object.assets[0].uri,
+                                        type: blocks[i].object.assets[0].type + '',
+                                        name: blocks[i].object.assets[0].fileName + ''
+                                    }
+                                );
+                                formData.append("Blocks", JSON.stringify({
+                                    ID: i,
+                                    Type: "Image"
+                                }));
+                                break;
+                        }
+                    }
+                    fetch("http://localhost:5000/api/files/test", {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'multipart/form-data' },
+                        body: formData
+                    }
+                    )
+                }} />
                 <AddBlockBtn onPress={() => setShowBlock(true)} />
             </ScrollView>
         </CreateGuideContext.Provider>

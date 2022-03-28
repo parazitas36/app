@@ -121,6 +121,7 @@ const CreateBlockModal = (props) => {
                             setBlocks(blocks => [...blocks, { type: 'video', object: video, id: block_id }])
                             setBlockID(block_id + 1);
                             setChosenBlock(null);
+                            console.log(video.assets[0].name)
                         }}
                         resetChosen={setChosenBlock}
                     />
