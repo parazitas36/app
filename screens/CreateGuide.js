@@ -1,5 +1,5 @@
 import React, { createContext } from 'react'
-import { Dimensions, ScrollView, Text, StyleSheet, Image } from 'react-native';
+import { Dimensions, ScrollView, Text, StyleSheet, Image, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Video from 'react-native-video';
 import AddBlockBtn from '../components/buttons/AddBlockBtn';
@@ -10,6 +10,9 @@ import Block from '../components/blocks/Block';
 import EditTextModal from '../components/modals/EditTextModal';
 import EditVideoModal from '../components/modals/EditVideoModal';
 import EditPhotoModal from '../components/modals/EditPhotoModal';
+import { PostGuide } from '../api/PostGuide';
+import SaveBtn from '../components/buttons/SaveBtn';
+import DiscardBtn from '../components/buttons/DiscardBtn';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -137,53 +140,12 @@ const CreateGuide = () => {
                         return Block(item, Up, Down, Edit, Remove);
                     })
                 }
-                <Button title='save' styles={styles} onPress={() => {
-                    const formData = new FormData();
-                    for (var i = 0; i < blocks.length; i++) {
-                        switch (blocks[i].type) {
-                            case "text":
-                                formData.append("Texts", blocks[i].object);
-                                formData.append("Blocks", JSON.stringify({
-                                    ID: i,
-                                    Type: "Text"
-                                }));
-                                break
-                            case "video":
-                                formData.append('Videos',
-                                    {
-                                        uri: blocks[i].object.assets[0].uri,
-                                        type: blocks[i].object.assets[0].type + '',
-                                        name: blocks[i].object.assets[0].fileName + '',
-                                    }
-                                );
-                                formData.append("Blocks", JSON.stringify({
-                                    ID: i,
-                                    Type: "Video"
-                                }));
-                                break;
-                            case "img":
-                                formData.append('Images',
-                                    {
-                                        uri: blocks[i].object.assets[0].uri,
-                                        type: blocks[i].object.assets[0].type + '',
-                                        name: blocks[i].object.assets[0].fileName + ''
-                                    }
-                                );
-                                formData.append("Blocks", JSON.stringify({
-                                    ID: i,
-                                    Type: "Image"
-                                }));
-                                break;
-                        }
-                    }
-                    fetch("http://localhost:5000/api/files/test", {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'multipart/form-data' },
-                        body: formData
-                    }
-                    )
-                }} />
+
                 <AddBlockBtn onPress={() => setShowBlock(true)} />
+                <View style={styles.viewButtons}>
+                    <SaveBtn onPress={() => PostGuide(blocks)} />
+                    <DiscardBtn onPress={() => { setBlocks([]); setRerender(true); }} />
+                </View>
             </ScrollView>
         </CreateGuideContext.Provider>
     )
@@ -208,6 +170,12 @@ const styles = StyleSheet.create({
     },
     container: {
         paddingVertical: 10,
+    },
+    viewButtons: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 20
     }
 })
 
