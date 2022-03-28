@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
 const stylesLogin = StyleSheet.create({
     btn: {
         backgroundColor: "#eeeeee",
-        borderWidth: 1,
+        borderWidth: 1.3,
         borderColor: 'rgba(25, 105, 235, 1)',
         width: width*.9,
         height: 60,

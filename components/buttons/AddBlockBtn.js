@@ -8,17 +8,16 @@ const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     pressableBtn: {
-        width: windowWidth*.11,
-        height: windowWidth*.11,
         justifyContent: 'center',
-        alignContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
         marginTop: 15,
+        marginBottom: 15,
         borderWidth: 3,
         borderRadius: 15,
-        width: windowWidth*.4,
-        height: windowWidth*.5*.4
+        borderStyle: 'dashed',
+        width: 150,
+        height: 80,
     },
     txt: {
         fontSize: 18,
@@ -30,7 +29,7 @@ const AddBlockBtn = (props) => {
   return (
       <TouchableOpacity>
             <Pressable style={styles.pressableBtn} onPress={props.onPress}>
-                <FontAwesome5Icon name='plus' size={windowWidth*.1} color="black"/>
+                <FontAwesome5Icon name='plus' size={35} color="black"/>
                 <Text style={styles.txt}>Add Block</Text>
             </Pressable>
       </TouchableOpacity>
