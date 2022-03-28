@@ -2,17 +2,15 @@ import * as React from 'react';
 import {
     View,
     Text,
-    StyleSheet
+    StyleSheet,
+    ScrollView
 } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
 import SearchBtn from '../components/buttons/SearchBtn';
+import Card from '../components/Card';
 
 const styles = StyleSheet.create({
-    text:{
-        color: 'black',
-        fontSize: 36,
-    },
     mainView: {
         flex: 1,
     },
@@ -35,16 +33,16 @@ const styles = StyleSheet.create({
 
 const Home = () => {
     return (
-        <View style={styles.mainView}>
+        <ScrollView style={styles.mainView}>
             <View>
                 <Searchbar placeholder='Search'/>
             </View>
             <View style={styles.view}>
-                <Text style={styles.text}>
-                    Home
-                </Text>
+                <Card />
+                <Card />
+                <Card />
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
