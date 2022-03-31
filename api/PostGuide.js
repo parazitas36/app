@@ -1,4 +1,4 @@
-export const PostGuide = (blocks) => {
+export const PostGuide = (blocks, title, description) => {
     if(blocks.length === 0){
         alert('Add at least one block!');
         return;
@@ -42,6 +42,12 @@ export const PostGuide = (blocks) => {
                 break;
         }
     }
+
+    formData.append('Title', title);
+    formData.append('Description', description);
+    formData.append('Language', 'LT');
+    formData.append('Price', 0.00);
+
     fetch("http://localhost:5000/api/files/test", {
         method: 'POST',
         headers: { 'Content-Type': 'multipart/form-data' },

@@ -143,7 +143,7 @@ const CreateGuide = () => {
 
                 <AddBlockBtn onPress={() => setShowBlock(true)} />
                 <View style={styles.viewButtons}>
-                    <SaveBtn onPress={() => PostGuide(blocks)} />
+                    <SaveBtn onPress={() => PostGuide(blocks, title, 'descriptionas')} />
                     <DiscardBtn onPress={() => { setBlocks([]); setRerender(true); }} />
                 </View>
             </ScrollView>

@@ -37,20 +37,58 @@ const Card = () => {
                 </TouchableOpacity>
             </View>
 
-            <View style={[styles.guideButtons, { top: height * .225 - 35, flex: 1, flexDirection: 'row'}]}>
+            <View style={[styles.guideButtons, { top: height * .225 - 35, flex: 1, flexDirection: 'row' }]}>
                 <TouchableOpacity>
                     <Pressable style={{
-                         flex: 1, 
-                         flexDirection: 'row',
-                         justifyContent: 'center',
-                         alignItems: 'center',
-                         }} onPress={() => setFavorite(!favorite)}>
-                        <Text style={{fontSize: 16, color: 'white', marginRight: 8, fontWeight: '500'}}>Rating: 3.4/5</Text>
+                        flex: 1,
+                        flexDirection: 'row',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }} onPress={() => setFavorite(!favorite)}>
+                        <Text style={{
+                            fontSize: 16,
+                            color: 'white',
+                            marginRight: 8,
+                            fontWeight: '500',
+                            textShadowColor: 'black',
+                            textShadowRadius: 15,
+                            textShadowOffset: { height: -2, width: -3 }
+                        }}>Rating: 3.4/5</Text>
                         <IOnicons name={'star'} size={25} color={'gold'} />
                     </Pressable>
                 </TouchableOpacity>
             </View>
 
+
+            <Text style={{
+                color: 'white',
+                fontSize: 28,
+                fontWeight: '500',
+                position: 'absolute',
+                top: 10,
+                left: 15,
+                width: '70%',
+                height: '20%',
+                overflow: 'hidden',
+                textShadowColor: 'black',
+                textShadowRadius: 15,
+                textShadowOffset: { height: -2, width: -3 }
+            }}>Pavadinimas</Text>
+
+            <Text style={{
+                color: 'white',
+                fontSize: 14,
+                fontWeight: '500',
+                position: 'absolute',
+                top: height * .225 - 25,
+                left: 15,
+                width: '30%',
+                height: '10%',
+                overflow: 'hidden',
+                textShadowColor: 'black',
+                textShadowRadius: 15,
+                textShadowOffset: { height: -2, width: -3 }
+            }}>by Username</Text>
 
             <Text style={[styles.title, {
                 borderBottomColor: 'black', borderBottomWidth: 1, width: '80%', alignSelf: 'center', textAlign: 'center'
@@ -73,7 +111,7 @@ const Card = () => {
                     flex: 1,
                     flexDirection: 'row',
                     paddingVertical: 5,
-                    backgroundColor: '#1f428d',
+                    backgroundColor: 'rgba(31, 66, 141, 0.925)',
                     borderBottomLeftRadius: 10,
                     borderBottomRightRadius: 10,
                     position: 'absolute',
