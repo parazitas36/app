@@ -21,6 +21,7 @@ export const CreateGuideContext = createContext();
 
 const CreateGuide = () => {
     const [title, setTitle] = React.useState(null);
+    const [description, setDescription] = React.useState(null);
     const [showBlock, setShowBlock] = React.useState(false);
     const [showEditText, setShowEditText] = React.useState(false);
     const [showEditPhoto, setShowEditPhoto] = React.useState(false);
@@ -135,6 +136,16 @@ const CreateGuide = () => {
                     onChangeText={setTitle}
                     placeholderTextColor={'grey'}
                 />
+
+                <TextInput
+                    style={styles.description}
+                    placeholder='Description'
+                    multiline={true}
+                    numberOfLines={3}
+                    onChangeText={setTitle}
+                    placeholderTextColor={'grey'}
+                />
+
                 {
                     blocks.map((item) => {
                         return Block(item, Up, Down, Edit, Remove);
@@ -143,7 +154,7 @@ const CreateGuide = () => {
 
                 <AddBlockBtn onPress={() => setShowBlock(true)} />
                 <View style={styles.viewButtons}>
-                    <SaveBtn onPress={() => PostGuide(blocks, title, 'descriptionas')} />
+                    <SaveBtn onPress={() => PostGuide(blocks, title, description)} />
                     <DiscardBtn onPress={() => { setBlocks([]); setRerender(true); }} />
                 </View>
             </ScrollView>
@@ -176,6 +187,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 20
+    },
+    description: {
+        flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        textAlignVertical: 'top',
+        borderWidth: 1,
+        borderColor: 'black',
+        borderRadius: 5,
+        marginTop: 10,
+        width: '96%',
+        marginLeft: '2%'
     }
 })
 

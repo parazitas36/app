@@ -28,6 +28,7 @@
 		08B116D1F39A430BAE9621CA /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDF51A895C594AC7A72176FF /* Octicons.ttf */; };
 		E064C740642146BDB5D747E5 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A5C547670BE74041B7BFE86D /* SimpleLineIcons.ttf */; };
 		4B47E0C61238465193F9F07E /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02EA0F004371491184AD5367 /* Zocial.ttf */; };
+		F92FE7489BBE4879A8EA587F /* LoremIpsum.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 397F06DE799345C4B119C59A /* LoremIpsum.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		EDF51A895C594AC7A72176FF /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		A5C547670BE74041B7BFE86D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		02EA0F004371491184AD5367 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		397F06DE799345C4B119C59A /* LoremIpsum.ttf */ = {isa = PBXFileReference; name = "LoremIpsum.ttf"; path = "../assets/fonts/LoremIpsum.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 				EDF51A895C594AC7A72176FF /* Octicons.ttf */,
 				A5C547670BE74041B7BFE86D /* SimpleLineIcons.ttf */,
 				02EA0F004371491184AD5367 /* Zocial.ttf */,
+				397F06DE799345C4B119C59A /* LoremIpsum.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				08B116D1F39A430BAE9621CA /* Octicons.ttf in Resources */,
 				E064C740642146BDB5D747E5 /* SimpleLineIcons.ttf in Resources */,
 				4B47E0C61238465193F9F07E /* Zocial.ttf in Resources */,
+				F92FE7489BBE4879A8EA587F /* LoremIpsum.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

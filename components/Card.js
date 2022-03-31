@@ -4,7 +4,7 @@ import Button from '../components/Button';
 import IOnicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import LinearGradient from 'react-native-linear-gradient';
+import { black } from 'react-native-paper/lib/typescript/styles/colors';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -37,50 +37,40 @@ const Card = () => {
                 </TouchableOpacity>
             </View>
 
-            <View style={[styles.guideButtons, { top: height * .225 - 35, flex: 1, flexDirection: 'row' }]}>
-                <TouchableOpacity>
-                    <Pressable style={{
-                        flex: 1,
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }} onPress={() => setFavorite(!favorite)}>
-                        <Text style={{
-                            fontSize: 16,
-                            color: 'white',
-                            marginRight: 8,
-                            fontWeight: '500',
-                            textShadowColor: 'black',
-                            textShadowRadius: 15,
-                            textShadowOffset: { height: -2, width: -3 }
-                        }}>Rating: 3.4/5</Text>
-                        <IOnicons name={'star'} size={25} color={'gold'} />
-                    </Pressable>
-                </TouchableOpacity>
+            <View style={[styles.guideButtons, { top: 95,  flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
+                <IOnicons name='location-outline' color="white" size={30} />
+                <Text style={{fontSize: 16,
+                    color: 'white',
+                    marginLeft: 3,
+                    marginRight: 3,
+                    fontWeight: '500',
+                    textShadowColor: 'black',
+                    textShadowRadius: 15,
+                    textShadowOffset: { height: -2, width: -3 }}}>City</Text>
+            </View>
+
+            <View style={[styles.guideButtons, { top: 165 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
+                <Text style={{
+                    fontSize: 16,
+                    color: 'white',
+                    marginRight: 8,
+                    fontWeight: '500',
+                    textShadowColor: 'black',
+                    textShadowRadius: 15,
+                    textShadowOffset: { height: -2, width: -3 }
+                }}>Rating: 3.4/5</Text>
+                <IOnicons name={'star'} size={25} color={'gold'} />
             </View>
 
 
-            <Text style={{
-                color: 'white',
-                fontSize: 28,
-                fontWeight: '500',
-                position: 'absolute',
-                top: 10,
-                left: 15,
-                width: '70%',
-                height: '20%',
-                overflow: 'hidden',
-                textShadowColor: 'black',
-                textShadowRadius: 15,
-                textShadowOffset: { height: -2, width: -3 }
-            }}>Pavadinimas</Text>
+            <Text style={styles.title}>Pavadinimas</Text>
 
             <Text style={{
                 color: 'white',
                 fontSize: 14,
                 fontWeight: '500',
                 position: 'absolute',
-                top: height * .225 - 25,
+                top: 165 - 25,
                 left: 15,
                 width: '30%',
                 height: '10%',
@@ -90,16 +80,10 @@ const Card = () => {
                 textShadowOffset: { height: -2, width: -3 }
             }}>by Username</Text>
 
-            <Text style={[styles.title, {
-                borderBottomColor: 'black', borderBottomWidth: 1, width: '80%', alignSelf: 'center', textAlign: 'center'
-            }]
-            }>Pavadinimas</Text>
+
 
             <Text style={styles.text}>
-                Tekstas...Tekstas...Tekstas...Tekstas...Tekstas...Tekstas...Tekstas...
-                Tekstas...Tekstas...Tekstas...Tekstas...Tekstas...Tekstas...Tekstas...
-                Tekstas...Tekstas...Tekstas...Tekstas...Tekstas...Tekstas...Tekstas...
-                Tekstas...Tekstas...Tekstas...Tekstas...Tekstas...Tekstas...Tekstas...
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius duis at consectetur lorem donec massa sapien. Egestas purus viverra accumsan in nisl nisi scelerisque eu. Eget arcu dictum varius duis. Sodales neque sodales ut etiam sit amet nisl purus. Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Facilisi morbi tempus iaculis urna id. Consequat nisl vel pretium lectus quam. Massa tempor nec feugiat nisl pretium fusce. Sit amet risus nullam eget felis eget. Nunc sed blandit libero volutpat sed cras ornare arcu. Odio ut enim blandit volutpat. Congue mauris rhoncus aenean vel. Nunc sed augue lacus viverra vitae congue eu. Semper viverra nam libero justo laoreet sit amet cursus. Risus quis varius quam quisque id diam. Sed turpis tincidunt id aliquet risus feugiat in ante. Non enim praesent elementum facilisis leo vel fringilla est.
             </Text>
 
             <View style={
@@ -130,7 +114,7 @@ const Card = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         flex: 1,
-                        flexDirection: 'row'
+                        flexDirection: 'row',
                     }}>
                         <Text style={styles.btntxt}>READ MORE</Text>
                         <Feather name='chevrons-down' size={30} color={'rgba(255, 255, 255, 0.9)'} />
@@ -153,14 +137,11 @@ const styles = StyleSheet.create({
         borderBottomRightRadius: 10,
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
-        shadowOffset: { width: 20, height: 10 },
-        shadowColor: 'black',
-        shadowOpacity: 1,
-        elevation: 10,
+        backgroundColor: '#FFFAFA',
     },
     image: {
         width: '100%',
-        height: height * .225,
+        height: 165,
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
         borderBottomLeftRadius: 5,
@@ -169,21 +150,31 @@ const styles = StyleSheet.create({
         borderWidth: 2,
     },
     title: {
+        color: 'white',
         fontSize: 28,
         fontWeight: '500',
-        color: 'black',
-        margin: 5,
+        position: 'absolute',
+        top: 10,
+        left: 15,
+        width: '70%',
+        height: '20%',
+        overflow: 'hidden',
         textShadowColor: 'black',
-        textShadowRadius: 3,
+        textShadowRadius: 15,
+        textShadowOffset: { height: -2, width: -3 }
     },
     text: {
-        fontSize: 14,
-        paddingHorizontal: 20,
+        paddingTop: 10,
+        fontSize: 15,
         marginTop: 5,
         paddingBottom: 5,
+        width: '90%',
         color: 'black',
-        height: height * .15,
+        height: 150,
         overflow: 'hidden',
+        paddingHorizontal: 20,
+        fontWeight: '400',
+        textAlign: 'justify'
     },
     btn: {
         height: 60,

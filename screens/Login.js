@@ -14,15 +14,30 @@ const windowHeight = Dimensions.get('window').height;
 
 const Login = () => {
     const {loggedIn, setLoggedIn} = React.useContext(Context);
-    const [username, setUsername] = React.useState(null);
+    const [email, setEmail] = React.useState(null);
     const [password, setPassword] = React.useState(null);
+    
+    const checkEmail = () => {
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
+        if (reg.test(email) === false) {
+            alert('You must enter valid email address!');
+            return false;
+        }
+        return true;
+    }
+
+    const Login_In = () => {
+        if(checkEmail()){
+            setLoggedIn(true);
+        }
+    }
 
     return (
         <View style={styles.loginForm}>
             <Text style={styles.txt}>Login</Text>
-            <TextInput style={styles.txtInput} onChangeText={setUsername} placeholder={"Enter your username"} placeholderTextColor={'grey'}/>
+            <TextInput style={styles.txtInput} onChangeText={setEmail} placeholder={"Enter your email"} placeholderTextColor={'grey'}/>
             <TextInput style={styles.txtInput} onChangeText={setPassword} placeholder={"Enter your password"}  placeholderTextColor={'grey'}/>
-            <Button styles={styles} title='Login' onPress={() => {console.log(username, password); setLoggedIn(true)}}/>
+            <Button styles={styles} title='Login' onPress={() => {Login_In()}}/>
         </View>
     );
 }
