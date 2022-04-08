@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { StyleSheet, View, Dimensions, Text } from 'react-native';
-import { Context } from '../App';
 import Button from '../components/Button';
 
 const width = Dimensions.get('window').width;

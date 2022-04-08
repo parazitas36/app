@@ -8,26 +8,14 @@ import { black } from 'react-native-paper/lib/typescript/styles/colors';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
+const defaultImageURI = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2017%2F02%2Feiffel-tower-paris-france-EIFFEL0217.jpg&q=60";
 
-const Card = () => {
+const Card = (props) => {
     const [favorite, setFavorite] = useState(false);
     return (
         <View style={styles.view}>
-            <Image
-                style={styles.image}
-                source={{ uri: "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2017%2F02%2Feiffel-tower-paris-france-EIFFEL0217.jpg&q=60" }}
-            />
-            <View style={{
-                height: height * .225,
-                backgroundColor: 'rgba(0, 0, 0, 0.2)',
-                width: '100%',
-                position: 'absolute',
-                top: 0,
-                borderTopLeftRadius: 15,
-                borderTopRightRadius: 15,
-                borderBottomLeftRadius: 5,
-                borderBottomRightRadius: 5,
-            }} />
+            <Image style={styles.image} source={{ uri: !props.uri ? defaultImageURI : props.uri }} />
+            <View style={styles.imageOpacity} />
 
             <View style={styles.guideButtons}>
                 <TouchableOpacity >
@@ -37,75 +25,37 @@ const Card = () => {
                 </TouchableOpacity>
             </View>
 
-            <View style={[styles.guideButtons, { top: 95,  flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
+            <View style={[styles.guideButtons, { top: 95, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
                 <IOnicons name='location-outline' color="white" size={30} />
-                <Text style={{fontSize: 16,
-                    color: 'white',
-                    marginLeft: 3,
-                    marginRight: 3,
-                    fontWeight: '500',
-                    textShadowColor: 'black',
-                    textShadowRadius: 15,
-                    textShadowOffset: { height: -2, width: -3 }}}>City</Text>
+                <Text style={styles.city}>{props.city ? props.city : "City"}</Text>
             </View>
 
             <View style={[styles.guideButtons, { top: 165 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
-                <Text style={{
-                    fontSize: 16,
-                    color: 'white',
-                    marginRight: 8,
-                    fontWeight: '500',
-                    textShadowColor: 'black',
-                    textShadowRadius: 15,
-                    textShadowOffset: { height: -2, width: -3 }
-                }}>Rating: 3.4/5</Text>
+                <Text style={styles.rating}>Rating: {props.rating ? props.rating : '-'}/5</Text>
                 <IOnicons name={'star'} size={25} color={'gold'} />
             </View>
 
 
-            <Text style={styles.title}>Pavadinimas</Text>
+            <Text style={styles.title}>{props.title ? props.title : 'Pavadinimas'}</Text>
 
-            <Text style={{
-                color: 'white',
-                fontSize: 14,
-                fontWeight: '500',
-                position: 'absolute',
-                top: 165 - 25,
-                left: 15,
-                width: '30%',
-                height: '10%',
-                overflow: 'hidden',
-                textShadowColor: 'black',
-                textShadowRadius: 15,
-                textShadowOffset: { height: -2, width: -3 }
-            }}>by Username</Text>
-
-
+            <Text style={styles.creator}>{props.creator ? props.creator : 'by Username'}</Text>
 
             <Text style={styles.text}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius duis at consectetur lorem donec massa sapien. Egestas purus viverra accumsan in nisl nisi scelerisque eu. Eget arcu dictum varius duis. Sodales neque sodales ut etiam sit amet nisl purus. Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Facilisi morbi tempus iaculis urna id. Consequat nisl vel pretium lectus quam. Massa tempor nec feugiat nisl pretium fusce. Sit amet risus nullam eget felis eget. Nunc sed blandit libero volutpat sed cras ornare arcu. Odio ut enim blandit volutpat. Congue mauris rhoncus aenean vel. Nunc sed augue lacus viverra vitae congue eu. Semper viverra nam libero justo laoreet sit amet cursus. Risus quis varius quam quisque id diam. Sed turpis tincidunt id aliquet risus feugiat in ante. Non enim praesent elementum facilisis leo vel fringilla est.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Varius duis at consectetur lorem donec massa sapien. Egestas purus viverra accumsan in nisl nisi scelerisque eu. 
+                Eget arcu dictum varius duis. Sodales neque sodales ut etiam sit amet nisl purus. 
+                Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. 
+                Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. 
+                Facilisi morbi tempus iaculis urna id. Consequat nisl vel pretium lectus quam. 
+                Massa tempor nec feugiat nisl pretium fusce. Sit amet risus nullam eget felis eget. 
+                Nunc sed blandit libero volutpat sed cras ornare arcu. Odio ut enim blandit volutpat.
+                Congue mauris rhoncus aenean vel. Nunc sed augue lacus viverra vitae congue eu. 
+                Semper viverra nam libero justo laoreet sit amet cursus. Risus quis varius quam quisque id diam. 
+                Sed turpis tincidunt id aliquet risus feugiat in ante. Non enim praesent elementum facilisis leo vel fringilla est.
             </Text>
 
             <View style={
-                styles.btn, {
-                    alignContent: 'center',
-                    width: '100%',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flex: 1,
-                    flexDirection: 'row',
-                    paddingVertical: 5,
-                    backgroundColor: 'rgba(31, 66, 141, 0.925)',
-                    borderBottomLeftRadius: 10,
-                    borderBottomRightRadius: 10,
-                    position: 'absolute',
-                    bottom: 0,
-                    shadowColor: '#1f428d',
-                    shadowOpacity: 0.5,
-                    shadowOffset: { width: 0, height: -10 },
-                    shadowRadius: 10,
-                    elevation: 15,
-                }
+                styles.btn, styles.readMore
             }>
                 <TouchableOpacity>
                     <Pressable style={{
@@ -115,7 +65,9 @@ const Card = () => {
                         alignItems: 'center',
                         flex: 1,
                         flexDirection: 'row',
-                    }}>
+                    }}
+                    onPress={props.onClick}
+                    >
                         <Text style={styles.btntxt}>READ MORE</Text>
                         <Feather name='chevrons-down' size={30} color={'rgba(255, 255, 255, 0.9)'} />
                     </Pressable>
@@ -161,7 +113,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         textShadowColor: 'black',
         textShadowRadius: 15,
-        textShadowOffset: { height: -2, width: -3 }
+        textShadowOffset: { height: -2, width: 2 }
     },
     text: {
         paddingTop: 10,
@@ -190,5 +142,68 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 10,
         right: 15,
+    },
+    creator: {
+        color: 'white',
+        fontSize: 14,
+        fontWeight: '500',
+        position: 'absolute',
+        top: 165 - 25,
+        left: 15,
+        width: '30%',
+        height: '10%',
+        overflow: 'hidden',
+        textShadowColor: 'black',
+        textShadowRadius: 15,
+        textShadowOffset: { height: -2, width: -3 }
+    },
+    rating: {
+        fontSize: 16,
+        color: 'white',
+        marginRight: 8,
+        fontWeight: '500',
+        textShadowColor: 'black',
+        textShadowRadius: 15,
+        textShadowOffset: { height: -2, width: -3 }
+    },
+    city: {
+        fontSize: 16,
+        color: 'white',
+        marginLeft: 3,
+        marginRight: 3,
+        fontWeight: '500',
+        textShadowColor: 'black',
+        textShadowRadius: 15,
+        textShadowOffset: { height: -2, width: -3 }
+    },
+    readMore: {
+        alignContent: 'center',
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+        flexDirection: 'row',
+        paddingVertical: 5,
+        backgroundColor: 'rgba(31, 66, 141, 0.925)',
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        position: 'absolute',
+        bottom: 0,
+        shadowColor: '#1f428d',
+        shadowOpacity: 0.5,
+        shadowOffset: { width: 0, height: -10 },
+        shadowRadius: 10,
+        elevation: 15,
+    },
+    imageOpacity: {
+        height: 165,
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        width: '100%',
+        position: 'absolute',
+        top: 0,
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 5,
     }
 })

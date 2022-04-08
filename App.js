@@ -14,6 +14,7 @@ import Home from './screens/Home';
 import Profile from './screens/Profile';
 import Welcome from './screens/Welcome';
 import CreateGuide from './screens/CreateGuide';
+import Guide from './screens/Guide';
 export const Context = React.createContext();
 
 const windowWidth = Dimensions.get('window').width;
@@ -37,7 +38,8 @@ const WelcomeScreen = () => {
 const HomeScreen = () => {
   return (
     <HomeScreenStack.Navigator>
-      <HomeScreenStack.Screen name="Home" component={Home} />
+      <HomeScreenStack.Screen options={{ headerShown: false }} name="Home" component={Home} />
+      <HomeScreenStack.Screen name="Guide" component={Guide} />
     </HomeScreenStack.Navigator>
   );
 }
@@ -62,9 +64,10 @@ const Tab = createBottomTabNavigator();
 
 const App = () => {
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [chosenGuideID, setChosenGuideID] = React.useState(null);
 
   return (
-    <Context.Provider value={{ loggedIn, setLoggedIn }}>
+    <Context.Provider value={{ loggedIn, setLoggedIn, guideID: [chosenGuideID, setChosenGuideID] }}>
       <StatusBar barStyle="dark-content" backgroundColor="#eeeeee" />
       <NavigationContainer>
         {
@@ -87,6 +90,7 @@ const App = () => {
                   backgroundColor: "white",
                   paddingBottom: 9,
                   paddingTop: 6,
+                  position: 'absolute',
                 },
                 tabBarIconStyle: {
                   width: 32,
@@ -108,7 +112,7 @@ const App = () => {
             >
               <Tab.Screen
                 name="HomeTab"
-                component={Home}
+                component={HomeScreen}
                 options={{
                   tabBarLabel: "Home",
                   tabBarIcon: (props) => (

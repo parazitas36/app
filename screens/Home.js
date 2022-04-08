@@ -3,44 +3,87 @@ import {
     View,
     Text,
     StyleSheet,
-    ScrollView
+    ScrollView,
+    RefreshControl
 } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
-import SearchBtn from '../components/buttons/SearchBtn';
+import { ConvertBytesToFile } from '../api/ConvertBytesToFile';
+import { GetAllGuides } from '../api/GetAllGuides';
+import { Context } from '../App';
 import Card from '../components/Card';
 
 const styles = StyleSheet.create({
     mainView: {
         flex: 1,
     },
-    view:{
+    view: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
         alignContent: 'center',
+        paddingBottom: 75,
     },
     input: {
         width: '80%',
         height: 50,
         borderWidth: 1,
         borderColor: 'black',
-        borderRadius: 5, 
+        borderRadius: 5,
         backgroundColor: 'white',
     }
 })
 
-const Home = () => {
+const Home = ({ navigation }) => {
+    const [guides, setGuides] = React.useState([]);
+    const { guideID } = React.useContext(Context);
+    const [chosenGuideID, setChosenGuideID] = guideID;
+    const [refresh, setRefresh] = React.useState(false);
+
+    React.useLayoutEffect(() => {
+        (async () => {
+            const temp = await GetAllGuides();
+            setGuides(temp);
+            setRefresh(false);
+        })()
+    }, [refresh])
+
     return (
-        <ScrollView style={styles.mainView}>
+        <ScrollView 
+        style={styles.mainView}
+        refreshControl={
+            <RefreshControl 
+                refreshing={refresh}
+                onRefresh={() => setRefresh(true)}
+            />
+        }
+        >
             <View>
-                <Searchbar placeholder='Search'/>
+                <Searchbar placeholder='Search' />
             </View>
             <View style={styles.view}>
                 <Card />
                 <Card />
                 <Card />
+                {guides && guides.length > 0 &&
+                    guides.map((item) => {
+                        if (item) {
+                            return <Card
+                                uri={ConvertBytesToFile(item['image']['contentType'], item['image']['fileContents'])}
+                                creator={item['creatorName'] + " " + item['creatorLastName']}
+                                rating={item['rating']}
+                                city={item['city']}
+                                title={item['title']}
+                                onClick={() => {
+                                        setChosenGuideID(item['_id']);
+                                        console.log(item['_id'])
+                                        navigation.navigate("Guide")
+                                    }
+                                }
+                            />
+                        }
+                    })
+                }
             </View>
         </ScrollView>
     );

@@ -51,7 +51,7 @@ const Block = (item, Up, Down, Edit, Remove) => {
 
     const ShowByBlockType = (item) => {
         switch (item.type) {
-            case 'text':
+            case 'Text':
                 return (
                     <View style={styles.blockView}>
                         <View style={styles.arrowView}>
@@ -67,7 +67,7 @@ const Block = (item, Up, Down, Edit, Remove) => {
                         </View>
                     </View>
                 )
-            case 'img':
+            case 'Image':
                 return (
                     <View style={styles.blockView}>
                         <View style={styles.arrowView}>
@@ -92,7 +92,7 @@ const Block = (item, Up, Down, Edit, Remove) => {
                         </View>
                     </View>
                 )
-            case 'video':
+            case 'Video':
                 return (
                     <View style={styles.blockView}>
                         <View style={styles.arrowView}>

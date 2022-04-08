@@ -82,15 +82,15 @@ const CreateGuide = () => {
         const obj = blocks[id];
 
         switch (obj.type) {
-            case "text":
+            case "Text":
                 setShowEditText(true);
                 setEditID(id);
                 break;
-            case "img":
+            case "Image":
                 setShowEditPhoto(true);
                 setEditID(id);
                 break;
-            case "video":
+            case "Video":
                 setShowEditVideo(true);
                 setEditID(id);
                 break;
@@ -142,7 +142,7 @@ const CreateGuide = () => {
                     placeholder='Description'
                     multiline={true}
                     numberOfLines={3}
-                    onChangeText={setTitle}
+                    onChangeText={setDescription}
                     placeholderTextColor={'grey'}
                 />
 
@@ -181,6 +181,7 @@ const styles = StyleSheet.create({
     },
     container: {
         paddingVertical: 10,
+        paddingBottom: 85,
     },
     viewButtons: {
         flex: 1,

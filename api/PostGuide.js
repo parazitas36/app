@@ -7,14 +7,14 @@ export const PostGuide = (blocks, title, description) => {
     const formData = new FormData();
     for (var i = 0; i < blocks.length; i++) {
         switch (blocks[i].type) {
-            case "text":
+            case "Text":
                 formData.append("Texts", blocks[i].object);
                 formData.append("Blocks", JSON.stringify({
                     ID: i,
                     Type: "Text"
                 }));
                 break
-            case "video":
+            case "Video":
                 formData.append('Videos',
                     {
                         uri: blocks[i].object.assets[0].uri,
@@ -27,7 +27,7 @@ export const PostGuide = (blocks, title, description) => {
                     Type: "Video"
                 }));
                 break;
-            case "img":
+            case "Image":
                 formData.append('Images',
                     {
                         uri: blocks[i].object.assets[0].uri,
@@ -48,7 +48,7 @@ export const PostGuide = (blocks, title, description) => {
     formData.append('Language', 'LT');
     formData.append('Price', 0.00);
 
-    fetch("http://localhost:5000/api/files/test", {
+    fetch("https://v-guide.herokuapp.com/api/files/test", {
         method: 'POST',
         headers: { 'Content-Type': 'multipart/form-data' },
         body: formData

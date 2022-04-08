@@ -72,7 +72,7 @@ const CreateBlockModal = (props) => {
                     <View style={styles.modal}>
                         <TextBlockBtn styles={styles} onPress={() => setChosenBlock('Text')} />
                         <VideoBlockBtn styles={styles} onPress={() => setChosenBlock('Video')} />
-                        <PhotoBlockBtn styles={styles} onPress={() => setChosenBlock('Photo')} />
+                        <PhotoBlockBtn styles={styles} onPress={() => setChosenBlock('Image')} />
                     </View>
                     <Button styles={backBtnStyle} title={'Return'} onPress={props.goBack} />
                 </View>
@@ -86,7 +86,7 @@ const CreateBlockModal = (props) => {
                         onPress={() => {
                             if (text === null || text === "") { alert('No text has been entered!'); return; }
                             setShowBlock(false);
-                            setBlocks(blocks => [...blocks, { type: 'text', object: text, id: block_id }])
+                            setBlocks(blocks => [...blocks, { type: 'Text', object: text, id: block_id }])
                             setBlockID(block_id + 1);
                             setChosenBlock(null);
                         }}
@@ -95,14 +95,14 @@ const CreateBlockModal = (props) => {
                 </ScrollView>
             }
             {
-                chosenBlock === 'Photo' &&
+                chosenBlock === 'Image' &&
                 <ScrollView>
                     <AddPhotoBlock
                         photos={photos}
                         onPress={() => {
                             if (photo === null) { alert('No photo has been selected!'); return; }
                             setShowBlock(false);
-                            setBlocks(blocks => [...blocks, { type: 'img', object: photo, id: block_id }])
+                            setBlocks(blocks => [...blocks, { type: 'Image', object: photo, id: block_id }])
                             setBlockID(block_id + 1);
                             setChosenBlock(null);
                         }}
@@ -118,7 +118,7 @@ const CreateBlockModal = (props) => {
                         onPress={() => {
                             if (video === null) { alert('No video has been selected!'); return; }
                             setShowBlock(false);
-                            setBlocks(blocks => [...blocks, { type: 'video', object: video, id: block_id }])
+                            setBlocks(blocks => [...blocks, { type: 'Video', object: video, id: block_id }])
                             setBlockID(block_id + 1);
                             setChosenBlock(null);
                             console.log(video.assets[0].name)
