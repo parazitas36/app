@@ -37,7 +37,7 @@ const Guide = () => {
         for (let i = 0; i < guideInfo['blocks'].length; i++) {
             let imageInfo = guideInfo['blocks'][i];
             if (imageInfo['type'] === "Image") {
-                headerImageURI = ConvertBytesToFile(imageInfo['image']['contentType'], imageInfo['image']['fileContents'])
+                headerImageURI = imageInfo['pblock']['uri']
                 break;
             }
         }

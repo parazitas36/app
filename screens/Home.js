@@ -69,7 +69,7 @@ const Home = ({ navigation }) => {
                     guides.map((item) => {
                         if (item) {
                             return <Card
-                                uri={ConvertBytesToFile(item['image']['contentType'], item['image']['fileContents'])}
+                                uri={item['image']}
                                 creator={item['creatorName'] + " " + item['creatorLastName']}
                                 rating={item['rating']}
                                 city={item['city']}

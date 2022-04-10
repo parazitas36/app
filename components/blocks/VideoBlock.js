@@ -10,7 +10,7 @@ const VideoBlock = (props) => {
   return (
     <View style={props.styles.videoview}>
       <VideoPlayer
-        video={{uri: `http://localhost:5000/api/files/${props.data['vblock']['fileName']}`}}
+        video={{uri: props.data['vblock']['uri']}}
         resizeMode="contain"
         fullScreenOnLongPress={true}
         pauseOnPress={true}
