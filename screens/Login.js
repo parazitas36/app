@@ -27,9 +27,9 @@ const Login = () => {
     }
 
     const Login_In = () => {
-        if(checkEmail()){
+        //if(checkEmail()){
             setLoggedIn(true);
-        }
+        //}
     }
 
     return (

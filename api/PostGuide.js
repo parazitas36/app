@@ -48,7 +48,7 @@ export const PostGuide = (blocks, title, description) => {
     formData.append('Language', 'LT');
     formData.append('Price', 0.00);
 
-    fetch("https://v-guide.herokuapp.com/api/files/test", {
+    fetch("http:localhost:5000/api/files/test", {
         method: 'POST',
         headers: { 'Content-Type': 'multipart/form-data' },
         body: formData

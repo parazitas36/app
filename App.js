@@ -37,9 +37,13 @@ const WelcomeScreen = () => {
 
 const HomeScreen = () => {
   return (
-    <HomeScreenStack.Navigator>
-      <HomeScreenStack.Screen options={{ headerShown: false }} name="Home" component={Home} />
-      <HomeScreenStack.Screen name="Guide" component={Guide} />
+    <HomeScreenStack.Navigator
+      screenOptions={{
+        headerTitleAlign: 'center'
+      }}
+    >
+      <HomeScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="Home" component={Home} />
+      <HomeScreenStack.Screen options={{animationEnabled: true, headerShown: false}} name="Guide" component={Guide} />
     </HomeScreenStack.Navigator>
   );
 }

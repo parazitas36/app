@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
         borderRightWidth: 0,
         alignSelf: 'center',
         textAlign: 'center',
-        color: 'grey'
+        color: 'black'
     }, btn: {
 
     },
@@ -199,7 +199,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginTop: 10,
         width: '96%',
-        marginLeft: '2%'
+        marginLeft: '2%',
+        color: 'black'
     }
 })
 

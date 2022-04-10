@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const GetAllGuides = async() => {
-    const resp = await fetch('https://v-guide.herokuapp.com/api/guides', {
+    const resp = await fetch('http:localhost:5000/api/guides', {
         method: 'GET',
         headers: {
             "Accept" : "*/*"

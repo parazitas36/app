@@ -36,9 +36,9 @@ const Card = (props) => {
             </View>
 
 
-            <Text style={styles.title}>{props.title ? props.title : 'Pavadinimas'}</Text>
+            <Text numberOfLines={2} ellipsizeMode='tail'  style={styles.title}>{props.title ? props.title : 'Pavadinimas'}</Text>
 
-            <Text style={styles.creator}>{props.creator ? props.creator : 'by Username'}</Text>
+            <Text numberOfLines={1} ellipsizeMode='tail'  style={styles.creator}>{props.creator ? props.creator : 'by Username'}</Text>
 
             <Text style={styles.text}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
@@ -113,7 +113,8 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         textShadowColor: 'black',
         textShadowRadius: 15,
-        textShadowOffset: { height: -2, width: 2 }
+        textShadowOffset: { height: -2, width: 2 },
+        paddingHorizontal: 2,
     },
     text: {
         paddingTop: 10,
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 165 - 25,
         left: 15,
-        width: '30%',
+        width: '50%',
         height: '10%',
         overflow: 'hidden',
         textShadowColor: 'black',

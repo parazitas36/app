@@ -8,6 +8,9 @@ import { ConvertBytesToFile } from '../api/ConvertBytesToFile';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import IOnicons from 'react-native-vector-icons/Ionicons'
 import { ActivityIndicator } from 'react-native-paper';
+import VideoBlock from '../components/blocks/VideoBlock';
+
+const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
 
 const Guide = () => {
     const { guideID } = React.useContext(Context);
@@ -22,12 +25,14 @@ const Guide = () => {
     }, [])
 
     if (!guideInfo) {
+        // Loading... indikatorius
         return (
             <View>
-                <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50}}/>
+                <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
             </View>
         )
     } else {
+        // Paima pirma nuotrauka kaip pagrindine foto
         let headerImageURI = null;
         for (let i = 0; i < guideInfo['blocks'].length; i++) {
             let imageInfo = guideInfo['blocks'][i];
@@ -36,47 +41,66 @@ const Guide = () => {
                 break;
             }
         }
-        return (<ScrollView contentContainerStyle={styles.view}>
-            <View style={styles.headerview}>
-                <Image style={styles.headerimage} source={{ uri: headerImageURI }} />
-            </View>
-            <View style={styles.headeroverflow} />
+        const author = guideInfo['creatorName'] + " " + guideInfo['creatorLastName'];
+        return (
+            <ScrollView contentContainerStyle={styles.view}>
+                {/* Pagrindines foto vaizdas */}
+                <View style={styles.headerview}>
+                    <Image style={styles.headerimage} source={{ uri: headerImageURI }} />
+                </View>
+                {/* Pagrindines foto vaizdo uztamsinimas */}
+                <View style={styles.headeroverflow} />
 
-            <Text style={styles.title}>{guideInfo['title']}</Text>
-            <Text style={styles.creator}>{"Author: " + guideInfo['creatorName'] + " " + guideInfo['creatorLastName']}</Text>
-            
-            <View style={styles.guideButtons}>
-                <TouchableOpacity >
-                    <Pressable onPress={() => console.log('click')}>
-                        <IOnicons name={'heart-outline'} size={36} color={'white'} />
-                    </Pressable>
-                </TouchableOpacity>
-            </View>
+                {/* Apacioj gido duomenu atvaizdavimas ant pagrindines foto */}
+                <Text numberOfLines={2} ellipsizeMode='tail'  style={styles.title}>{guideInfo['title']}</Text>
+                <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creator}>{"Author: " + author}</Text>
+                <View style={styles.profile_image_view}>
+                    <Image
+                        source={{uri: profile_img}}
+                        style={styles.profile_image}
+                        resizeMode="cover"
+                    />
+                </View>
 
-            <View style={[styles.guideButtons, { top: 120,  flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
-                <IOnicons name='location-outline' color="white" size={30} />
-                <Text style={styles.city}>{guideInfo['city']}</Text>
-            </View>
+                {/* Prideti i favorites */}
+                <View style={styles.guideButtons}>
+                    <TouchableOpacity >
+                        <Pressable onPress={() => console.log('click')}>
+                            <IOnicons name={'heart-outline'} size={36} color={'white'} />
+                        </Pressable>
+                    </TouchableOpacity>
+                </View>
 
-            <View style={[styles.guideButtons, { top: 200 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
-                <Text style={styles.rating}>Rating: {'-'}/5</Text>
-                <IOnicons name={'star'} size={25} color={'gold'} />
-            </View>
+                {/* Lokacija */}
+                <View style={[styles.guideButtons, { top: 125, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
+                    <IOnicons name='location-outline' color="white" size={30} />
+                    <Text style={styles.city}>{guideInfo['city']}</Text>
+                </View>
 
-            <Text style={styles.texttitle}>{guideInfo['title']}</Text>
+                {/* Reitingas */}
+                <View style={[styles.guideButtons, { top: 200 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
+                    <Text style={styles.rating}>Rating: {'-'}/5</Text>
+                    <IOnicons name={'star'} size={25} color={'gold'} />
+                </View>
 
-            {guideInfo['blocks'].map((data) => {
-                switch (data['type']) {
-                    case 'Text':
-                        const text = data['tblock']['text'];
-                        return <TextBlock styles={styles} text={
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius duis at consectetur lorem donec massa sapien. Egestas purus viverra accumsan in nisl nisi scelerisque eu.  Eget arcu dictum varius duis. Sodales neque sodales ut etiam sit amet nisl purus.  Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Facilisi morbi tempus iaculis urna id. Consequat nisl vel pretium lectus quam. Massa tempor nec feugiat nisl pretium fusce. Sit amet risus nullam eget felis eget. Nunc sed blandit libero volutpat sed cras ornare arcu. Odio ut enim blandit volutpat. Congue mauris rhoncus aenean vel. Nunc sed augue lacus viverra vitae congue eu. Semper viverra nam libero justo laoreet sit amet cursus. Risus quis varius quam quisque id diam. Sed turpis tincidunt id aliquet risus feugiat in ante. Non enim praesent elementum facilisis leo vel fringilla est."
-                        } />
-                    case 'Image':
-                        return <ImageBlock styles={styles} data={data} />
-                }
-            })}
-        </ScrollView>)
+                {/* Nuo cia gido vidus */}
+                <Text style={styles.texttitle}>{guideInfo['title']}</Text>
+
+                {guideInfo['blocks'].map((data) => {
+                    switch (data['type']) {
+                        case 'Text':
+                            const text = data['tblock']['text'];
+                            return <TextBlock styles={styles} text={
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius duis at consectetur lorem donec massa sapien. Egestas purus viverra accumsan in nisl nisi scelerisque eu.  Eget arcu dictum varius duis. Sodales neque sodales ut etiam sit amet nisl purus.  Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Facilisi morbi tempus iaculis urna id. Consequat nisl vel pretium lectus quam. Massa tempor nec feugiat nisl pretium fusce. Sit amet risus nullam eget felis eget. Nunc sed blandit libero volutpat sed cras ornare arcu. Odio ut enim blandit volutpat. Congue mauris rhoncus aenean vel. Nunc sed augue lacus viverra vitae congue eu. Semper viverra nam libero justo laoreet sit amet cursus. Risus quis varius quam quisque id diam. Sed turpis tincidunt id aliquet risus feugiat in ante. Non enim praesent elementum facilisis leo vel fringilla est."
+                            } />
+                        case 'Image':
+                            return <ImageBlock styles={styles} data={data} />
+                        case 'Video':
+                            return <VideoBlock styles={styles} data={data} />
+                    }
+                })}
+            </ScrollView>
+        )
     }
 }
 
@@ -108,7 +132,12 @@ const styles = StyleSheet.create({
     },
     imageview: {
         width: '100%',
-        paddingVertical: 5,
+    },
+    video: {
+        width: '100%',
+    },
+    videoview: {
+        width: '100%',
     },
     headerimage: {
         width: '100%',
@@ -148,7 +177,8 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         textShadowColor: 'black',
         textShadowRadius: 15,
-        textShadowOffset: { height: -2, width: 2 }
+        textShadowOffset: { height: -2, width: 2 },
+        paddingHorizontal: 1,
     },
     creator: {
         color: 'white',
@@ -156,18 +186,18 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         position: 'absolute',
         top: 200 - 30,
-        left: 15,
-        width: '50%',
+        left: 10,
+        width: '60%',
         height: 50,
         overflow: 'hidden',
         textShadowColor: 'black',
         textShadowRadius: 15,
-        textShadowOffset: { height: -2, width: -3 },
+        textShadowOffset: { height: -2, width: 2 },
     },
     guideButtons: {
         position: 'absolute',
         top: 10,
-        right: 15,
+        right: 10,
     },
     city: {
         fontSize: 16,
@@ -177,7 +207,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         textShadowColor: 'black',
         textShadowRadius: 15,
-        textShadowOffset: { height: -2, width: -3 }
+        textShadowOffset: { height: -2, width: 2 }
     },
     rating: {
         fontSize: 16,
@@ -186,8 +216,26 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         textShadowColor: 'black',
         textShadowRadius: 15,
-        textShadowOffset: { height: -2, width: -3 }
+        textShadowOffset: { height: -2, width: 2 }
     },
+    profile_image_view: {
+        height: 36,
+        width: 36,
+        borderWidth: 1,
+        borderColor: 'rgba(0, 0, 0, 0.15)',
+        borderRadius: 90,
+        position: 'absolute',
+        top: 130,
+        left: 10,
+        
+    },
+    profile_image: {
+        width: '100%',
+        height: '100%',
+        aspectRatio: 1,
+        borderWidth: 1,
+        borderColor: 'rgba(0, 0, 0, 0.15)',borderRadius: 180,
+    }
 })
 
 export default Guide
