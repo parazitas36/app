@@ -72,9 +72,6 @@ const Home = ({ navigation }) => {
                 <Searchbar placeholder='Search' />
             </View>
             <View style={styles.view}>
-                <Card />
-                <Card />
-                <Card />
                 {guides && guides.length > 0 &&
                     guides.map((item) => {
                         if (item) {
@@ -84,6 +81,7 @@ const Home = ({ navigation }) => {
                                 rating={item['rating']}
                                 city={item['city']}
                                 title={item['title']}
+                                description={item['description']}
                                 onClick={() => {
                                     setChosenGuideID(item['_id']);
                                     console.log(item['_id'])

@@ -41,17 +41,7 @@ const Card = (props) => {
             <Text numberOfLines={1} ellipsizeMode='tail'  style={styles.creator}>{props.creator ? props.creator : 'by Username'}</Text>
 
             <Text style={styles.text}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                Varius duis at consectetur lorem donec massa sapien. Egestas purus viverra accumsan in nisl nisi scelerisque eu. 
-                Eget arcu dictum varius duis. Sodales neque sodales ut etiam sit amet nisl purus. 
-                Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. 
-                Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. 
-                Facilisi morbi tempus iaculis urna id. Consequat nisl vel pretium lectus quam. 
-                Massa tempor nec feugiat nisl pretium fusce. Sit amet risus nullam eget felis eget. 
-                Nunc sed blandit libero volutpat sed cras ornare arcu. Odio ut enim blandit volutpat.
-                Congue mauris rhoncus aenean vel. Nunc sed augue lacus viverra vitae congue eu. 
-                Semper viverra nam libero justo laoreet sit amet cursus. Risus quis varius quam quisque id diam. 
-                Sed turpis tincidunt id aliquet risus feugiat in ante. Non enim praesent elementum facilisis leo vel fringilla est.
+                {props.description}
             </Text>
 
             <View style={

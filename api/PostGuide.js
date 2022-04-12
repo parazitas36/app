@@ -50,11 +50,10 @@ export const PostGuide = async(blocks, title, description, creatorID) => {
     formData.append('CreatorId', creatorID);
     formData.append('LocationXY', "location-data")
 
-    console.log(formData)
-
     const resp = await fetch("https://v-guide.herokuapp.com/api/guides", {
         method: 'POST',
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: { 'Content-Type': 'multipart/form-data',
+        "Connection": "keep-alive" },
         body: formData
     });
     return resp;
