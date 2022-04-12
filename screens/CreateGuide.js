@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import React, { createContext, useContext } from 'react'
 import { Dimensions, ScrollView, Text, StyleSheet, Image, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Video from 'react-native-video';
@@ -13,6 +13,7 @@ import EditPhotoModal from '../components/modals/EditPhotoModal';
 import { PostGuide } from '../api/PostGuide';
 import SaveBtn from '../components/buttons/SaveBtn';
 import DiscardBtn from '../components/buttons/DiscardBtn';
+import { Context } from '../App';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -33,6 +34,9 @@ const CreateGuide = () => {
     const [blocks, setBlocks] = React.useState([]);
     const [block_id, setBlockID] = React.useState(0);
     const [rerender, setRerender] = React.useState(false);
+
+    const { accInfo } = useContext(Context);
+    const [userInfo, setUserInfo] = accInfo;
 
     const value = {
         texts: [text, setText],
@@ -154,7 +158,12 @@ const CreateGuide = () => {
 
                 <AddBlockBtn onPress={() => setShowBlock(true)} />
                 <View style={styles.viewButtons}>
-                    <SaveBtn onPress={() => PostGuide(blocks, title, description)} />
+                    <SaveBtn onPress={async() => {
+                        console.log(userInfo["_id"]); 
+                        const resp = await PostGuide(blocks, title, description, userInfo['_id'])
+                        console.log(resp)
+                        }
+                    } />
                     <DiscardBtn onPress={() => { setBlocks([]); setRerender(true); }} />
                 </View>
             </ScrollView>

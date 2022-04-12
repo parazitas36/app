@@ -21,7 +21,7 @@ const VideoBlock = (props) => {
           },
           wrapper: {
             flex: 1,
-            width: '90%',
+            width: '92%',
             justifyContent: 'center',
             alignItems: 'center',
             alignSelf: 'center',

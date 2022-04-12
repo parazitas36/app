@@ -4,7 +4,7 @@ import Button from '../components/Button';
 import IOnicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { black } from 'react-native-paper/lib/typescript/styles/colors';
+
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -14,7 +14,7 @@ const Card = (props) => {
     const [favorite, setFavorite] = useState(false);
     return (
         <View style={styles.view}>
-            <Image style={styles.image} source={{ uri: !props.uri ? defaultImageURI : props.uri }} />
+            <Image blurRadius={1} style={styles.image} source={{ uri: !props.uri ? defaultImageURI : props.uri }} />
             <View style={styles.imageOpacity} />
 
             <View style={styles.guideButtons}>
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 15,
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
-        borderColor: 'rgba(0, 0, 0, 0.45)',
+        borderColor: 'rgba(0, 0, 0, 0.2)',
         borderWidth: 2,
     },
     title: {
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         textShadowColor: 'black',
         textShadowRadius: 15,
-        textShadowOffset: { height: -2, width: -3 }
+        textShadowOffset: { height: -2, width: 2 }
     },
     rating: {
         fontSize: 16,
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         textShadowColor: 'black',
         textShadowRadius: 15,
-        textShadowOffset: { height: -2, width: -3 }
+        textShadowOffset: { height: -2, width: 2 }
     },
     city: {
         fontSize: 16,
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         textShadowColor: 'black',
         textShadowRadius: 15,
-        textShadowOffset: { height: -2, width: -3 }
+        textShadowOffset: { height: -2, width: 2 }
     },
     readMore: {
         alignContent: 'center',

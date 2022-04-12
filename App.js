@@ -69,9 +69,10 @@ const Tab = createBottomTabNavigator();
 const App = () => {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [chosenGuideID, setChosenGuideID] = React.useState(null);
+  const [userInfo, setUserInfo] = React.useState(null);
 
   return (
-    <Context.Provider value={{ loggedIn, setLoggedIn, guideID: [chosenGuideID, setChosenGuideID] }}>
+    <Context.Provider value={{ loggedIn, setLoggedIn, guideID: [chosenGuideID, setChosenGuideID], accInfo: [userInfo, setUserInfo] }}>
       <StatusBar barStyle="dark-content" backgroundColor="#eeeeee" />
       <NavigationContainer>
         {

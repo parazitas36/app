@@ -8,6 +8,7 @@ const ImageBlock = (props) => {
       <Image
         style={props.styles.image}
         resizeMode="contain"
+        resizeMethod="scale"
         source={{ uri: props.data['pblock']['uri'] }}
       />
     </View>

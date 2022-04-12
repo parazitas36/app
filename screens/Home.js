@@ -6,7 +6,7 @@ import {
     ScrollView,
     RefreshControl
 } from 'react-native';
-import { Searchbar } from 'react-native-paper';
+import { ActivityIndicator, Searchbar } from 'react-native-paper';
 import { ConvertBytesToFile } from '../api/ConvertBytesToFile';
 import { GetAllGuides } from '../api/GetAllGuides';
 import { Context } from '../App';
@@ -39,24 +39,34 @@ const Home = ({ navigation }) => {
     const { guideID } = React.useContext(Context);
     const [chosenGuideID, setChosenGuideID] = guideID;
     const [refresh, setRefresh] = React.useState(false);
+    const [firstLoad, setFirstLoad] = React.useState(true);
 
     React.useLayoutEffect(() => {
         (async () => {
             const temp = await GetAllGuides();
             setGuides(temp);
             setRefresh(false);
+            setFirstLoad(false);
         })()
     }, [refresh])
 
+    if (firstLoad) {
+        return (
+            <View>
+                <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
+            </View>
+        )
+    }
+
     return (
-        <ScrollView 
-        style={styles.mainView}
-        refreshControl={
-            <RefreshControl 
-                refreshing={refresh}
-                onRefresh={() => setRefresh(true)}
-            />
-        }
+        <ScrollView
+            style={styles.mainView}
+            refreshControl={
+                <RefreshControl
+                    refreshing={refresh}
+                    onRefresh={() => setRefresh(true)}
+                />
+            }
         >
             <View>
                 <Searchbar placeholder='Search' />
@@ -75,10 +85,10 @@ const Home = ({ navigation }) => {
                                 city={item['city']}
                                 title={item['title']}
                                 onClick={() => {
-                                        setChosenGuideID(item['_id']);
-                                        console.log(item['_id'])
-                                        navigation.navigate("Guide")
-                                    }
+                                    setChosenGuideID(item['_id']);
+                                    console.log(item['_id'])
+                                    navigation.navigate("Guide")
+                                }
                                 }
                             />
                         }

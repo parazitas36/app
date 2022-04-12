@@ -127,11 +127,14 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
     image: {
-        width: '100%',
-        aspectRatio: 1,
+        flex: 1,
+        aspectRatio: 1.5,
+        marginLeft: '4%',
+        borderRadius: 3,
     },
     imageview: {
-        width: '100%',
+        width: '96%',
+        margin: 0,
     },
     video: {
         width: '100%',
