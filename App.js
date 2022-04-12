@@ -15,6 +15,7 @@ import Profile from './screens/Profile';
 import Welcome from './screens/Welcome';
 import CreateGuide from './screens/CreateGuide';
 import Guide from './screens/Guide';
+import CreatorProfile from './screens/CreatorProfile';
 export const Context = React.createContext();
 
 const windowWidth = Dimensions.get('window').width;
@@ -44,23 +45,8 @@ const HomeScreen = () => {
     >
       <HomeScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="Home" component={Home} />
       <HomeScreenStack.Screen options={{animationEnabled: true, headerShown: false}} name="Guide" component={Guide} />
+      <HomeScreenStack.Screen options={{animationEnabled: true, headerShown: false}} name="CreatorProfile" component={CreatorProfile} />
     </HomeScreenStack.Navigator>
-  );
-}
-
-const ProfileScreen = () => {
-  return (
-    <ProfileScreenStack.Navigator>
-      <ProfileScreenStack.Screen name="Profile" component={Profile} />
-    </ProfileScreenStack.Navigator>
-  );
-}
-
-const CreateGuideScreen = () => {
-  return (
-    <CreateGuideScreenStack.Navigator>
-      <CreateGuideScreenStack.Screen name="Create Guide" component={CreateGuide} />
-    </CreateGuideScreenStack.Navigator>
   );
 }
 
@@ -69,10 +55,17 @@ const Tab = createBottomTabNavigator();
 const App = () => {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [chosenGuideID, setChosenGuideID] = React.useState(null);
+  const [chosenProfileID, setChosenProfileID] = React.useState(null);
   const [userInfo, setUserInfo] = React.useState(null);
 
   return (
-    <Context.Provider value={{ loggedIn, setLoggedIn, guideID: [chosenGuideID, setChosenGuideID], accInfo: [userInfo, setUserInfo] }}>
+    <Context.Provider value={{ 
+      loggedIn, setLoggedIn,
+      guideID: [chosenGuideID, setChosenGuideID], 
+      accInfo: [userInfo, setUserInfo],
+      creatorInfo: [chosenProfileID, setChosenProfileID]
+      }}
+    >
       <StatusBar barStyle="dark-content" backgroundColor="#eeeeee" />
       <NavigationContainer>
         {

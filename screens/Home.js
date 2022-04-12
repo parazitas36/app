@@ -36,10 +36,11 @@ const styles = StyleSheet.create({
 
 const Home = ({ navigation }) => {
     const [guides, setGuides] = React.useState([]);
-    const { guideID } = React.useContext(Context);
+    const { guideID, accInfo } = React.useContext(Context);
     const [chosenGuideID, setChosenGuideID] = guideID;
     const [refresh, setRefresh] = React.useState(false);
     const [firstLoad, setFirstLoad] = React.useState(true);
+    const [userInfo, setUserInfo] = accInfo;
 
     React.useLayoutEffect(() => {
         (async () => {
@@ -77,11 +78,16 @@ const Home = ({ navigation }) => {
                         if (item) {
                             return <Card
                                 uri={item['image']}
+                                creatorID={item['creatorId']}
                                 creator={item['creatorName'] + " " + item['creatorLastName']}
                                 rating={item['rating']}
                                 city={item['city']}
                                 title={item['title']}
                                 description={item['description']}
+                                guideID={item['_id']}
+                                favorite={userInfo['savedguides'].includes(item['_id'])}
+                                savedguides={userInfo['savedguides']}
+                                userID={userInfo['_id']}
                                 onClick={() => {
                                     setChosenGuideID(item['_id']);
                                     console.log(item['_id'])

@@ -13,10 +13,11 @@ import VideoBlock from '../components/blocks/VideoBlock';
 const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
 const tempText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius duis at consectetur lorem donec massa sapien. Egestas purus viverra accumsan in nisl nisi scelerisque eu.  Eget arcu dictum varius duis. Sodales neque sodales ut etiam sit amet nisl purus.  Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Facilisi morbi tempus iaculis urna id. Consequat nisl vel pretium lectus quam. Massa tempor nec feugiat nisl pretium fusce. Sit amet risus nullam eget felis eget. Nunc sed blandit libero volutpat sed cras ornare arcu. Odio ut enim blandit volutpat. Congue mauris rhoncus aenean vel. Nunc sed augue lacus viverra vitae congue eu. Semper viverra nam libero justo laoreet sit amet cursus. Risus quis varius quam quisque id diam. Sed turpis tincidunt id aliquet risus feugiat in ante. Non enim praesent elementum facilisis leo vel fringilla est."
 
-const Guide = () => {
-    const { guideID } = React.useContext(Context);
+const Guide = ({navigation}) => {
+    const { guideID, creatorInfo } = React.useContext(Context);
     const [chosenGuideID, setChosenGuideID] = guideID;
     const [guideInfo, setGuideInfo] = React.useState(null);
+    const [chosenProfileID, setChosenProfileID] = creatorInfo;
 
     React.useLayoutEffect(() => {
         (async () => {
@@ -53,14 +54,24 @@ const Guide = () => {
                 <View style={styles.headeroverflow} />
 
                 {/* Apacioj gido duomenu atvaizdavimas ant pagrindines foto */}
-                <Text numberOfLines={2} ellipsizeMode='tail'  style={styles.title}>{guideInfo['title']}</Text>
+                <Text numberOfLines={2} ellipsizeMode='tail' style={styles.title}>{guideInfo['title']}</Text>
                 <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creator}>{"Author: " + author}</Text>
+
                 <View style={styles.profile_image_view}>
-                    <Image
-                        source={{uri: profile_img}}
-                        style={styles.profile_image}
-                        resizeMode="cover"
-                    />
+                    <TouchableOpacity>
+                        <Pressable
+                            onPress={() => {
+                                setChosenProfileID(guideInfo['creatorId'])
+                                navigation.navigate("CreatorProfile")
+                            }}
+                        >
+                            <Image
+                                source={{ uri: profile_img }}
+                                style={styles.profile_image}
+                                resizeMode="cover"
+                            />
+                        </Pressable>
+                    </TouchableOpacity>
                 </View>
 
                 {/* Prideti i favorites */}
@@ -120,12 +131,14 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
     },
     texttitle: {
-        textAlign: 'center',
+        textAlign: 'left',
         color: 'black',
         fontSize: 32,
         paddingTop: 15,
         paddingBottom: 10,
-        fontWeight: '500'
+        fontWeight: '500',
+        maxWidth: '90%',
+        alignSelf: 'center'
     },
     image: {
         flex: 1,
@@ -136,6 +149,7 @@ const styles = StyleSheet.create({
     imageview: {
         width: '96%',
         margin: 0,
+        marginVertical: 3,
     },
     video: {
         width: '100%',
@@ -231,14 +245,14 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 130,
         left: 10,
-        
+
     },
     profile_image: {
         width: '100%',
         height: '100%',
         aspectRatio: 1,
         borderWidth: 1,
-        borderColor: 'rgba(0, 0, 0, 0.15)',borderRadius: 180,
+        borderColor: 'rgba(0, 0, 0, 0.15)', borderRadius: 180,
     }
 })
 

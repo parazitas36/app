@@ -4,6 +4,8 @@ import Button from '../components/Button';
 import IOnicons from 'react-native-vector-icons/Ionicons'
 import Feather from 'react-native-vector-icons/Feather'
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { UnsaveGuide } from '../api/UnsaveGuide';
+import { SaveGuide } from '../api/SaveGuide';
 
 
 const width = Dimensions.get('window').width;
@@ -11,15 +13,48 @@ const height = Dimensions.get('window').height;
 const defaultImageURI = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2017%2F02%2Feiffel-tower-paris-france-EIFFEL0217.jpg&q=60";
 
 const Card = (props) => {
-    const [favorite, setFavorite] = useState(false);
+    const [favorite, setFavorite] = useState(null);
+    const [uri, setUri] = useState(null);
+    if (favorite === null) {
+        setFavorite(props.favorite);
+    }
+    if(uri === null){
+        setUri(props.uri)
+    }
     return (
         <View style={styles.view}>
-            <Image blurRadius={1} style={styles.image} source={{ uri: !props.uri ? defaultImageURI : props.uri }} />
+            <Image blurRadius={1} style={styles.image} source={{ uri: !props.uri ? defaultImageURI : uri }} />
             <View style={styles.imageOpacity} />
 
             <View style={styles.guideButtons}>
                 <TouchableOpacity >
-                    <Pressable onPress={() => setFavorite(!favorite)}>
+                    <Pressable onPress={async () => {
+                        let resp = null;
+                        if (favorite === true) {
+                            resp = await UnsaveGuide(props.guideID, props.userID);
+                            if (resp.status === 200) {
+                                for (let i = 0; i < props.savedguides.length; i++) {
+                                    if (props.savedguides[i] === props.guideID) {
+                                        if (i !== props.savedguides.length - 1) {
+                                            for (let j = i; j < props.savedguides.length - 1; j++) {
+                                                props.savedguides[j] = props.savedguides[j + 1]
+                                            }
+                                        }
+                                        props.savedguides.pop();
+                                        break;
+                                    }
+                                }
+                                setFavorite(false)
+                            }
+                        } else if (favorite === false) {
+                            resp = await SaveGuide(props.guideID, props.userID);
+                            if (resp.status === 200) {
+                                props.savedguides.push(props.guideID);
+                                setFavorite(true)
+                            }
+                        }
+                    }
+                    }>
                         <IOnicons name={!favorite ? 'heart-outline' : 'heart'} size={30} color={favorite ? "#ff1e5a" : 'white'} />
                     </Pressable>
                 </TouchableOpacity>
@@ -36,9 +71,9 @@ const Card = (props) => {
             </View>
 
 
-            <Text numberOfLines={2} ellipsizeMode='tail'  style={styles.title}>{props.title ? props.title : 'Pavadinimas'}</Text>
+            <Text numberOfLines={2} ellipsizeMode='tail' style={styles.title}>{props.title ? props.title : 'Pavadinimas'}</Text>
 
-            <Text numberOfLines={1} ellipsizeMode='tail'  style={styles.creator}>{props.creator ? props.creator : 'by Username'}</Text>
+            <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creator}>{props.creator ? props.creator : 'by Username'}</Text>
 
             <Text style={styles.text}>
                 {props.description}
@@ -56,7 +91,7 @@ const Card = (props) => {
                         flex: 1,
                         flexDirection: 'row',
                     }}
-                    onPress={props.onClick}
+                        onPress={props.onClick}
                     >
                         <Text style={styles.btntxt}>READ MORE</Text>
                         <Feather name='chevrons-down' size={30} color={'rgba(255, 255, 255, 0.9)'} />
