@@ -1,7 +1,7 @@
 import React from 'react'
-import { Dimensions, Pressable, Text, StyleSheet } from 'react-native';
+import { Dimensions, Pressable, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -11,31 +11,27 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        width: 120,
+        alignSelf: 'center',
+        width: 200,
         height: 50,
-        borderWidth: 3,
-        borderRadius: 6,
-        borderColor: "#D82A17",
-        backgroundColor: "#fefefe",
-        marginLeft: 3,
+        backgroundColor: "transparent",
     },
     text: {
-        color: '#D82A17',
+        color: 'black',
         fontSize: 20,
         fontWeight: 'bold',
-        marginLeft: 5
     }
 })
 
-const DiscardBtn = (props) => {
+const LocationBtn = (props) => {
     return (
         <TouchableOpacity>
             <Pressable style={styles.pressable} onPress={props.onPress}>
-                <FontAwesome name='remove' size={windowWidth*.1} color="#D82A17"/>
-                <Text style={styles.text}>{!props.title ? "Discard" : props.title}</Text>
+                <Text style={styles.text}>Pick Location</Text>
+                <MaterialIcons name={`${props.function}-location`} size={windowWidth*.11} color="black"/>
             </Pressable>
         </TouchableOpacity>
     );
 }
 
-export default DiscardBtn;
+export default LocationBtn;

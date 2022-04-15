@@ -1,4 +1,4 @@
-export const PostGuide = async(blocks, title, description, creatorID) => {
+export const PostGuide = async(blocks, title, description, creatorID, latitude, longtitude, city) => {
     if(blocks.length === 0){
         alert('Add at least one block!');
         return;
@@ -48,7 +48,9 @@ export const PostGuide = async(blocks, title, description, creatorID) => {
     formData.append('Language', 'LT');
     formData.append('Price', 0.00);
     formData.append('CreatorId', creatorID);
-    formData.append('LocationXY', "location-data")
+    formData.append('latitude', latitude);
+    formData.append('longtitude', longtitude);
+    formData.append('City', city);
 
     const resp = await fetch("https://v-guide.herokuapp.com/api/guides", {
         method: 'POST',

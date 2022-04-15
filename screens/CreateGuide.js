@@ -14,19 +14,25 @@ import { PostGuide } from '../api/PostGuide';
 import SaveBtn from '../components/buttons/SaveBtn';
 import DiscardBtn from '../components/buttons/DiscardBtn';
 import { Context } from '../App';
+import LocationBtn from '../components/buttons/LocationBtn';
+import { ActivityIndicator } from 'react-native-paper';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export const CreateGuideContext = createContext();
 
-const CreateGuide = () => {
+const CreateGuide = ({ navigation }) => {
     const [title, setTitle] = React.useState(null);
     const [description, setDescription] = React.useState(null);
+    const [location, setLocation] = React.useState(null);
+    const [city, setCity] = React.useState(null);
+
     const [showBlock, setShowBlock] = React.useState(false);
     const [showEditText, setShowEditText] = React.useState(false);
     const [showEditPhoto, setShowEditPhoto] = React.useState(false);
     const [showEditVideo, setShowEditVideo] = React.useState(false);
+
     const [editID, setEditID] = React.useState(null);
     const [text, setText] = React.useState(null);
     const [photo, setPhoto] = React.useState(null);
@@ -34,6 +40,7 @@ const CreateGuide = () => {
     const [blocks, setBlocks] = React.useState([]);
     const [block_id, setBlockID] = React.useState(0);
     const [rerender, setRerender] = React.useState(false);
+    const [waiting, setWaiting] = React.useState(false);
 
     const { accInfo } = useContext(Context);
     const [userInfo, setUserInfo] = accInfo;
@@ -121,7 +128,12 @@ const CreateGuide = () => {
         setRerender(false);
     }, [showBlock, rerender]);
 
-
+    if (waiting) {
+        return (<View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
+            <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ justifyContent: 'center', marginTop: 50 }} />
+            <Text style={{fontSize: 30, justifyContent: 'center', textAlign: 'center', color: 'black', marginTop: 15}}>Uploading</Text>
+        </View>)
+    }
 
     return (
         <CreateGuideContext.Provider value={value}>
@@ -157,15 +169,26 @@ const CreateGuide = () => {
                 }
 
                 <AddBlockBtn onPress={() => setShowBlock(true)} />
-                <View style={styles.viewButtons}>
-                    <SaveBtn onPress={async() => {
-                        console.log(userInfo["_id"]); 
-                        const resp = await PostGuide(blocks, title, description, userInfo['_id'])
-                        console.log(resp)
+                
+                <LocationBtn function={city? "edit": "add"} onPress={() => navigation.navigate("Maps", { lct: [location, setLocation], setCity })} />
+                {blocks.length > 0 &&
+                    <View style={styles.viewButtons}>
+                        <SaveBtn onPress={async () => {
+                            setWaiting(true);
+                            const resp = await PostGuide(blocks, title, description, userInfo['_id'], location['latitude'], location['longitude'], city)
+                            if(resp) {
+                                setWaiting(false);
+                                setBlocks([]); 
+                                setTitle(null); 
+                                setDescription(null); 
+                                setCity(null); 
+                                setLocation(null);
+                            }
                         }
-                    } />
-                    <DiscardBtn onPress={() => { setBlocks([]); setRerender(true); }} />
-                </View>
+                        } />
+                        <DiscardBtn title="Clear" onPress={() => { setBlocks([]); setTitle(null); setDescription(null); setCity(null); setLocation(null); setRerender(true); }} />
+                    </View>
+                }
             </ScrollView>
         </CreateGuideContext.Provider>
     )

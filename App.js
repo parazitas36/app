@@ -16,6 +16,7 @@ import Welcome from './screens/Welcome';
 import CreateGuide from './screens/CreateGuide';
 import Guide from './screens/Guide';
 import CreatorProfile from './screens/CreatorProfile';
+import Maps from './screens/Maps';
 export const Context = React.createContext();
 
 const windowWidth = Dimensions.get('window').width;
@@ -23,7 +24,6 @@ const windowHeight = Dimensions.get('window').height;
 
 const WelcomeScreenStack = createStackNavigator();
 const HomeScreenStack = createStackNavigator();
-const ProfileScreenStack = createStackNavigator();
 const CreateGuideScreenStack = createStackNavigator();
 
 const WelcomeScreen = () => {
@@ -47,6 +47,15 @@ const HomeScreen = () => {
       <HomeScreenStack.Screen options={{animationEnabled: true, headerShown: false}} name="Guide" component={Guide} />
       <HomeScreenStack.Screen options={{animationEnabled: true, headerShown: false}} name="CreatorProfile" component={CreatorProfile} />
     </HomeScreenStack.Navigator>
+  );
+}
+
+const CreateGuideScreen = () => {
+  return (
+    <CreateGuideScreenStack.Navigator>
+      <CreateGuideScreenStack.Screen options={{headerShown: false, animationEnabled: true}} name="CreateGuide" component={CreateGuide}/>
+      <CreateGuideScreenStack.Screen options={{headerShown: false, animationEnabled: true}} name="Maps" component={Maps}/>
+    </CreateGuideScreenStack.Navigator>
   );
 }
 
@@ -120,11 +129,21 @@ const App = () => {
               />
               <Tab.Screen
                 name="GuideCreationTab"
-                component={CreateGuide}
+                component={CreateGuideScreen}
                 options={{
                   tabBarLabel: "Create Guide",
                   tabBarIcon: (props) => (
                     <FontAwesome5 name={"plus-circle"} size={props.size} color={props.color} />
+                  )
+                }}
+              />
+              <Tab.Screen
+                name="Maps"
+                component={Maps}
+                options={{
+                  tabBarLabel: "Maps",
+                  tabBarIcon: (props) => (
+                    <FontAwesome5 name={"location"} size={props.size} color={props.color} />
                   )
                 }}
               />

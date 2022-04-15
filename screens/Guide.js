@@ -143,19 +143,21 @@ const styles = StyleSheet.create({
     image: {
         flex: 1,
         aspectRatio: 1.5,
-        marginLeft: '4%',
         borderRadius: 3,
     },
     imageview: {
-        width: '96%',
+        width: '90%',
         margin: 0,
+        marginLeft: '5%',
+        paddingHorizontal: 20,
         marginVertical: 3,
     },
     video: {
         width: '100%',
     },
     videoview: {
-        width: '100%',
+        width: '88%',
+        marginLeft: '6%'
     },
     headerimage: {
         width: '100%',
