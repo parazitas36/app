@@ -9,6 +9,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import IOnicons from 'react-native-vector-icons/Ionicons'
 import { ActivityIndicator } from 'react-native-paper';
 import VideoBlock from '../components/blocks/VideoBlock';
+import MapView, { Marker } from 'react-native-maps';
 
 const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
 const tempText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius duis at consectetur lorem donec massa sapien. Egestas purus viverra accumsan in nisl nisi scelerisque eu.  Eget arcu dictum varius duis. Sodales neque sodales ut etiam sit amet nisl purus.  Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Facilisi morbi tempus iaculis urna id. Consequat nisl vel pretium lectus quam. Massa tempor nec feugiat nisl pretium fusce. Sit amet risus nullam eget felis eget. Nunc sed blandit libero volutpat sed cras ornare arcu. Odio ut enim blandit volutpat. Congue mauris rhoncus aenean vel. Nunc sed augue lacus viverra vitae congue eu. Semper viverra nam libero justo laoreet sit amet cursus. Risus quis varius quam quisque id diam. Sed turpis tincidunt id aliquet risus feugiat in ante. Non enim praesent elementum facilisis leo vel fringilla est."
@@ -34,6 +35,7 @@ const Guide = ({navigation}) => {
             </View>
         )
     } else {
+        console.log(guideInfo)
         // Paima pirma nuotrauka kaip pagrindine foto
         let headerImageURI = null;
         for (let i = 0; i < guideInfo['blocks'].length; i++) {
@@ -111,6 +113,31 @@ const Guide = ({navigation}) => {
                             return <VideoBlock styles={styles} data={data} />
                     }
                 })}
+
+                <MapView
+                style={{
+                    height: 250,
+                    width: '98%',
+                    alignSelf: 'center',
+                    marginTop: 20
+                }}
+                initialRegion={{
+                    latitude: guideInfo['latitude'],
+                    longitude: guideInfo['longtitude'],
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                }}
+                >
+                <Marker 
+                    title={guideInfo['title']}
+                    coordinate={{
+                        latitude: guideInfo['latitude'],
+                        longitude: guideInfo['longtitude']
+                    }}
+                    pinColor='red'
+                >
+                </Marker>
+                </MapView>
             </ScrollView>
         )
     }
