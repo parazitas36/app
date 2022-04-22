@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Dimensions, StatusBar, View } from 'react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Login from './screens/Login';
@@ -16,7 +17,9 @@ import Welcome from './screens/Welcome';
 import CreateGuide from './screens/CreateGuide';
 import Guide from './screens/Guide';
 import CreatorProfile from './screens/CreatorProfile';
+import SearchMaps from './screens/SearchMaps';
 import Maps from './screens/Maps';
+
 export const Context = React.createContext();
 
 const windowWidth = Dimensions.get('window').width;
@@ -138,12 +141,12 @@ const App = () => {
                 }}
               />
               <Tab.Screen
-                name="Maps"
-                component={Maps}
+                name="SearchMaps"
+                component={SearchMaps}
                 options={{
-                  tabBarLabel: "Maps",
+                  tabBarLabel: "Explore",
                   tabBarIcon: (props) => (
-                    <FontAwesome5 name={"location"} size={props.size} color={props.color} />
+                    <Fontisto name={"world-o"} size={props.size} color={props.color} />
                   )
                 }}
               />

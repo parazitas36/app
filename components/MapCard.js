@@ -20,12 +20,13 @@ const MapCard = (props) => {
                     <ImageSvg
                         width={'100%'}
                         height={'100%'}
-                        href={{ uri: defaultImageURI }}
+                        preserveAspectRatio="xMidYMid slice"
+                        href={{ uri: props.image_uri? props.image_uri :  defaultImageURI }}
                     />
                 </Svg>
                 <View style={styles.overflow}/>
             </View>
-            <Text numberOfLines={2} ellipsizeMode='tail' style={styles.title}>Pavadinimas</Text>
+            <Text numberOfLines={2} ellipsizeMode='tail' style={styles.title}>{props.title ? props.title : Pavadinimas}</Text>
             <View style={styles.ratingview}>
                 <Text style={styles.rating}>{props.rating ? props.rating : '-'}/5</Text>
                 <IOnicons name={'star'} size={24} color={'gold'} />
@@ -73,11 +74,11 @@ const styles = StyleSheet.create({
     arrow: {
         backgroundColor: 'transparent',
         borderColor: 'transparent',
-        borderTopColor: '#fff',
+        borderTopColor: 'rgba(255, 255, 255, 0.7)',
         borderWidth: 16,
         position: 'relative',
         bottom: 0,
-        marginTop: -0.5,
+        marginTop: -0.4,
     },
     title: {
         position: 'absolute',

@@ -26,6 +26,8 @@ target 'app' do
 
   pod 'react-native-video', :path => '../node_modules/react-native-video'
 
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
+
   target 'appTests' do
     inherit! :complete
     # Pods for testing
