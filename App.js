@@ -19,6 +19,7 @@ import Guide from './screens/Guide';
 import CreatorProfile from './screens/CreatorProfile';
 import SearchMaps from './screens/SearchMaps';
 import Maps from './screens/Maps';
+import MyGuides from './screens/MyGuides';
 
 export const Context = React.createContext();
 
@@ -61,6 +62,7 @@ const CreateGuideScreen = () => {
     </CreateGuideScreenStack.Navigator>
   );
 }
+
 
 const Tab = createBottomTabNavigator();
 
@@ -131,10 +133,20 @@ const App = () => {
                 }}
               />
               <Tab.Screen
+                name="MyGuides"
+                component={MyGuides}
+                options={{
+                  tabBarLabel: "My Guides",
+                  tabBarIcon: (props) => (
+                    <FontAwesome5 name={"book"} size={props.size} color={props.color} />
+                  )
+                }}
+              />
+              <Tab.Screen
                 name="GuideCreationTab"
                 component={CreateGuideScreen}
                 options={{
-                  tabBarLabel: "Create Guide",
+                  tabBarLabel: "Create",
                   tabBarIcon: (props) => (
                     <FontAwesome5 name={"plus-circle"} size={props.size} color={props.color} />
                   )
