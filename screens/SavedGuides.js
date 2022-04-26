@@ -7,7 +7,7 @@ import {
     RefreshControl
 } from 'react-native';
 import { ActivityIndicator, Searchbar } from 'react-native-paper';
-import { GetUserGuides } from '../api/GetUserGuides';
+import { GetSavedGuides } from '../api/GetSavedGuides';
 import { Context } from '../App';
 import Card from '../components/Card';
 
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const UserGuides = ({ navigation }) => {
+const SavedGuides = ({ navigation }) => {
     const [guides, setGuides] = React.useState([]);
     const { guideID, accInfo } = React.useContext(Context);
     const [chosenGuideID, setChosenGuideID] = guideID;
@@ -43,7 +43,7 @@ const UserGuides = ({ navigation }) => {
 
     React.useLayoutEffect(() => {
         (async () => {
-            const temp = await GetUserGuides(userInfo['_id']);
+            const temp = await GetSavedGuides(userInfo['_id']);
             setGuides(temp);
             setRefresh(false);
             setFirstLoad(false);
@@ -70,13 +70,7 @@ const UserGuides = ({ navigation }) => {
         >
             <View style={styles.view}>
                 {guides && guides.length === 0 && 
-                  <Text
-                  style={{
-                    fontSize: 20,
-                    color: 'black',
-                    marginTop: 30
-                  }}
-                  >You have not created any guide yet.</Text>
+                  <Text>No guides created.</Text>
                 }
                 {guides && guides.length > 0 &&
                     guides.map((item) => {
@@ -108,4 +102,4 @@ const UserGuides = ({ navigation }) => {
     );
 }
 
-export default UserGuides;
+export default SavedGuides;

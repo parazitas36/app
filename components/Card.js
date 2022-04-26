@@ -80,7 +80,7 @@ const Card = (props) => {
             </Text>
 
             <View style={
-                styles.btn, styles.readMore
+                styles.readMore
             }>
                 <TouchableOpacity>
                     <Pressable style={{
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         top: 10,
         left: 15,
         width: '70%',
-        height: '20%',
+        height: 150,
         overflow: 'hidden',
         textShadowColor: 'black',
         textShadowRadius: 15,
