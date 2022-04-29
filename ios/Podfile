@@ -28,6 +28,8 @@ target 'app' do
 
   pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
+  pod 'RNCPicker', :path => '../node_modules/@react-native-picker/picker'
+
   target 'appTests' do
     inherit! :complete
     # Pods for testing
