@@ -9,6 +9,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import IOnicons from 'react-native-vector-icons/Ionicons'
 import { ActivityIndicator } from 'react-native-paper';
 import VideoBlock from '../components/blocks/VideoBlock';
+import Rating from '../components/Rating';
 import MapView, { Marker } from 'react-native-maps';
 
 const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
@@ -138,6 +139,9 @@ const Guide = ({navigation}) => {
                 >
                 </Marker>
                 </MapView>
+
+                <Rating styles = {styles} />
+
             </ScrollView>
         )
     }
