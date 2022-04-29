@@ -32,7 +32,7 @@ const SaveBtn = (props) => {
         <TouchableOpacity>
             <Pressable style={styles.pressable} onPress={props.onPress}>
                 <FontAwesome5 name='save' size={windowWidth*.1} color="rgba(55, 155, 200, 1)"/>
-                <Text style={styles.text}>Save</Text>
+                <Text style={styles.text}>{props.text ? props.text : "Save"}</Text>
             </Pressable>
         </TouchableOpacity>
     );

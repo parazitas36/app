@@ -16,6 +16,8 @@ import DiscardBtn from '../components/buttons/DiscardBtn';
 import { Context } from '../App';
 import LocationBtn from '../components/buttons/LocationBtn';
 import { ActivityIndicator } from 'react-native-paper';
+import { Picker } from '@react-native-picker/picker';
+import CheckBox from '@react-native-community/checkbox';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -23,10 +25,20 @@ const windowHeight = Dimensions.get('window').height;
 export const CreateGuideContext = createContext();
 
 const CreateGuide = ({ navigation }) => {
+    const categories = [
+        "Museums",
+        "Ancient Buildings",
+        "Art Galleries",
+        "Nature Walks",
+        "Zoos",
+        "Other"
+    ];
     const [title, setTitle] = React.useState(null);
     const [description, setDescription] = React.useState(null);
     const [location, setLocation] = React.useState(null);
     const [city, setCity] = React.useState(null);
+    const [category, setCategory] = React.useState(null);
+    const [publish, setPublish] = React.useState(false);
 
     const [showBlock, setShowBlock] = React.useState(false);
     const [showEditText, setShowEditText] = React.useState(false);
@@ -129,10 +141,12 @@ const CreateGuide = ({ navigation }) => {
     }, [showBlock, rerender]);
 
     if (waiting) {
-        return (<View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
-            <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ justifyContent: 'center', marginTop: 50 }} />
-            <Text style={{fontSize: 30, justifyContent: 'center', textAlign: 'center', color: 'black', marginTop: 15}}>Uploading</Text>
-        </View>)
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ justifyContent: 'center', marginTop: 50 }} />
+                <Text style={{ fontSize: 30, justifyContent: 'center', textAlign: 'center', color: 'black', marginTop: 15 }}>Uploading</Text>
+            </View>
+        )
     }
 
     return (
@@ -169,23 +183,64 @@ const CreateGuide = ({ navigation }) => {
                 }
 
                 <AddBlockBtn onPress={() => setShowBlock(true)} />
-                
-                <LocationBtn function={city? "edit": "add"} onPress={() => navigation.navigate("Maps", { lct: [location, setLocation], setCity })} />
+
+                <LocationBtn function={city ? "edit" : "add"} onPress={() => navigation.navigate("Maps", { lct: [location, setLocation], setCity })} />
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{
+                        color: 'black',
+                        width: '30%',
+                        textAlign: 'center',
+                        fontWeight: '500',
+                        fontSize: 16
+                    }}>
+                        Category:
+                    </Text>
+                    <Picker
+                        style={{ width: '70%' }}
+                        selectedValue={category}
+                        onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+                    >
+                        {
+                            categories.map((cat) => {
+                                return <Picker.Item label={cat} value={cat} />
+                            })
+                        }
+                    </Picker>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{
+                        color: 'black',
+                        fontWeight: '500',
+                        fontSize: 16
+                    }}>Public: </Text>
+                    <CheckBox value={publish} onValueChange={setPublish} />
+                </View>
                 {blocks.length > 0 &&
                     <View style={styles.viewButtons}>
-                        <SaveBtn onPress={async () => {
-                            setWaiting(true);
-                            const resp = await PostGuide(blocks, title, description, userInfo['_id'], location['latitude'], location['longitude'], city)
-                            if(resp) {
-                                setWaiting(false);
-                                setBlocks([]); 
-                                setTitle(null); 
-                                setDescription(null); 
-                                setCity(null); 
-                                setLocation(null);
+                        <SaveBtn
+                            text={publish ? "Post" : "Save"}
+                            onPress={async () => {
+                                setWaiting(true);
+                                const resp = await PostGuide(
+                                    blocks, 
+                                    title, 
+                                    description, 
+                                    userInfo['_id'], 
+                                    location['latitude'], 
+                                    location['longitude'], city,
+                                    category,
+                                    publish
+                                )
+                                if (resp) {
+                                    setWaiting(false);
+                                    setBlocks([]);
+                                    setTitle(null);
+                                    setDescription(null);
+                                    setCity(null);
+                                    setLocation(null);
+                                }
                             }
-                        }
-                        } />
+                            } />
                         <DiscardBtn title="Clear" onPress={() => { setBlocks([]); setTitle(null); setDescription(null); setCity(null); setLocation(null); setRerender(true); }} />
                     </View>
                 }
