@@ -9,7 +9,7 @@ import {
 import { ActivityIndicator, Searchbar } from 'react-native-paper';
 import { GetUserGuides } from '../api/GetUserGuides';
 import { Context } from '../App';
-import Card from '../components/Card';
+import MyCard from '../components/MyCard';
 
 const styles = StyleSheet.create({
     mainView: {
@@ -81,7 +81,7 @@ const UserGuides = ({ navigation }) => {
                 {guides && guides.length > 0 &&
                     guides.map((item) => {
                         if (item) {
-                            return <Card
+                            return <MyCard
                                 uri={item['image']}
                                 creatorID={item['creatorId']}
                                 creator={item['creatorName'] + " " + item['creatorLastName']}
@@ -91,6 +91,7 @@ const UserGuides = ({ navigation }) => {
                                 description={item['description']}
                                 guideID={item['_id']}
                                 favorite={userInfo['savedguides'].includes(item['_id'])}
+                                visible={item['visible']}
                                 savedguides={userInfo['savedguides']}
                                 userID={userInfo['_id']}
                                 onClick={() => {

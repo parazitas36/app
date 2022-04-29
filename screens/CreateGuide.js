@@ -127,7 +127,7 @@ const CreateGuide = ({ navigation }) => {
         }
         setRerender(false);
     }, [showBlock, rerender]);
-
+    //Waiting true tik tada kai bandai sukurt gida ir papostint tada ijungia true kad zinot kada ikelia viska i duombazes
     if (waiting) {
         return (<View style={{flex:1, justifyContent: 'center', alignItems: 'center'}}>
             <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ justifyContent: 'center', marginTop: 50 }} />
