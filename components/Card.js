@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet, Image, Text, View, Pressable } from 'react-nati
 import React, { useState } from 'react'
 import Button from '../components/Button';
 import IOnicons from 'react-native-vector-icons/Ionicons'
-import Feather from 'react-native-vector-icons/Feather'
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { UnsaveGuide } from '../api/UnsaveGuide';
 import { SaveGuide } from '../api/SaveGuide';
@@ -75,7 +75,10 @@ const Card = (props) => {
 
             <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creator}>{props.creator ? props.creator : 'by Username'}</Text>
 
-            <Text style={styles.text}>
+            <Text style={styles.text}
+            numberOfLines={7}
+            ellipsizeMode={'tail'}
+            >
                 {props.description}
             </Text>
 
@@ -84,17 +87,15 @@ const Card = (props) => {
             }>
                 <TouchableOpacity>
                     <Pressable style={{
-                        alignContent: 'center',
                         width: '100%',
                         justifyContent: 'center',
                         alignItems: 'center',
-                        flex: 1,
-                        flexDirection: 'row',
+                        flexDirection: 'column',
                     }}
                         onPress={props.onClick}
                     >
-                        <Text style={styles.btntxt}>READ MORE</Text>
-                        <Feather name='chevrons-down' size={30} color={'rgba(255, 255, 255, 0.9)'} />
+                        <FontAwesome5 style={{marginBottom: -8}} name='chevron-down' size={22} color={'rgba(255, 255, 255, 0.8)'} />
+                        <Text style={styles.btntxt}>Show all</Text>
                     </Pressable>
                 </TouchableOpacity>
             </View>
@@ -109,12 +110,11 @@ const styles = StyleSheet.create({
         width: width * .9,
         margin: 10,
         alignItems: 'center',
-        backgroundColor: 'white',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
         borderTopLeftRadius: 15,
         borderTopRightRadius: 15,
-        backgroundColor: '#FFFAFA',
+        backgroundColor: 'rgba(229, 229, 229, 0.5)',
     },
     image: {
         width: '100%',
@@ -132,14 +132,14 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         position: 'absolute',
         top: 10,
-        left: 15,
+        left: 10,
         width: '70%',
         height: 150,
         overflow: 'hidden',
         textShadowColor: 'black',
         textShadowRadius: 15,
         textShadowOffset: { height: -2, width: 2 },
-        paddingHorizontal: 2,
+        paddingHorizontal: 5,
     },
     text: {
         paddingTop: 10,
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
         paddingHorizontal: 20,
         fontWeight: '400',
-        textAlign: 'justify'
+        textAlign: 'justify',
     },
     btn: {
         height: 60,
@@ -160,9 +160,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     btntxt: {
-        fontSize: 22,
-        color: 'rgba(255, 255, 255, 0.9)',
+        fontSize: 16,
+        color: 'rgba(255, 255, 255, 0.8)',
         fontWeight: '500',
+        marginBottom: 5
     },
     guideButtons: {
         position: 'absolute',
@@ -207,19 +208,14 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        flex: 1,
-        flexDirection: 'row',
+        flexDirection: 'column',
         paddingVertical: 5,
-        backgroundColor: 'rgba(31, 66, 141, 0.925)',
+        backgroundColor: 'rgba( 93, 122, 152, 0.85 )',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
         position: 'absolute',
+        height: 45,
         bottom: 0,
-        shadowColor: '#1f428d',
-        shadowOpacity: 0.5,
-        shadowOffset: { width: 0, height: -10 },
-        shadowRadius: 10,
-        elevation: 15,
     },
     imageOpacity: {
         height: 165,

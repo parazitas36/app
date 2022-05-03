@@ -6,7 +6,8 @@ import {
     Image,
     StyleSheet,
     ScrollView,
-    RefreshControl
+    RefreshControl,
+    ImageBackground
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ActivityIndicator, Button, Searchbar } from 'react-native-paper';
@@ -19,7 +20,12 @@ import { GetAllGuides } from '../api/GetAllGuides';
 import { GetSearchedGuides } from '../api/GetSearchedGuides';
 import { Context } from '../App';
 import Card from '../components/Card';
+
 import react from 'react';
+
+import LinearGradient from 'react-native-linear-gradient';
+
+const image = require('../assets/images/background.png');
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
@@ -126,13 +132,14 @@ const Home = ({ navigation }) => {
 
     if (firstLoad) {
         return (
-            <View>
+            <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
                 <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
-            </View>
+            </ImageBackground>
         )
     }
 
     return (
+    <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
         <HomeContext.Provider value={value}>
             <ScrollView
             style={styles.mainView}
@@ -186,7 +193,8 @@ const Home = ({ navigation }) => {
             </View>
         </ScrollView>
         </HomeContext.Provider>
-        
+        </ImageBackground>
+    
     );
 }
 

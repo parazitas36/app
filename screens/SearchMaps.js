@@ -1,10 +1,12 @@
 import React from 'react'
-import { View } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { ActivityIndicator } from 'react-native-paper';
 import { GetAllGuides } from '../api/GetAllGuides';
 import Button from '../components/Button';
 import MapCard from '../components/MapCard';
+
+const image = require('../assets/images/background.png');
 
 const SearchMaps = () => {
     const [region, setRegion] = React.useState({
@@ -29,7 +31,9 @@ const SearchMaps = () => {
     }
 
     if(!guides){
-        return <ActivityIndicator />
+        <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+                <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
+        </ImageBackground>
     }
 
     return (

@@ -4,12 +4,15 @@ import {
     Text,
     StyleSheet,
     ScrollView,
-    RefreshControl
+    RefreshControl,
+    ImageBackground
 } from 'react-native';
 import { ActivityIndicator, Searchbar } from 'react-native-paper';
 import { GetUserGuides } from '../api/GetUserGuides';
 import { Context } from '../App';
 import MyCard from '../components/MyCard';
+
+const image = require('../assets/images/background.png');
 
 const styles = StyleSheet.create({
     mainView: {
@@ -52,13 +55,14 @@ const UserGuides = ({ navigation }) => {
 
     if (firstLoad) {
         return (
-            <View>
+            <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
                 <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
-            </View>
+            </ImageBackground>
         )
     }
 
     return (
+        <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
         <ScrollView
             style={styles.mainView}
             refreshControl={
@@ -104,8 +108,9 @@ const UserGuides = ({ navigation }) => {
                         }
                     })
                 }
-            </View>
-        </ScrollView>
+                </View>
+            </ScrollView>
+        </ImageBackground>
     );
 }
 
