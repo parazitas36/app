@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const GetSearchedGuides = async(searchInput, category) => {
-    const resp = await fetch('http://localhost:5000/api/guides/searched', {
+    const resp = await fetch('https://v-guide.herokuapp.com/api/guides/searched', {
         method: 'Post',
         headers: {
             "Accept" : "*/*",
@@ -11,14 +11,12 @@ export const GetSearchedGuides = async(searchInput, category) => {
             "Category" : category,
             "SearchInput" : searchInput
         })
-            // "Category" : searchInput,
-            // "SearchInput" : category
     });
-    const res = await resp.json();
-    console.log(res.length)
+    
     if(resp.status === 200){
+        const res = await resp.json();
         return res;
     }else{
-        return null
+        return []
     }
 }
