@@ -22,11 +22,15 @@ const Guide = ({navigation}) => {
     const [chosenGuideID, setChosenGuideID] = guideID;
     const [guideInfo, setGuideInfo] = React.useState(null);
     const [chosenProfileID, setChosenProfileID] = creatorInfo;
+    const [isRatingZero, setIfZero] = React.useState(true);
 
     React.useLayoutEffect(() => {
         (async () => {
             const resp = await GetGuideById(chosenGuideID);
             setGuideInfo(resp);
+            if(resp['rating'] !== 0){
+                setIfZero(false);
+            }
         })()
     }, [])
 
@@ -96,7 +100,7 @@ const Guide = ({navigation}) => {
 
                 {/* Reitingas */}
                 <View style={[styles.guideButtons, { top: 200 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
-                    <Text style={styles.rating}>Rating: {guideInfo['rating']}/5</Text>
+                    <Text style={styles.rating}>Rating: {isRatingZero? "-" : guideInfo['rating']}/5</Text>
                     <IOnicons name={'star'} size={25} color={'gold'} />
                 </View>
 
