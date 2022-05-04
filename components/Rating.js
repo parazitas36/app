@@ -102,10 +102,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     text:{
-        fontSize: 16,
+        fontSize: 17,
         paddingHorizontal: 20,
         paddingVertical: 10,
         color: 'black',
+        fontWeight: '500',
     },
     stars:{
         flexDirection: 'row'
