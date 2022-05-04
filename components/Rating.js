@@ -85,8 +85,8 @@ const RatingBlock = (props) => {
                         multiline = {true}
                         onChangeText = {setText}></TextInput>
                     <TouchableOpacity>
-                        <Pressable onPress={() => {PublishResponse(props.guideId, props.userId)}}>
-                            <Fontisto name = {'email'} style = {styles.btn} size ={30} color={'black'}></Fontisto>
+                        <Pressable style = {styles.btn} onPress={() => {PublishResponse(props.guideId, props.userId)}}>
+                            <Fontisto name = {'email'} size ={30} color={'black'}></Fontisto>
                         </Pressable>
                     </TouchableOpacity>
                     {/* <Button 
@@ -137,14 +137,14 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     btn:{
-        marginLeft: width * 0.7,
-        marginTop: 5,
-        paddingBottom: 5,
-        width: width*0.2,
-        height: width * 0.085,
-        borderWidth: 1,
+        width: 85,
+        height: 35,
+        borderWidth: 1.85,
         textAlign: 'center',
         alignItems: 'center',
-        borderRadius: 5
+        justifyContent: 'center',
+        alignSelf:'center',
+        borderRadius: 5,
+        marginTop: 5,
     }
 })

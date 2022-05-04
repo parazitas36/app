@@ -7,7 +7,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
-    btn:{
+    btn: {
         padding: 15,
     }
 })
@@ -15,8 +15,14 @@ const styles = StyleSheet.create({
 const SearchBtn = (props) => {
     return (
         <TouchableOpacity>
-            <Pressable style={styles.btn} onPress={props.onPress}>
-                <FontAwesome5 name='search' size={windowWidth * 0.05} color="grey"/>
+            <Pressable style={{
+                marginVertical: 10,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}
+                onPress={props.onPress}>
+                <FontAwesome5 name='search' size={25} color="black" />
             </Pressable>
         </TouchableOpacity>
     );
