@@ -35,7 +35,6 @@ const ResponseCard = (props) => {
     }else if(!loading && responses === null){
         return(
             <View>
-                <Button onPress={() =>{Print()}}>press</Button>
             </View>
         )
     }else{
@@ -43,20 +42,34 @@ const ResponseCard = (props) => {
             <ScrollView >
                 <Text style={styles.textTitle}>Users ratings</Text>
                 {responses.map((data) => {
+                    const stars = [];
+                    for(var i = 0; i < data['rating']; i++){
+                        stars.push(i+1);
+                    }
                     return<View style = {styles.view}>
-                        {/* <Image
+                        <View style = {styles.viewRating}>
+                            <Image
                                 source={{ uri: profile_img }}
                                 style={styles.profile_image}
                                 resizeMode="cover"
-                            /> */}
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creator}>
-                            {"By: "+data['firstName'] + " " + data['lastName']}
-                        </Text>
+                            />
+                            <View style = {styles.viewColumn}>
+                                <View style = {styles.star}>
+                                    {stars.map((star) => {
+                                        return (
+                                        <MaterialIcons name={'star'} size={25} color={'gold'}/> 
+                                        )}
+                                    )}
+                                </View >
+                                <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creator}>
+                                    {'By: ' + data['firstName'] + " " + data['lastName']}
+                                </Text>
+                            </View>
+                        </View> 
                         <Text style = {styles.text}>{data['text']}</Text>
                     </View>
                 }
                 )}
-                <Button onPress={() =>{Print()}}>press</Button>
             </ScrollView>
         )
     }
@@ -80,7 +93,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '500',
         left: 10,
-        width: '60%',
+        width: width * 0.7,
         overflow: 'hidden',
     },
     text:{
@@ -88,7 +101,7 @@ const styles = StyleSheet.create({
         color: 'black',
         backgroundColor: 'transparent',
         textAlign: 'left',
-        width: width*0.9,
+        width: width*0.8,
         marginLeft: width*0.05,
         fontSize: 15,
         numberOfLines: 'auto'
@@ -100,22 +113,31 @@ const styles = StyleSheet.create({
         marginLeft: width*0.05,
         fontWeight: '500',
     },
-    profile_image_view: {
-        height: 36,
-        width: 36,
-        borderWidth: 1,
-        borderColor: 'rgba(0, 0, 0, 0.15)',
-        borderRadius: 90,
-        position: 'absolute',
-        top: 130,
-        left: 10,
-    },
     profile_image: {
         marginLeft: width*0.03,
-        width: width * 0.08,
-        height: width * 0.08,
+        width: width * 0.1,
+        height: width * 0.1,
         aspectRatio: 1,
         borderWidth: 1,
         borderColor: 'rgba(0, 0, 0, 0.15)', borderRadius: 180,
     },
+    viewRating:{
+        flexDirection: 'row',
+        width: width * 0.15,
+    },
+    textRating:{
+        color: 'black',
+        backgroundColor: 'transparent',
+        textAlign: 'left',
+        marginLeft: width*0.05,
+        fontSize: 17,
+    },
+    star: {
+        marginLeft: 5,
+        flexDirection: 'row',
+        width: width * 0.3,
+    },
+    viewColumn:{
+        flexDirection: 'column',
+    }
 })

@@ -81,9 +81,10 @@ const RatingBlock = (props) => {
                         style = {styles.textInput} 
                         defaultValue = {!isNull ? userResponse['text'] : ''}
                         placeholder = {"Enter a comment"}
+                        multiline = {true}
                         onChangeText = {setText}></TextInput>
                     <Button 
-                        color='black' 
+                        color='blue' 
                         style = {styles.btn} 
                         onPress = {() => {PublishResponse(props.guideId, props.userId)}}>Publish</Button>
                 </View>
@@ -116,6 +117,7 @@ const styles = StyleSheet.create({
         width: width * 0.9,
         textAlign: 'justify',
         padding: 5,
+        numberOfLines: 'auto',
     },
     view: {
         flexDirection: 'column',
@@ -128,9 +130,9 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     btn:{
-        width: width * 0.3,
-        backgroundColor: 'grey',
-        color : 'black',
-        marginTop: 10,
+        marginRight: width * 0.7,
+        width: width * 0.25,
+        marginTop: 5,
+        paddingBottom: 10,
     }
 })
