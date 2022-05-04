@@ -42,7 +42,25 @@ const Maps = ({navigation, route}) => {
                 </Marker>
             </MapView>
             <Button title="Pick" 
-            styles={{btn: {}, btntxt: {}}}
+            styles={{
+                btn: {
+                    borderColor: 'black',
+                    borderWidth: 1,
+                    width: 100,
+                    height: 40,
+                    borderRadius: 5,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    backgroundColor: 'white',
+                    marginTop: 15
+                }, 
+                btntxt: {
+                    color: 'black',
+                    fontSize: 20,
+                    fontWeight: '500'
+                }
+            }}
             onPress={() => { ReverseGeocoding(region['longitude'], region['latitude'], setCity); setLocation(region); navigation.navigate('CreateGuide');}}/>
         </View>
     )
