@@ -1,6 +1,7 @@
 import { View, StyleSheet, Dimensions, Text, Pressable, Alert } from 'react-native'
 import React from 'react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Fontisto from 'react-native-vector-icons/Fontisto'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { GetUserResponse } from '../api/GetUserResponse';
 import { SendResponse } from '../api/SendResponse';
@@ -83,10 +84,16 @@ const RatingBlock = (props) => {
                         placeholder = {"Enter a comment"}
                         multiline = {true}
                         onChangeText = {setText}></TextInput>
-                    <Button 
+                    <TouchableOpacity>
+                        <Pressable onPress={() => {PublishResponse(props.guideId, props.userId)}}>
+                            <Fontisto name = {'email'} style = {styles.btn} size ={30} color={'black'}></Fontisto>
+                        </Pressable>
+                    </TouchableOpacity>
+                    {/* <Button 
                         color='blue' 
                         style = {styles.btn} 
-                        onPress = {() => {PublishResponse(props.guideId, props.userId)}}>Publish</Button>
+                        onPress = {() => {PublishResponse(props.guideId, props.userId)}}>Publish
+                    </Button> */}
                 </View>
             </ScrollView>
           )
@@ -130,9 +137,14 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     btn:{
-        marginRight: width * 0.7,
-        width: width * 0.25,
+        marginLeft: width * 0.7,
         marginTop: 5,
-        paddingBottom: 10,
+        paddingBottom: 5,
+        width: width*0.2,
+        height: width * 0.085,
+        borderWidth: 1,
+        textAlign: 'center',
+        alignItems: 'center',
+        borderRadius: 5
     }
 })
