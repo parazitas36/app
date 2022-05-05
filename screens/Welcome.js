@@ -1,64 +1,112 @@
 import React, { useContext } from 'react'
-import { StyleSheet, View, Dimensions, Text } from 'react-native';
-import Button from '../components/Button';
+import { StyleSheet, View, Dimensions, Text, ImageBackground, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
+    buttonsView: {
+        width: '90%'
+    },
     view: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingBottom: 15
+        backgroundColor: 'rgba(0, 0, 0, 0.2)'
     },
-    btn: {
-        backgroundColor: "rgba(25, 105, 235, 1)",
-        width: width*.9,
-        height: 60,
-        borderRadius: 30,
-        marginVertical: 10,
-        justifyContent: 'center'
+    title: {
+        color: 'rgba(255, 255, 255, 0.95)',
+        fontSize: 44,
+        marginBottom: 60,
+        textShadowColor: 'black',
+        textShadowOffset: {
+            width: 2,
+            height: 2
+        },
+        textShadowRadius: 7
     },
-    btntxt: {
-        color: 'white',
-        fontSize: 28,
-        alignSelf: 'center',
-        fontWeight: 'bold'
+    image: {
+        width: 250,
+        resizeMode: 'contain',
+        borderRadius: 5
     },
-    text: {
-        color: 'rgba(50, 50, 50, 1)',
-        fontSize: 36,
-        fontWeight: '500',
-        marginBottom: 15
-    }
+    registerButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'flex-end'
+    },
+    registerText: {
+        position: 'absolute',
+        top: 9,
+        color: 'rgba(255, 255, 255, 0.9)',
+        fontSize: 32,
+        textShadowColor: 'black',
+        textShadowOffset: {
+            width: 3,
+            height: 3
+        },
+        textShadowRadius: 7
+    },
+    loginButton: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'flex-start',
+    },
+    loginText: {
+        position: 'absolute',
+        bottom: 15,
+        color: 'rgba(255, 255, 255, 0.9)',
+        fontSize: 32,
+        textShadowColor: 'black',
+        textShadowOffset: {
+            width: 3,
+            height: 3
+        },
+        textShadowRadius: 7
+    },
 })
 
-const stylesLogin = StyleSheet.create({
-    btn: {
-        backgroundColor: "#eeeeee",
-        borderWidth: 1.3,
-        borderColor: 'rgba(25, 105, 235, 1)',
-        width: width*.9,
-        height: 60,
-        borderRadius: 30,
-        marginVertical: 10,
-        justifyContent: 'center'
-    },
-    btntxt: {
-        color: 'rgba(25, 105, 235, 1)',
-        fontSize: 28,
-        alignSelf: 'center',
-        fontWeight: 'bold'
-    }
-})
+const image = require('../assets/images/welcome.png');
+const loginImage = require('../assets/images/Login.png');
+const registerImage = require('../assets/images/Register.png');
 
-const Welcome = ({navigation}) => {
+const CustomButton = (imageSource, text, buttonStyle, textStyle, onPress) => {
     return (
-        <View style={styles.view}>
-            <Text style={styles.text}>Welcome!</Text>
-            <Button title='Login' styles={stylesLogin} onPress={() => navigation.push('Login')}/>
-            <Button title='Register' styles={styles} onPress={() => navigation.push('Register')}/>
+        <TouchableOpacity>
+            <Pressable style={buttonStyle} onPress={onPress}>
+                <Image style={styles.image} source={imageSource} />
+                <Text style={textStyle}>{text}</Text>
+            </Pressable>
+        </TouchableOpacity>
+    );
+}
+
+const Welcome = ({ navigation }) => {
+    return (
+        <View style={{ flex: 1 }}>
+            <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+                <View style={styles.view}>
+                    <Text style={styles.title}>Welcome!</Text>
+                    <View style={styles.buttonsView}>
+                        {CustomButton(
+                            loginImage,
+                            "Login",
+                            styles.loginButton,
+                            styles.loginText,
+                            () => navigation.push('Login')
+                        )}
+                        {CustomButton(
+                            registerImage,
+                            "Register",
+                            styles.registerButton,
+                            styles.registerText,
+                            () => navigation.push('Register')
+                        )}
+                    </View>
+                </View>
+            </ImageBackground>
         </View>
     );
 }

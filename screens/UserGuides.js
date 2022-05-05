@@ -55,62 +55,66 @@ const UserGuides = ({ navigation }) => {
 
     if (firstLoad) {
         return (
-            <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
-                <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
-            </ImageBackground>
+            <View style={{ flex: 1 }}>
+                <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+                    <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
+                </ImageBackground>
+            </View>
         )
     }
 
     return (
-        <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
-        <ScrollView
-            style={styles.mainView}
-            refreshControl={
-                <RefreshControl
-                    refreshing={refresh}
-                    onRefresh={() => setRefresh(true)}
-                />
-            }
-        >
-            <View style={styles.view}>
-                {guides && guides.length === 0 && 
-                  <Text
-                  style={{
-                    fontSize: 20,
-                    color: 'black',
-                    marginTop: 30
-                  }}
-                  >You have not created any guide yet.</Text>
-                }
-                {guides && guides.length > 0 &&
-                    guides.map((item) => {
-                        if (item) {
-                            return <MyCard
-                                uri={item['image']}
-                                creatorID={item['creatorId']}
-                                creator={item['creatorName'] + " " + item['creatorLastName']}
-                                rating={item['rating']}
-                                city={item['city']}
-                                title={item['title']}
-                                description={item['description']}
-                                guideID={item['_id']}
-                                favorite={userInfo['savedguides'].includes(item['_id'])}
-                                visible={item['visible']}
-                                savedguides={userInfo['savedguides']}
-                                userID={userInfo['_id']}
-                                onClick={() => {
-                                    setChosenGuideID(item['_id']);
-                                    console.log(item['_id'])
-                                    navigation.navigate("Guide")
-                                }
-                                }
-                            />
+        <View style={{ flex: 1 }}>
+            <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+                <ScrollView
+                    style={styles.mainView}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refresh}
+                            onRefresh={() => setRefresh(true)}
+                        />
+                    }
+                >
+                    <View style={styles.view}>
+                        {guides && guides.length === 0 &&
+                            <Text
+                                style={{
+                                    fontSize: 20,
+                                    color: 'black',
+                                    marginTop: 30
+                                }}
+                            >You have not created any guide yet.</Text>
                         }
-                    })
-                }
-                </View>
-            </ScrollView>
-        </ImageBackground>
+                        {guides && guides.length > 0 &&
+                            guides.map((item) => {
+                                if (item) {
+                                    return <MyCard
+                                        uri={item['image']}
+                                        creatorID={item['creatorId']}
+                                        creator={item['creatorName'] + " " + item['creatorLastName']}
+                                        rating={item['rating']}
+                                        city={item['city']}
+                                        title={item['title']}
+                                        description={item['description']}
+                                        guideID={item['_id']}
+                                        favorite={userInfo['savedguides'].includes(item['_id'])}
+                                        visible={item['visible']}
+                                        savedguides={userInfo['savedguides']}
+                                        userID={userInfo['_id']}
+                                        onClick={() => {
+                                            setChosenGuideID(item['_id']);
+                                            console.log(item['_id'])
+                                            navigation.navigate("Guide")
+                                        }
+                                        }
+                                    />
+                                }
+                            })
+                        }
+                    </View>
+                </ScrollView>
+            </ImageBackground>
+        </View>
     );
 }
 

@@ -5,21 +5,28 @@ import {
     TextInput,
     StyleSheet,
     Dimensions,
-    ActivityIndicator
+    ActivityIndicator,
+    ImageBackground
 } from 'react-native';
 import { Context } from '../App';
 import Button from '../components/Button';
 import { LoginAPI } from '../api/LoginAPI';
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import Fontisto from 'react-native-vector-icons/Fontisto'
+import Entypo from 'react-native-vector-icons/Entypo'
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+
+const image = require('../assets/images/welcome.png');
 
 const Login = () => {
     const { loggedIn, setLoggedIn, accInfo } = React.useContext(Context);
     const [userInfo, setUserInfo] = accInfo;
     const [email, setEmail] = React.useState(null);
     const [password, setPassword] = React.useState(null);
-    const [error, setError] = React.useState(null);
     const [waiting, setWaiting] = React.useState(false);
 
     const checkEmail = () => {
@@ -31,9 +38,7 @@ const Login = () => {
     }
 
     const Login_In = async () => {
-        setError(null);
         if (!email || !password) {
-            setError("You cannot leave empty fields!");
             return;
         }
         if (checkEmail()) {
@@ -50,30 +55,43 @@ const Login = () => {
                 setWaiting(false);
                 setLoggedIn(true);
             } else if (resp.status === 404) {
-                setError("Your Email Address or Password is not correct!");
                 setWaiting(false);
             }
         } else {
-            setError("Your Email Address is invalid!")
             return;
         }
     }
 
     return (
-        <View style={styles.loginForm}>
-            <Text style={styles.txt}>Login</Text>
-            {waiting && <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center' }} />
-            }
-            {!waiting && error &&
-                <Text style={{ fontSize: 16, color: "red", marginBottom: 15 }}>{error}</Text>
-            }
-            {!waiting &&
-            <View>
-                <TextInput style={styles.txtInput} onChangeText={setEmail} placeholder={"Email Address"} placeholderTextColor={'grey'} />
-                <TextInput textContentType="password" secureTextEntry={true} style={styles.txtInput} onChangeText={setPassword} placeholder={"Password"} placeholderTextColor={'grey'} />
-                <Button styles={styles} title='Login' onPress={() => { Login_In() }} />
-            </View>
-            }
+        <View style={{ flex: 1 }}>
+            <ImageBackground blurRadius={5} source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+                <View style={styles.loginForm}>
+                    <Text style={styles.txt}>Login</Text>
+                    {waiting && <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center' }} />
+                    }
+                    {!waiting &&
+                        <View style={styles.inputView}>
+                            <View style={styles.input}>
+                                <View style={styles.icon}>
+                                    <Ionicons color={'white'} size={28} name="person-sharp" />
+                                </View>
+                                <TextInput style={styles.txtInput} onChangeText={setEmail} placeholder={"Email Address"} placeholderTextColor={'white'} />
+                            </View>
+                            <View style={styles.input}>
+                                <View style={styles.icon}>
+                                    <Fontisto color={'white'} size={28} name="locked" />
+                                </View>
+                                <TextInput textContentType="password" secureTextEntry={true} style={styles.txtInput} onChangeText={setPassword} placeholder={"Password"} placeholderTextColor={'white'} />
+                            </View>
+                            <TouchableOpacity>
+                                <Pressable style={styles.loginButton} onPress={() => { Login_In() }}>
+                                    <Entypo color={'white'} size={35} name="login" />
+                                </Pressable>
+                            </TouchableOpacity>
+                        </View>
+                    }
+                </View>
+            </ImageBackground>
         </View>
     );
 }
@@ -83,35 +101,56 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.2)'
     },
     txtInput: {
-        borderWidth: 1,
-        borderTopWidth: 0,
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
-        padding: 5,
-        marginBottom: 15,
-        width: windowWidth * .7,
+        width: 280,
+        height: 50,
         fontSize: 17,
-        color: 'black',
+        color: '#fff',
+        marginLeft: 5
     },
     txt: {
-        color: "#000",
-        fontSize: 36,
-        marginBottom: 20,
+        color: "#fff",
+        fontSize: 42,
+        fontWeight: '500',
+        marginBottom: 15,
+        textShadowColor: 'black',
+        textShadowOffset: {
+            width: 2,
+            height: 2
+        },
+        textShadowRadius: 7
     },
-    btn: {
-        width: windowWidth * .3,
+    input: {
+        backgroundColor: 'rgba(255, 255, 255, 0.25)',
+        marginVertical: 10,
         alignItems: 'center',
-        borderWidth: 1,
-        paddingVertical: 10,
         borderRadius: 10,
-        marginVertical: 5,
-        alignSelf: 'center'
+        flexDirection: 'row',
     },
-    btntxt: {
-        color: '#000',
-        fontSize: 20,
+    icon: {
+        height: 50,
+        width: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: 'rgba(255, 255, 255, 0.5)',
+        borderWidth: 1.5,
+        borderTopLeftRadius: 10,
+        borderBottomStartRadius: 10
+    },
+    loginButton: {
+        alignSelf: 'flex-end',
+        borderColor: 'rgba(255, 255, 255, 0.9)',
+        borderWidth: 2,
+        borderRadius: 5,
+        padding: 5,
+        marginRight: 5,
+        paddingHorizontal: 10,
+        marginTop: 5,
+    },
+    inputView: {
+        marginTop: 30,
     }
 })
 

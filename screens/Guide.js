@@ -4,7 +4,6 @@ import { Context } from '../App';
 import { GetGuideById } from '../api/GetGuideById';
 import TextBlock from '../components/blocks/TextBlock';
 import ImageBlock from '../components/blocks/ImageBlock';
-import { ConvertBytesToFile } from '../api/ConvertBytesToFile';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import IOnicons from 'react-native-vector-icons/Ionicons'
 import { ActivityIndicator } from 'react-native-paper';
@@ -38,7 +37,6 @@ const Guide = ({navigation}) => {
             </View>
         )
     } else {
-        console.log(guideInfo)
         // Paima pirma nuotrauka kaip pagrindine foto
         let headerImageURI = null;
         for (let i = 0; i < guideInfo['blocks'].length; i++) {
@@ -89,9 +87,9 @@ const Guide = ({navigation}) => {
                 </View>
 
                 {/* Lokacija */}
-                <View style={[styles.guideButtons, { top: 125, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
+                <View style={[styles.guideButtons, { top: 125, flex: 1, flexDirection: 'row', alignItems: 'center'}]}>
                     <IOnicons name='location-outline' color="white" size={30} />
-                    <Text style={styles.city}>{guideInfo['city']}</Text>
+                    <Text numberOfLines={1} ellipsizeMode="tail" style={styles.city}>{guideInfo['city']}</Text>
                 </View>
 
                 {/* Reitingas */}

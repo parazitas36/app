@@ -29,6 +29,17 @@
 		E064C740642146BDB5D747E5 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A5C547670BE74041B7BFE86D /* SimpleLineIcons.ttf */; };
 		4B47E0C61238465193F9F07E /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 02EA0F004371491184AD5367 /* Zocial.ttf */; };
 		F92FE7489BBE4879A8EA587F /* LoremIpsum.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 397F06DE799345C4B119C59A /* LoremIpsum.ttf */; };
+		6F306F487EC44A2CAD3FD3F5 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 8F3B33FEE36947298637F024 /* background.png */; };
+		C743B646915D4B45972DD157 /* Login.png in Resources */ = {isa = PBXBuildFile; fileRef = FDF5B3C2282D47C28A16252E /* Login.png */; };
+		66773D14661343D1B889C196 /* Register.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A07F47EC804404982FC0CEB /* Register.png */; };
+		B2007867581E4691AF52E1AF /* welcome.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D33D7D36A094A4BB9E0DBD5 /* welcome.png */; };
+		5E2E4321276248CB9261E812 /* Art.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A4D345E2688847CB9B7178F2 /* Art.jpg */; };
+		90F493782C3E475F94A9D468 /* Dovydas.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AC050A7F0B54F3F927BFEE4 /* Dovydas.png */; };
+		A62F053B223743F6881C002E /* Dzeus.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AF143BE9C31E4B6A87ED12F8 /* Dzeus.jpg */; };
+		B407D0490D174F25B725DA6C /* koliziejus.png in Resources */ = {isa = PBXBuildFile; fileRef = 86BAC9CAF9C64515B1B82FEE /* koliziejus.png */; };
+		F0E171EB75AE4F5BA6E9C6AB /* koliziejus2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9662069B9003440D869894C6 /* koliziejus2.jpg */; };
+		C97ACD58EE8F444C9DDA70E8 /* Lion.png in Resources */ = {isa = PBXBuildFile; fileRef = 9250771DDFC743A881BDE617 /* Lion.png */; };
+		FCC47DC1399E4D26AFAEC699 /* tree.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF9B030DD2BE4D2497F18D87 /* tree.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +81,17 @@
 		A5C547670BE74041B7BFE86D /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		02EA0F004371491184AD5367 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		397F06DE799345C4B119C59A /* LoremIpsum.ttf */ = {isa = PBXFileReference; name = "LoremIpsum.ttf"; path = "../assets/fonts/LoremIpsum.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8F3B33FEE36947298637F024 /* background.png */ = {isa = PBXFileReference; name = "background.png"; path = "../assets/images/background.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FDF5B3C2282D47C28A16252E /* Login.png */ = {isa = PBXFileReference; name = "Login.png"; path = "../assets/images/Login.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0A07F47EC804404982FC0CEB /* Register.png */ = {isa = PBXFileReference; name = "Register.png"; path = "../assets/images/Register.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2D33D7D36A094A4BB9E0DBD5 /* welcome.png */ = {isa = PBXFileReference; name = "welcome.png"; path = "../assets/images/welcome.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A4D345E2688847CB9B7178F2 /* Art.jpg */ = {isa = PBXFileReference; name = "Art.jpg"; path = "../assets/Art.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4AC050A7F0B54F3F927BFEE4 /* Dovydas.png */ = {isa = PBXFileReference; name = "Dovydas.png"; path = "../assets/Dovydas.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		AF143BE9C31E4B6A87ED12F8 /* Dzeus.jpg */ = {isa = PBXFileReference; name = "Dzeus.jpg"; path = "../assets/Dzeus.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		86BAC9CAF9C64515B1B82FEE /* koliziejus.png */ = {isa = PBXFileReference; name = "koliziejus.png"; path = "../assets/koliziejus.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9662069B9003440D869894C6 /* koliziejus2.jpg */ = {isa = PBXFileReference; name = "koliziejus2.jpg"; path = "../assets/koliziejus2.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9250771DDFC743A881BDE617 /* Lion.png */ = {isa = PBXFileReference; name = "Lion.png"; path = "../assets/Lion.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CF9B030DD2BE4D2497F18D87 /* tree.jpg */ = {isa = PBXFileReference; name = "tree.jpg"; path = "../assets/tree.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +201,17 @@
 				A5C547670BE74041B7BFE86D /* SimpleLineIcons.ttf */,
 				02EA0F004371491184AD5367 /* Zocial.ttf */,
 				397F06DE799345C4B119C59A /* LoremIpsum.ttf */,
+				8F3B33FEE36947298637F024 /* background.png */,
+				FDF5B3C2282D47C28A16252E /* Login.png */,
+				0A07F47EC804404982FC0CEB /* Register.png */,
+				2D33D7D36A094A4BB9E0DBD5 /* welcome.png */,
+				A4D345E2688847CB9B7178F2 /* Art.jpg */,
+				4AC050A7F0B54F3F927BFEE4 /* Dovydas.png */,
+				AF143BE9C31E4B6A87ED12F8 /* Dzeus.jpg */,
+				86BAC9CAF9C64515B1B82FEE /* koliziejus.png */,
+				9662069B9003440D869894C6 /* koliziejus2.jpg */,
+				9250771DDFC743A881BDE617 /* Lion.png */,
+				CF9B030DD2BE4D2497F18D87 /* tree.jpg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -291,6 +324,17 @@
 				E064C740642146BDB5D747E5 /* SimpleLineIcons.ttf in Resources */,
 				4B47E0C61238465193F9F07E /* Zocial.ttf in Resources */,
 				F92FE7489BBE4879A8EA587F /* LoremIpsum.ttf in Resources */,
+				6F306F487EC44A2CAD3FD3F5 /* background.png in Resources */,
+				C743B646915D4B45972DD157 /* Login.png in Resources */,
+				66773D14661343D1B889C196 /* Register.png in Resources */,
+				B2007867581E4691AF52E1AF /* welcome.png in Resources */,
+				5E2E4321276248CB9261E812 /* Art.jpg in Resources */,
+				90F493782C3E475F94A9D468 /* Dovydas.png in Resources */,
+				A62F053B223743F6881C002E /* Dzeus.jpg in Resources */,
+				B407D0490D174F25B725DA6C /* koliziejus.png in Resources */,
+				F0E171EB75AE4F5BA6E9C6AB /* koliziejus2.jpg in Resources */,
+				C97ACD58EE8F444C9DDA70E8 /* Lion.png in Resources */,
+				FCC47DC1399E4D26AFAEC699 /* tree.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -33,9 +33,9 @@ const CreateGuideScreenStack = createStackNavigator();
 const WelcomeScreen = () => {
   return (
     <WelcomeScreenStack.Navigator>
-      <WelcomeScreenStack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
-      <WelcomeScreenStack.Screen name="Login" component={Login} />
-      <WelcomeScreenStack.Screen name="Register" component={Register} />
+      <WelcomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Welcome" component={Welcome} />
+      <WelcomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false  }} name="Login" component={Login} />
+      <WelcomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false  }} name="Register" component={Register} />
     </WelcomeScreenStack.Navigator>
   );
 }
@@ -48,8 +48,8 @@ const HomeScreen = () => {
       }}
     >
       <HomeScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="Home" component={Home} />
-      <HomeScreenStack.Screen options={{animationEnabled: true, headerShown: false}} name="Guide" component={Guide} />
-      <HomeScreenStack.Screen options={{animationEnabled: true, headerShown: false}} name="CreatorProfile" component={CreatorProfile} />
+      <HomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Guide" component={Guide} />
+      <HomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="CreatorProfile" component={CreatorProfile} />
     </HomeScreenStack.Navigator>
   );
 }
@@ -57,8 +57,8 @@ const HomeScreen = () => {
 const CreateGuideScreen = () => {
   return (
     <CreateGuideScreenStack.Navigator>
-      <CreateGuideScreenStack.Screen options={{headerShown: false, animationEnabled: true}} name="CreateGuide" component={CreateGuide}/>
-      <CreateGuideScreenStack.Screen options={{headerShown: false, animationEnabled: true}} name="Maps" component={Maps}/>
+      <CreateGuideScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="CreateGuide" component={CreateGuide} />
+      <CreateGuideScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="Maps" component={Maps} />
     </CreateGuideScreenStack.Navigator>
   );
 }
@@ -73,12 +73,12 @@ const App = () => {
   const [userInfo, setUserInfo] = React.useState(null);
 
   return (
-    <Context.Provider value={{ 
+    <Context.Provider value={{
       loggedIn, setLoggedIn,
-      guideID: [chosenGuideID, setChosenGuideID], 
+      guideID: [chosenGuideID, setChosenGuideID],
       accInfo: [userInfo, setUserInfo],
       creatorInfo: [chosenProfileID, setChosenProfileID]
-      }}
+    }}
     >
       <StatusBar barStyle="dark-content" backgroundColor="#eeeeee" />
       <NavigationContainer>
@@ -169,7 +169,7 @@ const App = () => {
                     padding: 0,
                   },
                   tabBarIcon: (props) => (
-                    <FontAwesome5 style={props.style} name={"plus-circle"} size={props.size*1.75} color={props.color} />
+                    <FontAwesome5 style={props.style} name={"plus-circle"} size={props.size * 1.75} color={props.color} />
                   )
                 }}
               />
