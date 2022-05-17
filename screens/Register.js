@@ -4,16 +4,20 @@ import {
     Text,
     TextInput,
     StyleSheet,
-    Dimensions
+    Dimensions,
+    ImageBackground
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ActivityIndicator } from 'react-native-paper';
 import { RegisterAPI } from '../api/RegisterAPI';
-import { Context } from '../App';
 import Button from '../components/Button';
+import Ionicons from 'react-native-vector-icons/Ionicons'
+import Fontisto from 'react-native-vector-icons/Fontisto'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+
+const image = require('../assets/images/welcome.png');
 
 const Register = ({ navigation }) => {
     const [email, setEmail] = React.useState(null);
@@ -21,7 +25,6 @@ const Register = ({ navigation }) => {
     const [lname, setLname] = React.useState(null);
     const [password, setPassword] = React.useState(null);
     const [rpassword, setRPassword] = React.useState(null);
-    const [error, setError] = React.useState(null);
     const [waiting, setWaiting] = React.useState(false);
 
     const checkEmail = () => {
@@ -33,13 +36,10 @@ const Register = ({ navigation }) => {
     }
 
     const Post_Register = async () => {
-        setError(null);
         if (!fname || !lname || !email || !password || !rpassword) {
-            setError("You cannot leave empty fields!");
             return;
         }
         if (password !== rpassword) {
-            setError("Both passwords must match!")
             return;
         }
         if (checkEmail()) {
@@ -53,41 +53,58 @@ const Register = ({ navigation }) => {
             const resp = await RegisterAPI(data);
             if (resp && resp.status !== 201) {
                 setWaiting(false);
-                setError("Registration failed! Please try again!")
-            } else if(resp) {
+            } else if (resp) {
                 setWaiting(false);
                 navigation.navigate("Login");
             }
 
         } else {
-            setError("Your Email Address is invalid!")
             return;
         }
     }
 
     return (
-        <ScrollView contentContainerStyle={styles.loginForm}>
-            <Text style={styles.txt}>Register</Text>
-            {error &&
-                <Text style={{ fontSize: 16, color: "red", marginBottom: 15 }}>{error}</Text>
-            }
-            {waiting && <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center' }} />
-            }
-            {!waiting &&
-                <View style={{ flexDirection: 'row' }}>
-                    <TextInput style={styles.txtInputfname} onChangeText={setFname} placeholder={"First Name"} placeholderTextColor={'grey'} />
-                    <TextInput style={styles.txtInputlname} onChangeText={setLname} placeholder={"Last Name"} placeholderTextColor={'grey'} />
-                </View>
-            }
-            {!waiting &&
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                    <TextInput style={styles.txtInput} textContentType="emailAddress" keyboardType="email-address" onChangeText={setEmail} placeholder={"Email Address"} placeholderTextColor={'grey'} />
-                    <TextInput textContentType="password" secureTextEntry={true} style={styles.txtInput} onChangeText={setPassword} placeholder={"Password"} placeholderTextColor={'grey'} />
-                    <TextInput textContentType="password" secureTextEntry={true} style={styles.txtInput} onChangeText={setRPassword} placeholder={"Repeat Password"} placeholderTextColor={'grey'} />
-                    <Button styles={styles} title='Register' onPress={() => { Post_Register() }} />
-                </View>
-            }
-        </ScrollView>
+        <View style={{ flex: 1 }}>
+            <ImageBackground blurRadius={5} source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+                <ScrollView contentContainerStyle={styles.loginForm}>
+                    <Text style={styles.txt}>Register</Text>
+                    {waiting && <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center' }} />
+                    }
+                    {!waiting &&
+                        <View style={{ flexDirection: 'row', backgroundColor: 'rgba(255, 255, 255, 0.2)', marginVertical: 5, borderRadius: 10 }}>
+                            <View style={styles.icon}>
+                                <Ionicons color={'white'} size={28} name="person-sharp" />
+                            </View>
+                            <TextInput style={styles.txtInputfname} onChangeText={setFname} placeholder={"First Name"} placeholderTextColor={'white'} />
+                            <TextInput style={styles.txtInputlname} onChangeText={setLname} placeholder={"Last Name"} placeholderTextColor={'white'} />
+                        </View>
+                    }
+                    {!waiting &&
+                        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                            <View style={styles.inputView}>
+                                <View style={styles.icon}>
+                                    <Fontisto color={'white'} size={28} name="email" />
+                                </View>
+                                <TextInput style={styles.txtInput} textContentType="emailAddress" keyboardType="email-address" onChangeText={setEmail} placeholder={"Email Address"} placeholderTextColor={'white'} />
+                            </View>
+                            <View style={styles.inputView}>
+                                <View style={styles.icon}>
+                                    <Fontisto color={'white'} size={28} name="locked" />
+                                </View>
+                                <TextInput textContentType="password" secureTextEntry={true} style={styles.txtInput} onChangeText={setPassword} placeholder={"Password"} placeholderTextColor={'white'} />
+                            </View>
+                            <View style={styles.inputView}>
+                                <View style={styles.icon}>
+                                    <Fontisto color={'white'} size={28} name="locked" />
+                                </View>
+                                <TextInput textContentType="password" secureTextEntry={true} style={styles.txtInput} onChangeText={setRPassword} placeholder={"Repeat Password"} placeholderTextColor={'white'} />
+                            </View>
+                            <Button styles={styles} title='Register' onPress={() => { Post_Register() }} />
+                        </View>
+                    }
+                </ScrollView>
+            </ImageBackground>
+        </View>
     );
 }
 
@@ -96,59 +113,73 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.2)'
     },
     txtInput: {
-        borderWidth: 1,
-        borderTopWidth: 0,
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
-        padding: 5,
-        marginBottom: 15,
-        width: windowWidth * .8,
+        width: 300,
         fontSize: 17,
-        color: 'black',
+        color: 'white',
+        marginLeft: 5
     },
     txtInputfname: {
-        borderBottomWidth: 1,
-        borderTopWidth: 0,
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
-        padding: 5,
-        marginBottom: 15,
-        width: windowWidth * .375,
+        width: 145,
+        height: 50,
         fontSize: 17,
-        color: 'black',
-        marginRight: windowWidth * .025
+        borderRightColor: 'rgba(255, 255, 255, 0.5)',
+        borderRightWidth: 1,
+        marginLeft: 5,
+        color: 'white'
     },
     txtInputlname: {
-        borderBottomWidth: 1,
-        borderTopWidth: 0,
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
-        padding: 5,
-        marginBottom: 15,
-        width: windowWidth * .375,
+        width: 145,
+        height: 50,
         fontSize: 17,
-        color: 'black',
-        marginLeft: windowWidth * .025
+        borderRadius: 10,
+        marginLeft: 5,
+        color: 'white'
     },
     txt: {
-        color: "#000",
-        fontSize: 36,
-        paddingBottom: 30,
+        color: "#fff",
+        fontSize: 42,
+        fontWeight: '500',
+        marginBottom: 30,
+        textShadowColor: 'black',
+        textShadowOffset: {
+            width: 2,
+            height: 2
+        },
+        textShadowRadius: 7
     },
     btn: {
-        width: windowWidth * .325,
+        width: 125,
         alignItems: 'center',
-        borderWidth: 1,
         paddingVertical: 10,
         borderRadius: 10,
-        marginTop: 20
+        marginTop: 20,
+        backgroundColor: 'rgba(255, 255, 255, 0.9)'
     },
     btntxt: {
         color: '#000',
-        fontSize: 20,
-    }
+        fontSize: 22,
+        fontWeight: '500'
+    },
+    inputView: {
+        flexDirection: 'row',
+        backgroundColor: 'rgba(255, 255, 255, 0.2)',
+        marginVertical: 5,
+        borderRadius: 10,
+        height: 50,
+    },
+    icon: {
+        height: 50,
+        width: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: 'rgba(255, 255, 255, 0.5)',
+        borderWidth: 1.5,
+        borderTopLeftRadius: 10,
+        borderBottomStartRadius: 10
+    },
 })
 
 export default Register;

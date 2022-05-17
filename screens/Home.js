@@ -1,17 +1,26 @@
-import * as React from 'react';
 import {
+    Dimensions,
     View,
     Text,
+    Image,
     StyleSheet,
     ScrollView,
-    RefreshControl
+    RefreshControl,
+    ImageBackground
 } from 'react-native';
-import { ActivityIndicator, Searchbar } from 'react-native-paper';
-import { ConvertBytesToFile } from '../api/ConvertBytesToFile';
+import { ActivityIndicator } from 'react-native-paper';
+import SearchBtn from '../components/buttons/SearchBtn';
+import SearchModal from '../components/modals/SearchModal';
 import { GetAllGuides } from '../api/GetAllGuides';
+import { GetSearchedGuides } from '../api/GetSearchedGuides';
 import { Context } from '../App';
 import Card from '../components/Card';
+import * as React from 'react'
 
+const image = require('../assets/images/background.png');
+
+const height = Dimensions.get('window').height;
+const width = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     mainView: {
         flex: 1,
@@ -31,6 +40,36 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderRadius: 5,
         backgroundColor: 'white',
+    },
+    buttonPicture: {
+        width: 50,
+        height: 50,
+        marginLeft: 5,
+        backgroundColor: 'white'
+    },
+    viewButton: {
+        flexDirection: 'row',
+        width: width * 0.45,
+        height: 70,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 10,
+        paddingBottom: 10,
+        backgroundColor: 'white',
+        marginLeft: width * 0.035,
+        marginTop: width * 0.025,
+    },
+    viewTwoButtonsRow: {
+        flexDirection: 'row',
+    },
+    viewOneButtonsRow: {
+        alignItems: 'center',
+    },
+    textVieButton: {
+        fontSize: 15,
+        textAlign: 'center',
+        width: width * 0.25,
+        flexDirection: 'row'
     }
 })
 
@@ -41,6 +80,10 @@ const Home = ({ navigation }) => {
     const [refresh, setRefresh] = React.useState(false);
     const [firstLoad, setFirstLoad] = React.useState(true);
     const [userInfo, setUserInfo] = accInfo;
+    const [showSearch, setShowSearch] = React.useState(false);
+
+
+    const [filteredGuides, setFilteredGuides] = React.useState(null)
 
     React.useLayoutEffect(() => {
         (async () => {
@@ -53,53 +96,98 @@ const Home = ({ navigation }) => {
 
     if (firstLoad) {
         return (
-            <View>
-                <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
+            <View style={{ flex: 1 }}>
+                <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+                    <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
+                </ImageBackground>
             </View>
         )
     }
 
     return (
-        <ScrollView
-            style={styles.mainView}
-            refreshControl={
-                <RefreshControl
-                    refreshing={refresh}
-                    onRefresh={() => setRefresh(true)}
-                />
-            }
-        >
-            <View>
-                <Searchbar placeholder='Search' />
-            </View>
-            <View style={styles.view}>
-                {guides && guides.length > 0 &&
-                    guides.map((item) => {
-                        if (item) {
-                            return <Card
-                                uri={item['image']}
-                                creatorID={item['creatorId']}
-                                creator={item['creatorName'] + " " + item['creatorLastName']}
-                                rating={item['rating']}
-                                city={item['city']}
-                                title={item['title']}
-                                description={item['description']}
-                                guideID={item['_id']}
-                                favorite={userInfo['savedguides'].includes(item['_id'])}
-                                savedguides={userInfo['savedguides']}
-                                userID={userInfo['_id']}
-                                onClick={() => {
-                                    setChosenGuideID(item['_id']);
-                                    console.log(item['_id'])
-                                    navigation.navigate("Guide")
+        <View style={{ flex: 1 }}>
+            <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+                <ScrollView
+                    style={styles.mainView}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refresh}
+                            onRefresh={() => { setFilteredGuides(null); setRefresh(true); }}
+                        />
+                    }
+                >
+
+                    <View style={{ alignSelf: 'center', marginBottom: -5 }}>
+                        <SearchBtn onPress={() => setShowSearch(true)}></SearchBtn>
+                    </View>
+
+
+                    <SearchModal visible={showSearch}
+                        goBack={() => setShowSearch(false)}
+                        filteredData={[filteredGuides, setFilteredGuides]}
+                    />
+
+                    <View style={styles.view}>
+                        {!filteredGuides && guides && guides.length > 0 &&
+                            guides.map((item) => {
+                                if (item) {
+                                    return <Card
+                                        uri={item['image']}
+                                        creatorID={item['creatorId']}
+                                        creator={item['creatorName'] + " " + item['creatorLastName']}
+                                        rating={item['rating']}
+                                        city={item['city']}
+                                        title={item['title']}
+                                        description={item['description']}
+                                        guideID={item['_id']}
+                                        favorite={userInfo['savedguides'].includes(item['_id'])}
+                                        savedguides={userInfo['savedguides']}
+                                        userID={userInfo['_id']}
+                                        onClick={() => {
+                                            setChosenGuideID(item['_id']);
+                                            console.log(item['_id'])
+                                            navigation.navigate("Guide")
+                                        }
+                                        }
+                                    />
                                 }
-                                }
-                            />
+                            })
                         }
-                    })
-                }
-            </View>
-        </ScrollView>
+                        {filteredGuides && filteredGuides.length === 0 &&
+                            <View>
+                                <Text style={{ color: 'black' }}>No guides were found.</Text>
+                            </View>
+                        }
+                        {filteredGuides &&
+                            filteredGuides.length > 0 &&
+                            filteredGuides.map((item) => {
+                                if (item) {
+                                    return <Card
+                                        uri={item['image']}
+                                        creatorID={item['creatorId']}
+                                        creator={item['creatorName'] + " " + item['creatorLastName']}
+                                        rating={item['rating']}
+                                        city={item['city']}
+                                        title={item['title']}
+                                        description={item['description']}
+                                        guideID={item['_id']}
+                                        favorite={userInfo['savedguides'].includes(item['_id'])}
+                                        savedguides={userInfo['savedguides']}
+                                        userID={userInfo['_id']}
+                                        onClick={() => {
+                                            setChosenGuideID(item['_id']);
+                                            console.log(item['_id'])
+                                            navigation.navigate("Guide")
+                                        }
+                                        }
+                                    />
+                                }
+                            })
+                        }
+                    </View>
+                </ScrollView>
+            </ImageBackground>
+        </View>
     );
 }
 

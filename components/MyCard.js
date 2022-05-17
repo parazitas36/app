@@ -4,19 +4,19 @@ import Button from '../components/Button';
 import IOnicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { UnsaveGuide } from '../api/UnsaveGuide';
-import { SaveGuide } from '../api/SaveGuide';
+import { SetInvisible } from '../api/SetInvisible';
+import { SetVisible } from '../api/SetVisible';
 
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 const defaultImageURI = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2017%2F02%2Feiffel-tower-paris-france-EIFFEL0217.jpg&q=60";
 
-const Card = (props) => {
-    const [favorite, setFavorite] = useState(null);
+const MyCard = (props) => {
+    const [visible, setVisible2] = useState(null);
     const [uri, setUri] = useState(null);
-    if (favorite === null) {
-        setFavorite(props.favorite);
+    if (visible === null) {
+        setVisible2(props.visible);
     }
     if(uri === null){
         setUri(props.uri)
@@ -30,8 +30,8 @@ const Card = (props) => {
                 <TouchableOpacity >
                     <Pressable onPress={async () => {
                         let resp = null;
-                        if (favorite === true) {
-                            resp = await UnsaveGuide(props.guideID, props.userID);
+                        if (visible === true) {
+                            resp = await SetInvisible(props.guideID);
                             if (resp.status === 200) {
                                 for (let i = 0; i < props.savedguides.length; i++) {
                                     if (props.savedguides[i] === props.guideID) {
@@ -44,18 +44,18 @@ const Card = (props) => {
                                         break;
                                     }
                                 }
-                                setFavorite(false)
+                                setVisible2(false)
                             }
-                        } else if (favorite === false) {
-                            resp = await SaveGuide(props.guideID, props.userID);
+                        } else if (visible === false) {
+                            resp = await SetVisible(props.guideID);
                             if (resp.status === 200) {
                                 props.savedguides.push(props.guideID);
-                                setFavorite(true)
+                                setVisible2(true)
                             }
                         }
                     }
                     }>
-                        <IOnicons name={!favorite ? 'heart-outline' : 'heart'} size={30} color={favorite ? "#ff1e5a" : 'white'} />
+                        <IOnicons name={visible ? 'eye' : 'eye-off'} size={30} color={'white'} />
                     </Pressable>
                 </TouchableOpacity>
             </View>
@@ -75,10 +75,7 @@ const Card = (props) => {
 
             <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creator}>{props.creator ? props.creator : 'by Username'}</Text>
 
-            <Text style={styles.text}
-            numberOfLines={7}
-            ellipsizeMode={'tail'}
-            >
+            <Text style={styles.text}>
                 {props.description}
             </Text>
 
@@ -103,7 +100,7 @@ const Card = (props) => {
     )
 }
 
-export default Card
+export default MyCard
 
 const styles = StyleSheet.create({
     view: {

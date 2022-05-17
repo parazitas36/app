@@ -33,9 +33,9 @@ const CreateGuideScreenStack = createStackNavigator();
 const WelcomeScreen = () => {
   return (
     <WelcomeScreenStack.Navigator>
-      <WelcomeScreenStack.Screen options={{ headerShown: false }} name="Welcome" component={Welcome} />
-      <WelcomeScreenStack.Screen name="Login" component={Login} />
-      <WelcomeScreenStack.Screen name="Register" component={Register} />
+      <WelcomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Welcome" component={Welcome} />
+      <WelcomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false  }} name="Login" component={Login} />
+      <WelcomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false  }} name="Register" component={Register} />
     </WelcomeScreenStack.Navigator>
   );
 }
@@ -48,8 +48,8 @@ const HomeScreen = () => {
       }}
     >
       <HomeScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="Home" component={Home} />
-      <HomeScreenStack.Screen options={{animationEnabled: true, headerShown: false}} name="Guide" component={Guide} />
-      <HomeScreenStack.Screen options={{animationEnabled: true, headerShown: false}} name="CreatorProfile" component={CreatorProfile} />
+      <HomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Guide" component={Guide} />
+      <HomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="CreatorProfile" component={CreatorProfile} />
     </HomeScreenStack.Navigator>
   );
 }
@@ -57,8 +57,8 @@ const HomeScreen = () => {
 const CreateGuideScreen = () => {
   return (
     <CreateGuideScreenStack.Navigator>
-      <CreateGuideScreenStack.Screen options={{headerShown: false, animationEnabled: true}} name="CreateGuide" component={CreateGuide}/>
-      <CreateGuideScreenStack.Screen options={{headerShown: false, animationEnabled: true}} name="Maps" component={Maps}/>
+      <CreateGuideScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="CreateGuide" component={CreateGuide} />
+      <CreateGuideScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="Maps" component={Maps} />
     </CreateGuideScreenStack.Navigator>
   );
 }
@@ -73,12 +73,12 @@ const App = () => {
   const [userInfo, setUserInfo] = React.useState(null);
 
   return (
-    <Context.Provider value={{ 
+    <Context.Provider value={{
       loggedIn, setLoggedIn,
-      guideID: [chosenGuideID, setChosenGuideID], 
+      guideID: [chosenGuideID, setChosenGuideID],
       accInfo: [userInfo, setUserInfo],
       creatorInfo: [chosenProfileID, setChosenProfileID]
-      }}
+    }}
     >
       <StatusBar barStyle="dark-content" backgroundColor="#eeeeee" />
       <NavigationContainer>
@@ -99,23 +99,28 @@ const App = () => {
                   width: '96%',
                   marginLeft: '2%',
                   marginBottom: 10,
-                  backgroundColor: "white",
+                  backgroundColor: "rgba(255, 255, 255, 0.9)",
                   paddingBottom: 9,
                   paddingTop: 6,
                   position: 'absolute',
+                  overflow: 'visible'
                 },
                 tabBarIconStyle: {
                   width: 32,
                   height: 32,
-                  flex: 1,
                   justifyContent: 'center',
                   alignContent: 'center',
                   alignItems: 'center',
                   alignSelf: 'center',
-                  margin: 0
+                  position: 'absolute',
+                  margin: 0,
+                  overflow: 'visible',
+                  elevation: 15,
+                  zIndex: 9999
                 },
                 tabBarLabelStyle: {
                   fontSize: 13,
+                  position: 'absolute',
                 },
                 tabBarActiveTintColor: 'rgba(55, 155, 200, 1)',
                 headerShown: false,
@@ -127,6 +132,9 @@ const App = () => {
                 component={HomeScreen}
                 options={{
                   tabBarLabel: "Home",
+                  tabBarIconStyle: {
+                    marginTop: -16
+                  },
                   tabBarIcon: (props) => (
                     <FontAwesome5 name={"home"} size={props.size} color={props.color} />
                   )
@@ -137,6 +145,9 @@ const App = () => {
                 component={MyGuides}
                 options={{
                   tabBarLabel: "My Guides",
+                  tabBarIconStyle: {
+                    marginTop: -16
+                  },
                   tabBarIcon: (props) => (
                     <FontAwesome5 name={"book"} size={props.size} color={props.color} />
                   )
@@ -146,9 +157,19 @@ const App = () => {
                 name="GuideCreationTab"
                 component={CreateGuideScreen}
                 options={{
-                  tabBarLabel: "Create",
+                  tabBarLabel: "",
+                  tabBarLabelStyle: {
+                    height: 0,
+                    visibility: 'hidden'
+                  },
+                  tabBarIconStyle: {
+                    overflow: 'visible',
+                    elevation: 15,
+                    zIndex: 9999,
+                    padding: 0,
+                  },
                   tabBarIcon: (props) => (
-                    <FontAwesome5 name={"plus-circle"} size={props.size} color={props.color} />
+                    <FontAwesome5 style={props.style} name={"plus-circle"} size={props.size * 1.75} color={props.color} />
                   )
                 }}
               />
@@ -157,6 +178,9 @@ const App = () => {
                 component={SearchMaps}
                 options={{
                   tabBarLabel: "Explore",
+                  tabBarIconStyle: {
+                    marginTop: -16
+                  },
                   tabBarIcon: (props) => (
                     <Fontisto name={"world-o"} size={props.size} color={props.color} />
                   )
@@ -167,6 +191,9 @@ const App = () => {
                 component={Profile}
                 options={{
                   tabBarLabel: "Profile",
+                  tabBarIconStyle: {
+                    marginTop: -16
+                  },
                   tabBarIcon: (props) => (
                     <Ionicons name={"person-outline"} size={props.size} color={props.color} />
                   )
