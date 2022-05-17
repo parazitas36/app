@@ -109,7 +109,7 @@ const SearchModal = (props) => {
                             }}>
                             <View style={pressed[0] ? styles.viewButtonPressed : styles.viewButton}>
                                 <Text style={styles.textVieButton}>Museums</Text>
-                                <Image style={styles.buttonPicture} source={require('../../assets/Dzeus.jpg')} />
+                                <Image style={styles.buttonPicture} source={require('../../assets/images/Dzeus.jpg')} />
                             </View>
                         </Pressable>
                     </TouchableOpacity>
@@ -121,7 +121,7 @@ const SearchModal = (props) => {
                         }}>
                             <View style={pressed[1] ? styles.viewButtonPressed : styles.viewButton}>
                                 <Text style={styles.textVieButton} >Ancient Buildings</Text>
-                                <Image style={styles.buttonPicture} source={require('../../assets/koliziejus.png')} />
+                                <Image style={styles.buttonPicture} source={require('../../assets/images/koliziejus.png')} />
                             </View>
                         </Pressable>
                     </TouchableOpacity>
@@ -135,7 +135,7 @@ const SearchModal = (props) => {
                         }}>
                             <View style={pressed[2] ? styles.viewButtonPressed : styles.viewButton}>
                                 <Text style={styles.textVieButton}>Art Galleries</Text>
-                                <Image style={styles.buttonPicture} source={require('../../assets/Art.jpg')} />
+                                <Image style={styles.buttonPicture} source={require('../../assets/images/Art.jpg')} />
                             </View>
                         </Pressable>
                     </TouchableOpacity>
@@ -147,7 +147,7 @@ const SearchModal = (props) => {
                         }}>
                             <View style={pressed[3] ? styles.viewButtonPressed : styles.viewButton}>
                                 <Text style={styles.textVieButton} >Nature Walks</Text>
-                                <Image style={styles.buttonPicture} source={require('../../assets/tree.jpg')} />
+                                <Image style={styles.buttonPicture} source={require('../../assets/images/tree.jpg')} />
                             </View>
                         </Pressable>
                     </TouchableOpacity>
@@ -161,7 +161,7 @@ const SearchModal = (props) => {
                         }}>
                             <View style={pressed[4] ? styles.viewButtonPressed : styles.viewButton}>
                                 <Text style={styles.textVieButton}>Zoos</Text>
-                                <Image style={styles.buttonPicture} source={require('../../assets/Lion.png')} />
+                                <Image style={styles.buttonPicture} source={require('../../assets/images/Lion.png')} />
                             </View>
                         </Pressable>
                     </TouchableOpacity>
