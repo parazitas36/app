@@ -2,6 +2,8 @@ import React from 'react'
 import { View, ImageBackground } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { ActivityIndicator } from 'react-native-paper';
+import { Searchbar } from 'react-native-paper';
+import { FindCityByName } from '../api/FindCityByName';
 import { GetAllGuides } from '../api/GetAllGuides';
 import Button from '../components/Button';
 import MapCard from '../components/MapCard';
@@ -15,6 +17,7 @@ const SearchMaps = () => {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
     });
+    const [findCity, setFindCity] = React.useState(null);
 
     const [guides, setGuides] = React.useState(null);
 
@@ -30,6 +33,12 @@ const SearchMaps = () => {
         setRegion(reg[['region']]);
     }
 
+    const redirectToCity = async() => {
+        const result = await FindCityByName(findCity)
+        setRegion({latitude: Number(result[1]), longitude: Number(result[0]),
+         latitudeDelta: 0.0922,longitudeDelta: 0.0421,})
+    }
+
     if(!guides){
         <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
                 <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
@@ -38,6 +47,13 @@ const SearchMaps = () => {
 
     return (
         <View>
+            <Searchbar 
+                placeholder='Search'
+                defaultValue=''
+                value={findCity}
+                onChangeText={setFindCity}
+                onIconPress={redirectToCity}
+            />
             <MapView
                 style={{
                     height: '100%',
@@ -48,7 +64,7 @@ const SearchMaps = () => {
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 }}
-                onRegionChange={changeRegion}
+                region={region}
             >
                 {guides && guides.length > 0 &&
                     guides.map((item) => {
