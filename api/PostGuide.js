@@ -1,4 +1,4 @@
-export const PostGuide = async(blocks, title, description, creatorID, latitude, longtitude, city, category, publish) => {
+export const PostGuide = async(blocks, title, description, creatorID, latitude, longtitude, city, category, publish, price) => {
     const formData = new FormData();
     for (var i = 0; i < blocks.length; i++) {
         switch (blocks[i].type) {
@@ -41,7 +41,7 @@ export const PostGuide = async(blocks, title, description, creatorID, latitude, 
     formData.append('Title', title);
     formData.append('Description', description);
     formData.append('Language', 'LT');
-    formData.append('Price', 0.00);
+    formData.append('Price', price);
     formData.append('CreatorId', creatorID);
     formData.append('latitude', latitude);
     formData.append('longtitude', longtitude);

@@ -39,6 +39,7 @@ const CreateGuide = ({ navigation }) => {
     const [city, setCity] = React.useState(null);
     const [category, setCategory] = React.useState(null);
     const [publish, setPublish] = React.useState(false);
+    const [price, setPrice] = React.useState(0);
 
     const [showBlock, setShowBlock] = React.useState(false);
     const [showEditText, setShowEditText] = React.useState(false);
@@ -130,6 +131,12 @@ const CreateGuide = ({ navigation }) => {
         setBlockID(block_id - 1);
     }
 
+    // Vedant kaina pakeicia simbolius, kurie nera skaiciai i tuscia character
+    const onPriceChange = (text) => {
+        setPrice(text.replace(/([A-Za-z])/g, ''));
+        console.log(price)
+    }
+
     React.useLayoutEffect(() => {
         if ((text !== null || photo !== null || video !== null)
             && showBlock === true) {
@@ -196,7 +203,7 @@ const CreateGuide = ({ navigation }) => {
                         Category:
                     </Text>
                     <Picker
-                        style={{ width: '70%' }}
+                        style={{ width: '70%', color: 'black' }}
                         selectedValue={category}
                         onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
                     >
@@ -213,7 +220,22 @@ const CreateGuide = ({ navigation }) => {
                         fontWeight: '500',
                         fontSize: 16
                     }}>Public: </Text>
-                    <CheckBox value={publish} onValueChange={setPublish} />
+                    <CheckBox tintColor='black' value={publish} onValueChange={setPublish} />
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    <Text style={{
+                        color: 'black',
+                        fontWeight: '500',
+                        fontSize: 16
+                    }}>Price: </Text>
+                    <TextInput
+                        style={{ color: 'black', fontWeight: '500', fontSize: 16 }}
+                        defaultValue='0'
+                        keyboardType='number-pad'
+                        value={price}
+                        onChangeText={onPriceChange}
+                        textContentType=''
+                    />
                 </View>
                 {blocks.length > 0 &&
                     <View style={styles.viewButtons}>
@@ -222,14 +244,15 @@ const CreateGuide = ({ navigation }) => {
                             onPress={async () => {
                                 setWaiting(true);
                                 const resp = await PostGuide(
-                                    blocks, 
-                                    title, 
-                                    description, 
-                                    userInfo['_id'], 
-                                    location['latitude'], 
+                                    blocks,
+                                    title,
+                                    description,
+                                    userInfo['_id'],
+                                    location['latitude'],
                                     location['longitude'], city,
                                     category,
-                                    publish
+                                    publish,
+                                    price
                                 )
                                 if (resp) {
                                     setWaiting(false);
