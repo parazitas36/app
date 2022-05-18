@@ -14,7 +14,9 @@ import Register from './screens/Register';
 import Home from './screens/Home';
 import Profile from './screens/Profile';
 import Welcome from './screens/Welcome';
+import EditGuide from './screens/EditGuide';
 import CreateGuide from './screens/CreateGuide';
+import EditProfile from './screens/EditProfile';
 import Guide from './screens/Guide';
 import CreatorProfile from './screens/CreatorProfile';
 import SearchMaps from './screens/SearchMaps';
@@ -29,6 +31,7 @@ const windowHeight = Dimensions.get('window').height;
 const WelcomeScreenStack = createStackNavigator();
 const HomeScreenStack = createStackNavigator();
 const CreateGuideScreenStack = createStackNavigator();
+const ProfileScreenStack = createStackNavigator();
 
 const WelcomeScreen = () => {
   return (
@@ -38,6 +41,18 @@ const WelcomeScreen = () => {
       <WelcomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false  }} name="Register" component={Register} />
     </WelcomeScreenStack.Navigator>
   );
+}
+const ProfileScreen = () =>{
+  return(
+    <ProfileScreenStack.Navigator
+    screenOptions={{
+      headerTitleAlign: 'center'
+    }}
+    >
+      <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Profile" component={Profile} />
+      <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="EditProfile" component={EditProfile} />
+    </ProfileScreenStack.Navigator>
+  )
 }
 
 const HomeScreen = () => {
@@ -188,7 +203,7 @@ const App = () => {
               />
               <Tab.Screen
                 name="ProfileTab"
-                component={Profile}
+                component={ProfileScreen}
                 options={{
                   tabBarLabel: "Profile",
                   tabBarIconStyle: {

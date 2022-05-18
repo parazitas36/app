@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Guide from './Guide';
 import CreatorProfile from './CreatorProfile';
+import EditGuide from './EditGuide';
 
 const TopTab = createMaterialTopTabNavigator();
 const MyGuidesScreenNavigator = createStackNavigator();
@@ -22,6 +23,7 @@ const MyGuidesScreen = () => {
       <MyGuidesScreenNavigator.Screen options={{ headerShown: false, animationEnabled: true }} name="MyGuides" component={UserGuides} />
       <MyGuidesScreenNavigator.Screen options={{animationEnabled: true, headerShown: false}} name="Guide" component={Guide} />
       <MyGuidesScreenNavigator.Screen options={{animationEnabled: true, headerShown: false}} name="CreatorProfile" component={CreatorProfile} />
+      <MyGuidesScreenNavigator.Screen options={{animationEnabled: true, headerShown: false}} name="EditGuide" component={EditGuide} />
     </MyGuidesScreenNavigator.Navigator>
   );
 }

@@ -107,6 +107,7 @@ const UserGuides = ({ navigation }) => {
                                             navigation.navigate("Guide")
                                         }
                                         }
+                                        navigateToEdit={()=>{navigation.navigate("EditGuide")} }
                                     />
                                 }
                             })

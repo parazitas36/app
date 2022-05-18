@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const Profile = () => {
+const Profile = ({navigation}) => {
     return (
         <View style={{ flex: 1 }}>
             <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
@@ -102,7 +102,7 @@ const Profile = () => {
                                 position: 'absolute',
                                 bottom: 8,
                             }}>
-                                <Button styles={styles} title={"Edit Profile"} />
+                                <Button onPress={()=>{navigation.navigate("EditProfile")}} styles={styles} title={"Edit Profile"} />
                             </View>
                         </View>
                     </View>
