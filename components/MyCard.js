@@ -17,7 +17,7 @@ const defaultImageURI = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%
 const MyCard = (props) => {
     const [visible, setVisible2] = useState(null);
     const [uri, setUri] = useState(null);
-    const [guideId, setGuideId] = React.useState("")
+    const [guideId, setGuideId] = React.useState('62849e68fd614b3e9b5e2d0a')
     
     if (visible === null) {
         setVisible2(props.visible);
@@ -28,6 +28,7 @@ const MyCard = (props) => {
     if(guideId === null){
         setGuideId(props.guideID)
     }
+
     return (
         <MyCardContext.Provider value={guideId}>
             <View style={styles.view}>

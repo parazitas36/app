@@ -19,6 +19,7 @@ import LocationBtn from '../components/buttons/LocationBtn';
 import { ActivityIndicator } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import CheckBox from '@react-native-community/checkbox';
+import { GetGuideById } from '../api/GetGuideById';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -55,10 +56,11 @@ const EditGuide = ({ navigation }) => {
     const [rerender, setRerender] = React.useState(false);
     const [waiting, setWaiting] = React.useState(false);
 
-    const guideId  = useContext(MyCardContext);
-    console.log(guideId)
+    const [guideId, setGuideID]  = React.useState("62849e68fd614b3e9b5e2d0a");
+    
     const { accInfo } = useContext(Context);
     const [userInfo, setUserInfo] = accInfo;
+    console.log(guideId)
 
     const value = {
         texts: [text, setText],
@@ -133,6 +135,10 @@ const EditGuide = ({ navigation }) => {
         setBlockID(block_id - 1);
     }
 
+    const [guideInfo, setGuideInfo] = React.useState(null);
+    const [isRatingZero, setIfZero] = React.useState(true);
+    const [isGuideSet, setGuideSet] = React.useState(false);
+
     React.useLayoutEffect(() => {
         if ((text !== null || photo !== null || video !== null)
             && showBlock === true) {
@@ -140,6 +146,19 @@ const EditGuide = ({ navigation }) => {
             setPhoto(null);
             setVideo(null);
         }
+        (async () => {
+            console.log(guideId)
+            console.log("kazka daro")
+            const resp = await GetGuideById(guideId);
+            console.log(resp)
+            setGuideInfo(resp);
+            if(guideInfo !== null){
+                setCategory(guideInfo['category'])
+            }
+            if(resp['rating'] !== 0){
+                setIfZero(false);
+            }
+        })()
         setRerender(false);
     }, [showBlock, rerender]);
     //Waiting true tik tada kai bandai sukurt gida ir papostint tada ijungia true kad zinot kada ikelia viska i duombazes
@@ -151,7 +170,13 @@ const EditGuide = ({ navigation }) => {
             </View>
         )
     }
-
+    if(!guideInfo){
+        return(
+            <View>
+            <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
+        </View>
+        )
+    }
     return (
         <EditGuideContext.Provider value={value}>
             <ScrollView contentContainerStyle={styles.container}>
@@ -166,6 +191,7 @@ const EditGuide = ({ navigation }) => {
                     style={styles.txtInput}
                     placeholder='Title'
                     multiline={true}
+                    defaultValue = {guideInfo['title']}
                     onChangeText={setTitle}
                     placeholderTextColor={'grey'}
                 />
@@ -174,6 +200,7 @@ const EditGuide = ({ navigation }) => {
                     style={styles.description}
                     placeholder='Description'
                     multiline={true}
+                    defaultValue = {guideInfo['description']}
                     numberOfLines={3}
                     onChangeText={setDescription}
                     placeholderTextColor={'grey'}
