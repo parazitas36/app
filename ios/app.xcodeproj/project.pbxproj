@@ -40,6 +40,13 @@
 		F0E171EB75AE4F5BA6E9C6AB /* koliziejus2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9662069B9003440D869894C6 /* koliziejus2.jpg */; };
 		C97ACD58EE8F444C9DDA70E8 /* Lion.png in Resources */ = {isa = PBXBuildFile; fileRef = 9250771DDFC743A881BDE617 /* Lion.png */; };
 		FCC47DC1399E4D26AFAEC699 /* tree.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CF9B030DD2BE4D2497F18D87 /* tree.jpg */; };
+		CBFCAB7B58D54F528A347138 /* Art.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4435A6FC1CC748BA8C8F1395 /* Art.jpg */; };
+		6E835CF4DD464A04B711C59E /* Dovydas.png in Resources */ = {isa = PBXBuildFile; fileRef = D96DA565E1E548318CC420F6 /* Dovydas.png */; };
+		6344E1BFDDE14EBFB8553BBE /* Dzeus.jpg in Resources */ = {isa = PBXBuildFile; fileRef = EF54344567F34B04BA8EFE3D /* Dzeus.jpg */; };
+		A520B97A02D54C8D9F83D840 /* koliziejus.png in Resources */ = {isa = PBXBuildFile; fileRef = 98E2DA874FEA45849CE4CCFC /* koliziejus.png */; };
+		EF3D22894D4C4D3FBCD28760 /* koliziejus2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A432C4EB048B4E77A0B1E3E7 /* koliziejus2.jpg */; };
+		43E4D2A2FF164118AD1E22FB /* Lion.png in Resources */ = {isa = PBXBuildFile; fileRef = 9A07502A64B44390A575B15A /* Lion.png */; };
+		F14ADE75D7A541FEA135D1AD /* tree.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E6AC76EE9DFE4D2993FE4935 /* tree.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +99,13 @@
 		9662069B9003440D869894C6 /* koliziejus2.jpg */ = {isa = PBXFileReference; name = "koliziejus2.jpg"; path = "../assets/koliziejus2.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		9250771DDFC743A881BDE617 /* Lion.png */ = {isa = PBXFileReference; name = "Lion.png"; path = "../assets/Lion.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		CF9B030DD2BE4D2497F18D87 /* tree.jpg */ = {isa = PBXFileReference; name = "tree.jpg"; path = "../assets/tree.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		4435A6FC1CC748BA8C8F1395 /* Art.jpg */ = {isa = PBXFileReference; name = "Art.jpg"; path = "../assets/images/Art.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D96DA565E1E548318CC420F6 /* Dovydas.png */ = {isa = PBXFileReference; name = "Dovydas.png"; path = "../assets/images/Dovydas.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EF54344567F34B04BA8EFE3D /* Dzeus.jpg */ = {isa = PBXFileReference; name = "Dzeus.jpg"; path = "../assets/images/Dzeus.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		98E2DA874FEA45849CE4CCFC /* koliziejus.png */ = {isa = PBXFileReference; name = "koliziejus.png"; path = "../assets/images/koliziejus.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A432C4EB048B4E77A0B1E3E7 /* koliziejus2.jpg */ = {isa = PBXFileReference; name = "koliziejus2.jpg"; path = "../assets/images/koliziejus2.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9A07502A64B44390A575B15A /* Lion.png */ = {isa = PBXFileReference; name = "Lion.png"; path = "../assets/images/Lion.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E6AC76EE9DFE4D2993FE4935 /* tree.jpg */ = {isa = PBXFileReference; name = "tree.jpg"; path = "../assets/images/tree.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +226,13 @@
 				9662069B9003440D869894C6 /* koliziejus2.jpg */,
 				9250771DDFC743A881BDE617 /* Lion.png */,
 				CF9B030DD2BE4D2497F18D87 /* tree.jpg */,
+				4435A6FC1CC748BA8C8F1395 /* Art.jpg */,
+				D96DA565E1E548318CC420F6 /* Dovydas.png */,
+				EF54344567F34B04BA8EFE3D /* Dzeus.jpg */,
+				98E2DA874FEA45849CE4CCFC /* koliziejus.png */,
+				A432C4EB048B4E77A0B1E3E7 /* koliziejus2.jpg */,
+				9A07502A64B44390A575B15A /* Lion.png */,
+				E6AC76EE9DFE4D2993FE4935 /* tree.jpg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -335,6 +356,13 @@
 				F0E171EB75AE4F5BA6E9C6AB /* koliziejus2.jpg in Resources */,
 				C97ACD58EE8F444C9DDA70E8 /* Lion.png in Resources */,
 				FCC47DC1399E4D26AFAEC699 /* tree.jpg in Resources */,
+				CBFCAB7B58D54F528A347138 /* Art.jpg in Resources */,
+				6E835CF4DD464A04B711C59E /* Dovydas.png in Resources */,
+				6344E1BFDDE14EBFB8553BBE /* Dzeus.jpg in Resources */,
+				A520B97A02D54C8D9F83D840 /* koliziejus.png in Resources */,
+				EF3D22894D4C4D3FBCD28760 /* koliziejus2.jpg in Resources */,
+				43E4D2A2FF164118AD1E22FB /* Lion.png in Resources */,
+				F14ADE75D7A541FEA135D1AD /* tree.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
