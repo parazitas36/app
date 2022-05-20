@@ -20,6 +20,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import CheckBox from '@react-native-community/checkbox';
 import { GetGuideById } from '../api/GetGuideById';
+import { SetVisible } from '../api/SetVisible';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -138,6 +139,7 @@ const EditGuide = ({ navigation }) => {
     const [guideInfo, setGuideInfo] = React.useState(null);
     const [isRatingZero, setIfZero] = React.useState(true);
     const [isGuideSet, setGuideSet] = React.useState(false);
+    const [isCatChanged, setCatChanged] = React.useState(false);
 
     React.useLayoutEffect(() => {
         if ((text !== null || photo !== null || video !== null)
@@ -148,10 +150,10 @@ const EditGuide = ({ navigation }) => {
         }
         (async () => {
             console.log(guideId)
-            console.log("kazka daro")
-            const resp = await GetGuideById(guideId);
-            console.log(resp)
+            const resp  = await GetGuideById(guideId);
             setGuideInfo(resp);
+            console.log(resp)
+            setGuideSet(true)
             if(guideInfo !== null){
                 setCategory(guideInfo['category'])
             }
@@ -161,6 +163,23 @@ const EditGuide = ({ navigation }) => {
         })()
         setRerender(false);
     }, [showBlock, rerender]);
+
+    const SetCat = (cat) => {
+        setCategory(cat)
+        setCatChanged(true)
+        console.log(cat)
+    }
+
+    //laukia kol pasikeis isGuideSet jis keiciasi kai nustato default ir kai gida nustato
+    // jei gidas ne null nustato jo duomenis
+    React.useEffect(()=>{
+        if(guideInfo !== null){
+            setPublish(guideInfo['visible'])
+            setCategory(guideInfo['category'])
+            console.log(publish)
+        }
+    },[isGuideSet])
+
     //Waiting true tik tada kai bandai sukurt gida ir papostint tada ijungia true kad zinot kada ikelia viska i duombazes
     if (waiting) {
         return (
@@ -177,106 +196,109 @@ const EditGuide = ({ navigation }) => {
         </View>
         )
     }
-    return (
-        <EditGuideContext.Provider value={value}>
-            <ScrollView contentContainerStyle={styles.container}>
-                <CreateBlockModal
-                    visible={showBlock}
-                    goBack={() => setShowBlock(false)}
-                />
-                <EditTextModal />
-                <EditVideoModal />
-                <EditPhotoModal />
-                <TextInput
-                    style={styles.txtInput}
-                    placeholder='Title'
-                    multiline={true}
-                    defaultValue = {guideInfo['title']}
-                    onChangeText={setTitle}
-                    placeholderTextColor={'grey'}
-                />
-
-                <TextInput
-                    style={styles.description}
-                    placeholder='Description'
-                    multiline={true}
-                    defaultValue = {guideInfo['description']}
-                    numberOfLines={3}
-                    onChangeText={setDescription}
-                    placeholderTextColor={'grey'}
-                />
-
-                {
-                    blocks.map((item) => {
-                        return Block(item, Up, Down, Edit, Remove);
-                    })
-                }
-
-                <AddBlockBtn onPress={() => setShowBlock(true)} />
-
-                <LocationBtn function={city ? "edit" : "add"} onPress={() => navigation.navigate("Maps", { lct: [location, setLocation], setCity })} />
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{
-                        color: 'black',
-                        width: '30%',
-                        textAlign: 'center',
-                        fontWeight: '500',
-                        fontSize: 16
-                    }}>
-                        Category:
-                    </Text>
-                    <Picker
-                        style={{ width: '70%' }}
-                        selectedValue={category}
-                        onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
-                    >
-                        {
-                            categories.map((cat) => {
-                                return <Picker.Item label={cat} value={cat} />
-                            })
-                        }
-                    </Picker>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{
-                        color: 'black',
-                        fontWeight: '500',
-                        fontSize: 16
-                    }}>Public: </Text>
-                    <CheckBox value={publish} onValueChange={setPublish} />
-                </View>
-                {blocks.length > 0 &&
-                    <View style={styles.viewButtons}>
-                        <SaveBtn
-                            text={publish ? "Post" : "Save"}
-                            onPress={async () => {
-                                setWaiting(true);
-                                const resp = await PostGuide(
-                                    blocks, 
-                                    title, 
-                                    description, 
-                                    userInfo['_id'], 
-                                    location['latitude'], 
-                                    location['longitude'], city,
-                                    category,
-                                    publish
-                                )
-                                if (resp) {
-                                    setWaiting(false);
-                                    setBlocks([]);
-                                    setTitle(null);
-                                    setDescription(null);
-                                    setCity(null);
-                                    setLocation(null);
-                                }
+    else{
+        return (
+            <EditGuideContext.Provider value={value}>
+                <ScrollView contentContainerStyle={styles.container}>
+                    <CreateBlockModal
+                        visible={showBlock}
+                        goBack={() => setShowBlock(false)}
+                    />
+                    <EditTextModal />
+                    <EditVideoModal />
+                    <EditPhotoModal />
+                    <TextInput
+                        style={styles.txtInput}
+                        placeholder='Title'
+                        multiline={true}
+                        defaultValue = {guideInfo['title']}
+                        onChangeText={setTitle}
+                        placeholderTextColor={'grey'}
+                    />
+    
+                    <TextInput
+                        style={styles.description}
+                        placeholder='Description'
+                        multiline={true}
+                        defaultValue = {guideInfo['description']}
+                        numberOfLines={3}
+                        onChangeText={setDescription}
+                        placeholderTextColor={'grey'}
+                    />
+    
+                    {
+                        blocks.map((item) => {
+                            return Block(item, Up, Down, Edit, Remove);
+                        })
+                    }
+    
+                    <AddBlockBtn onPress={() => setShowBlock(true)} />
+    
+                    <LocationBtn function={city ? "edit" : "add"} onPress={() => navigation.navigate("Maps", { lct: [location, setLocation], setCity })} />
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{
+                            color: 'black',
+                            width: '30%',
+                            textAlign: 'center',
+                            fontWeight: '500',
+                            fontSize: 16
+                        }}>
+                            Category:
+                        </Text>
+                        <Picker
+                            style={{ width: '70%' }}
+                            selectedValue={category}
+                            onValueChange={(itemValue, itemIndex) => SetCat(itemValue)}
+                        >
+                            {
+                                categories.map((cat) => {
+                                    return <Picker.Item label={cat} value={cat} />
+                                })
                             }
-                            } />
-                        <DiscardBtn title="Clear" onPress={() => { setBlocks([]); setTitle(null); setDescription(null); setCity(null); setLocation(null); setRerender(true); }} />
+                        </Picker>
                     </View>
-                }
-            </ScrollView>
-        </EditGuideContext.Provider>
-    )
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{
+                            color: 'black',
+                            fontWeight: '500',
+                            fontSize: 16
+                        }}>Public: </Text>
+                        <CheckBox value={publish} onValueChange={setPublish} />
+                    </View>
+                    {blocks.length > 0 &&
+                        <View style={styles.viewButtons}>
+                            <SaveBtn
+                                text={publish ? "Post" : "Save"}
+                                onPress={async () => {
+                                    setWaiting(true);
+                                    const resp = await PostGuide(
+                                        blocks, 
+                                        title, 
+                                        description, 
+                                        userInfo['_id'], 
+                                        location['latitude'], 
+                                        location['longitude'], city,
+                                        category,
+                                        publish
+                                    )
+                                    if (resp) {
+                                        setWaiting(false);
+                                        setBlocks([]);
+                                        setTitle(null);
+                                        setDescription(null);
+                                        setCity(null);
+                                        setLocation(null);
+                                    }
+                                }
+                                } />
+                            <DiscardBtn title="Clear" onPress={() => { setBlocks([]); setTitle(null); setDescription(null); setCity(null); setLocation(null); setRerender(true); }} />
+                        </View>
+                    }
+                </ScrollView>
+            </EditGuideContext.Provider>
+        )
+    }
+   
 }
 
 const styles = StyleSheet.create({
