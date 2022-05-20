@@ -54,12 +54,13 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     btn: {
-        width: 110,
+        width: '100%',
         height: 35,
         backgroundColor: 'rgba(255, 255, 255, 0.9)',
         justifyContent: 'center',
         borderRadius: 5,
-
+        padding: 1,
+        paddingHorizontal: 3
     },
     btntxt: {
         color: 'black',

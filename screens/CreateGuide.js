@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react'
-import { Dimensions, ScrollView, Text, StyleSheet, Image, View } from 'react-native';
+import { Dimensions, ScrollView, Text, StyleSheet, Image, View, ImageBackground, ToastAndroid } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Video from 'react-native-video';
 import AddBlockBtn from '../components/buttons/AddBlockBtn';
@@ -158,6 +158,8 @@ const CreateGuide = ({ navigation }) => {
 
     return (
         <CreateGuideContext.Provider value={value}>
+             <View style={{ flex: 1 }}>
+            <ImageBackground source={require('../assets/images/background.png')} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
             <ScrollView contentContainerStyle={styles.container}>
                 <CreateBlockModal
                     visible={showBlock}
@@ -171,7 +173,7 @@ const CreateGuide = ({ navigation }) => {
                     placeholder='Title'
                     multiline={true}
                     onChangeText={setTitle}
-                    placeholderTextColor={'grey'}
+                    placeholderTextColor={'white'}
                 />
 
                 <TextInput
@@ -180,7 +182,7 @@ const CreateGuide = ({ navigation }) => {
                     multiline={true}
                     numberOfLines={3}
                     onChangeText={setDescription}
-                    placeholderTextColor={'grey'}
+                    placeholderTextColor={'white'}
                 />
 
                 {
@@ -203,7 +205,9 @@ const CreateGuide = ({ navigation }) => {
                         Category:
                     </Text>
                     <Picker
-                        style={{ width: '70%', color: 'black' }}
+                        style={{ width: '70%', color: 'black', borderColor:'black', placeholderTextColor: 'black' }}
+                        itemStyle={{backgroundColor:'#fff'}}
+                        dropdownIconColor='black'
                         selectedValue={category}
                         onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
                     >
@@ -219,29 +223,48 @@ const CreateGuide = ({ navigation }) => {
                         color: 'black',
                         fontWeight: '500',
                         fontSize: 16
-                    }}>Public: </Text>
-                    <CheckBox tintColor='black' value={publish} onValueChange={setPublish} />
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{
-                        color: 'black',
-                        fontWeight: '500',
-                        fontSize: 16
                     }}>Price: </Text>
                     <TextInput
                         style={{ color: 'black', fontWeight: '500', fontSize: 16 }}
                         defaultValue='0'
+                        maxLength={6}
                         keyboardType='number-pad'
                         value={price}
                         onChangeText={onPriceChange}
                         textContentType=''
                     />
+                    <Text style={{
+                        color: 'black',
+                        fontWeight: '500',
+                        fontSize: 16
+                    }}>Public: </Text>
+                    <CheckBox tintColors={{ true: 'rgba(255, 255, 255, .75)', false: 'black' }} value={publish} onValueChange={setPublish} />
                 </View>
                 {blocks.length > 0 &&
                     <View style={styles.viewButtons}>
                         <SaveBtn
                             text={publish ? "Post" : "Save"}
                             onPress={async () => {
+                                if(!title || title === ""){
+                                    ToastAndroid.show("You must enter the title of guide!",
+                                    ToastAndroid.SHORT);
+                                    return;
+                                }
+                                if(!description || description === ""){
+                                    ToastAndroid.show("You must enter the description of guide!",
+                                    ToastAndroid.SHORT);
+                                    return;
+                                }
+                                if(blocks.filter(x => x.type === 'Image').length === 0){
+                                    ToastAndroid.show("You must add at least one block of image!",
+                                    ToastAndroid.SHORT);
+                                    return;
+                                }
+                                if(blocks.filter(x => x.type === 'Text').length === 0){
+                                    ToastAndroid.show("You must add at least one block of text!",
+                                    ToastAndroid.SHORT);
+                                    return;
+                                }
                                 setWaiting(true);
                                 const resp = await PostGuide(
                                     blocks,
@@ -268,6 +291,8 @@ const CreateGuide = ({ navigation }) => {
                     </View>
                 }
             </ScrollView>
+            </ImageBackground>
+            </View>
         </CreateGuideContext.Provider>
     )
 }
@@ -277,12 +302,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
         borderWidth: 1,
         width: '80%',
-        borderTopWidth: 0,
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
         alignSelf: 'center',
         textAlign: 'center',
-        color: 'black'
+        color: 'black',
+        borderRadius: 3,
+        backgroundColor: 'rgba(0, 0, 0, .25)',
+        borderColor: 'rgba(255, 255, 255, .25)'
     }, btn: {
 
     },
@@ -310,7 +335,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
         width: '96%',
         marginLeft: '2%',
-        color: 'black'
+        color: 'black',
+        backgroundColor: 'rgba(0, 0, 0, .25)',
+        paddingHorizontal: 10
     }
 })
 

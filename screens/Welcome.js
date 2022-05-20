@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     image: {
         width: 250,
         resizeMode: 'contain',
-        borderRadius: 5
+        borderRadius: 3
     },
     registerButton: {
         justifyContent: 'center',

@@ -53,6 +53,8 @@ const SearchMaps = () => {
                 value={findCity}
                 onChangeText={setFindCity}
                 onIconPress={redirectToCity}
+                onKeyPress={redirectToCity}
+                onEndEditing={redirectToCity}
             />
             <MapView
                 style={{

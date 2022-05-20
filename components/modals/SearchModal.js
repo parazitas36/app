@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f4f5f5',
         marginLeft: width * 0.035,
         marginTop: width * 0.025,
+        borderRadius: 5,
     },
     viewButtonPressed: {
         flexDirection: 'row',
@@ -37,9 +38,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 10,
         paddingBottom: 10,
-        backgroundColor: '#d4d4d4',
+        backgroundColor: 'rgba(0, 0, 0, 0.2)',
         marginLeft: width * 0.035,
         marginTop: width * 0.025,
+        borderRadius: 5,
     },
     viewTwoButtonsRow: {
         flexDirection: 'row',
@@ -66,9 +68,11 @@ const backBtnStyle = StyleSheet.create({
         marginTop: 15,
         width: width * 0.3,
         borderWidth: 1,
+        borderColor: 'rgba(0, 0, 0, .5)',
         padding: 10,
         borderRadius: 5,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        backgroundColor: 'rgba(255, 255, 255, 0.5)'
     },
     view: {
         alignItems: 'center',

@@ -6,7 +6,8 @@ import {
     StyleSheet,
     Dimensions,
     ActivityIndicator,
-    ImageBackground
+    ImageBackground,
+    ToastAndroid
 } from 'react-native';
 import { Context } from '../App';
 import Button from '../components/Button';
@@ -39,6 +40,9 @@ const Login = () => {
 
     const Login_In = async () => {
         if (!email || !password) {
+            ToastAndroid.show(
+                "You forgot to enter your email or password!",
+                ToastAndroid.SHORT)
             return;
         }
         if (checkEmail()) {
@@ -56,8 +60,15 @@ const Login = () => {
                 setLoggedIn(true);
             } else if (resp.status === 404) {
                 setWaiting(false);
+                ToastAndroid.show(
+                    "User with email address or password you have entered does not exist!",
+                    ToastAndroid.SHORT)
+                return
             }
         } else {
+            ToastAndroid.show(
+                "Email address you have entered is invalid!",
+                ToastAndroid.SHORT)
             return;
         }
     }
