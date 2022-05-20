@@ -173,7 +173,7 @@ const SearchModal = (props) => {
                     <TouchableOpacity>
                         <Pressable onPress={() => {
                             setPressed([false, false, false, false, false, true]);
-                            setCategory('Zoos');
+                            setCategory('Other');
                         }}>
                             <View style={pressed[5] ? styles.viewButtonPressed : styles.viewButton}>
                                 <Text style={styles.textVieButton}>Other</Text>
