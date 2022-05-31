@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Dimensions, StatusBar, View } from 'react-native';
+import { StripeProvider } from '@stripe/stripe-react-native';
 
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
@@ -22,8 +23,10 @@ import CreatorProfile from './screens/CreatorProfile';
 import SearchMaps from './screens/SearchMaps';
 import Maps from './screens/Maps';
 import MyGuides from './screens/MyGuides';
+import PaymentScreen from './screens/PaymentScreen';
 
 export const Context = React.createContext();
+const publishableKey = "pk_test_51L0Yf4FAWZEgTFzW6EjYcmKweFXAAs0Oj7B32s2YpW1GLeWeaDx2ubNCEGe4aBPtnwlNKiIeTnjMDpIzQtNOnXup007BleaihF";
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -88,6 +91,9 @@ const App = () => {
   const [userInfo, setUserInfo] = React.useState(null);
 
   return (
+    <StripeProvider
+      publishableKey={publishableKey}
+    >
     <Context.Provider value={{
       loggedIn, setLoggedIn,
       guideID: [chosenGuideID, setChosenGuideID],
@@ -190,7 +196,7 @@ const App = () => {
               />
               <Tab.Screen
                 name="SearchMaps"
-                component={SearchMaps}
+                component={PaymentScreen}
                 options={{
                   tabBarLabel: "Explore",
                   tabBarIconStyle: {
@@ -220,6 +226,7 @@ const App = () => {
 
       </NavigationContainer>
     </Context.Provider>
+    </StripeProvider>
   );
 };
 

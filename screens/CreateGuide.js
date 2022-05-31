@@ -134,6 +134,7 @@ const CreateGuide = ({ navigation }) => {
     // Vedant kaina pakeicia simbolius, kurie nera skaiciai i tuscia character
     const onPriceChange = (text) => {
         setPrice(text.replace(/([A-Za-z])/g, ''));
+        setPrice(text.replace(',', '.'));
         console.log(price)
     }
 
@@ -245,6 +246,13 @@ const CreateGuide = ({ navigation }) => {
                         <SaveBtn
                             text={publish ? "Post" : "Save"}
                             onPress={async () => {
+                                let reg = /^\d{0,8}(\.\d{2})+$/;
+                                const priceTxt = String(price)
+                                if(!reg.test(priceTxt)){
+                                    ToastAndroid.show("Invalid price! Enter in format {$.cc}",
+                                    ToastAndroid.SHORT);
+                                    return;
+                                }
                                 if(!title || title === ""){
                                     ToastAndroid.show("You must enter the title of guide!",
                                     ToastAndroid.SHORT);
