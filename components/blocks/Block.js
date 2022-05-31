@@ -50,6 +50,7 @@ const Block = (item, Up, Down, Edit, Remove) => {
     });
 
     const ShowByBlockType = (item) => {
+        console.log(item.object)
         switch (item.type) {
             case 'Text':
                 return (
@@ -92,6 +93,30 @@ const Block = (item, Up, Down, Edit, Remove) => {
                         </View>
                     </View>
                 )
+            case 'Imageuri':
+                return (
+                    <View style={styles.blockView}>
+                        <View style={styles.arrowView}>
+                            <ArrowUpBtn onPress={() => Up(item.id)} />
+                            <ArrowDownBtn onPress={() => Down(item.id)} />
+                        </View>
+                        <View style={styles.contentView}>
+                            <Image
+                                key={item.key}
+                                resizeMode="contain"
+                                paused={false}
+                                style={{
+                                    aspectRatio: 1,
+                                    width: "100%"
+                                }}
+                                source={{ uri: item.object }}
+                            />
+                        </View>
+                        <View style={styles.buttonView}>
+                            <RemoveBlockBtn onPress={() => Remove(item.id)} />
+                        </View>
+                    </View>
+                )
             case 'Video':
                 return (
                     <View style={styles.blockView}>
@@ -113,6 +138,30 @@ const Block = (item, Up, Down, Edit, Remove) => {
                         </View>
                         <View style={styles.buttonView}>
                             <EditBlockBtn onPress={() => Edit(item.id)} />
+                            <RemoveBlockBtn onPress={() => Remove(item.id)} />
+                        </View>
+                    </View>
+                )
+            case 'Videouri':
+                return (
+                    <View style={styles.blockView}>
+                        <View style={styles.arrowView}>
+                            <ArrowUpBtn onPress={() => Up(item.id)} />
+                            <ArrowDownBtn onPress={() => Down(item.id)} />
+                        </View>
+                        <View style={styles.contentView}>
+                            <Video
+                                key={item.key}
+                                resizeMode="contain"
+                                paused={false}
+                                style={{
+                                    aspectRatio: 1,
+                                    width: "100%"
+                                }}
+                                source={{ uri: item.object}}
+                            />
+                        </View>
+                        <View style={styles.buttonView}>
                             <RemoveBlockBtn onPress={() => Remove(item.id)} />
                         </View>
                     </View>

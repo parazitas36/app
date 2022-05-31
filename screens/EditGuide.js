@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react'
-import { Dimensions, ScrollView, Text, StyleSheet, Image, View } from 'react-native';
+import { Dimensions, ScrollView, Text, StyleSheet, Image, View, Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Video from 'react-native-video';
 import AddBlockBtn from '../components/buttons/AddBlockBtn';
@@ -10,7 +10,7 @@ import Block from '../components/blocks/Block';
 import EditTextModal from '../components/modals/guideEditModals/EditTextModal';
 import EditVideoModal from '../components/modals/guideEditModals/EditVideoModal';
 import EditPhotoModal from '../components/modals/guideEditModals/EditPhotoModal';
-import { PostGuide } from '../api/PostGuide';
+import { UpdateGuide } from '../api/UpdateGuide';
 import SaveBtn from '../components/buttons/SaveBtn';
 import DiscardBtn from '../components/buttons/DiscardBtn';
 import { Context } from '../App';
@@ -42,6 +42,7 @@ const EditGuide = ({ navigation }) => {
     const [city, setCity] = React.useState(null);
     const [category, setCategory] = React.useState(null);
     const [publish, setPublish] = React.useState(false);
+    const [price, setPrice] = React.useState(0);
 
     const [showBlock, setShowBlock] = React.useState(false);
     const [showEditText, setShowEditText] = React.useState(false);
@@ -57,11 +58,10 @@ const EditGuide = ({ navigation }) => {
     const [rerender, setRerender] = React.useState(false);
     const [waiting, setWaiting] = React.useState(false);
 
-    const [guideId, setGuideID]  = React.useState("62849e68fd614b3e9b5e2d0a");
+    const [guideId, setGuideID]  = React.useState("6295d48f72269d7bdd0fd37c");
     
     const { accInfo } = useContext(Context);
     const [userInfo, setUserInfo] = accInfo;
-    console.log(guideId)
 
     const value = {
         texts: [text, setText],
@@ -78,7 +78,6 @@ const EditGuide = ({ navigation }) => {
 
     // Pakelia bloka i virsu
     const Up = (id) => {
-        console.log(id, blocks[id].object)
         if (id === 0) { return; }
         else {
             const prev = blocks[id - 1];
@@ -93,7 +92,6 @@ const EditGuide = ({ navigation }) => {
 
     // Nuleidzia bloka zemiau
     const Down = (id) => {
-        console.log(id, blocks[id].object)
         if (id === blocks.length - 1) { return; }
         else {
             const next = blocks[id + 1];
@@ -139,7 +137,6 @@ const EditGuide = ({ navigation }) => {
     const [guideInfo, setGuideInfo] = React.useState(null);
     const [isRatingZero, setIfZero] = React.useState(true);
     const [isGuideSet, setGuideSet] = React.useState(false);
-    const [isCatChanged, setCatChanged] = React.useState(false);
 
     React.useLayoutEffect(() => {
         if ((text !== null || photo !== null || video !== null)
@@ -149,10 +146,8 @@ const EditGuide = ({ navigation }) => {
             setVideo(null);
         }
         (async () => {
-            console.log(guideId)
             const resp  = await GetGuideById(guideId);
             setGuideInfo(resp);
-            console.log(resp)
             setGuideSet(true)
             if(guideInfo !== null){
                 setCategory(guideInfo['category'])
@@ -166,18 +161,37 @@ const EditGuide = ({ navigation }) => {
 
     const SetCat = (cat) => {
         setCategory(cat)
-        setCatChanged(true)
-        console.log(cat)
     }
 
     //laukia kol pasikeis isGuideSet jis keiciasi kai nustato default ir kai gida nustato
     // jei gidas ne null nustato jo duomenis
     React.useEffect(()=>{
         if(guideInfo !== null){
-            setPublish(guideInfo['visible'])
-            setCategory(guideInfo['category'])
-            console.log(publish)
+            setPublish(guideInfo['visible']);
+            setCategory(guideInfo['category']);
+            setTitle(guideInfo['title']);
+            setDescription(guideInfo['description']);
+            setCity(guideInfo['city'])
+            setPrice(guideInfo['price'])
+            console.log(guideInfo);
+            guideInfo['blocks'].map((item) => {
+                switch (item.type) {
+                    case 'Text':
+                        if(item.tblock !== null){
+                            setBlocks(blocks => [...blocks, { type: item.type, object: item.tblock.text, id: item.tblock.priority }])
+                        }
+                    case 'Image':
+                        if(item.pblock !== null){
+                            setBlocks(blocks => [...blocks, { type: item.type+ 'uri', object: item.pblock.uri, id: item.pblock.priority }])
+                        }
+                    case 'Video':
+                        if(item.vblock !== null){
+                            setBlocks(blocks => [...blocks, { type: item.type+ 'uri', object: item.vblock.uri, id: item.vblock.priority }])
+                        }
+                }
+            })
         }
+        
     },[isGuideSet])
 
     //Waiting true tik tada kai bandai sukurt gida ir papostint tada ijungia true kad zinot kada ikelia viska i duombazes
@@ -271,23 +285,31 @@ const EditGuide = ({ navigation }) => {
                                 text={publish ? "Post" : "Save"}
                                 onPress={async () => {
                                     setWaiting(true);
-                                    const resp = await PostGuide(
+                                    const resp = await UpdateGuide(
                                         blocks, 
                                         title, 
                                         description, 
                                         userInfo['_id'], 
-                                        location['latitude'], 
-                                        location['longitude'], city,
+                                        guideInfo['latitude'], 
+                                        guideInfo['longtitude'], 
+                                        city,
                                         category,
-                                        publish
+                                        publish,
+                                        price,
+                                        guideId
                                     )
                                     if (resp) {
-                                        setWaiting(false);
-                                        setBlocks([]);
-                                        setTitle(null);
-                                        setDescription(null);
-                                        setCity(null);
-                                        setLocation(null);
+                                        if(resp.status === 200){
+                                            Alert.alert("Successful","Guide updated",[
+                                                {text: "Ok"}])
+                                            console.log(resp.status)
+                                            setWaiting(false)
+                                        }else{
+                                            Alert.alert("Error","Guide was not updated",[
+                                                {text: "Ok"}])
+                                            console.log(resp.status)
+                                            setWaiting(false)
+                                        }
                                     }
                                 }
                                 } />
