@@ -68,6 +68,7 @@ const HomeScreen = () => {
       <HomeScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="Home" component={Home} />
       <HomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Guide" component={Guide} />
       <HomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="CreatorProfile" component={CreatorProfile} />
+      <HomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Payments" component={PaymentScreen} />
     </HomeScreenStack.Navigator>
   );
 }
@@ -89,6 +90,7 @@ const App = () => {
   const [chosenGuideID, setChosenGuideID] = React.useState(null);
   const [chosenProfileID, setChosenProfileID] = React.useState(null);
   const [userInfo, setUserInfo] = React.useState(null);
+  const [fetchGuides, setFetchGuides] = React.useState(false);
 
   return (
     <StripeProvider
@@ -98,7 +100,8 @@ const App = () => {
       loggedIn, setLoggedIn,
       guideID: [chosenGuideID, setChosenGuideID],
       accInfo: [userInfo, setUserInfo],
-      creatorInfo: [chosenProfileID, setChosenProfileID]
+      creatorInfo: [chosenProfileID, setChosenProfileID],
+      fetchGuidesData: [fetchGuides, setFetchGuides]
     }}
     >
       <StatusBar barStyle="dark-content" backgroundColor="#eeeeee" />
@@ -196,7 +199,7 @@ const App = () => {
               />
               <Tab.Screen
                 name="SearchMaps"
-                component={PaymentScreen}
+                component={SearchMaps}
                 options={{
                   tabBarLabel: "Explore",
                   tabBarIconStyle: {

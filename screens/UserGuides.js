@@ -107,7 +107,7 @@ const UserGuides = ({ navigation }) => {
                                             navigation.navigate("Guide")
                                         }
                                         }
-                                        navigateToEdit={()=>{navigation.navigate("EditGuide")} }
+                                        navigateToEdit={()=>{navigation.navigate("EditGuide", {guideId: item['_id']})} }
                                     />
                                 }
                             })

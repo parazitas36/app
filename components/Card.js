@@ -1,26 +1,45 @@
 import { Dimensions, StyleSheet, Image, Text, View, Pressable } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Button from '../components/Button';
 import IOnicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { UnsaveGuide } from '../api/UnsaveGuide';
 import { SaveGuide } from '../api/SaveGuide';
-
+import { Context } from '../App';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 const defaultImageURI = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2017%2F02%2Feiffel-tower-paris-france-EIFFEL0217.jpg&q=60";
 
 const Card = (props) => {
+    const { accInfo } = useContext(Context);
+    const [userInfo, setUserInfo] = accInfo;
     const [favorite, setFavorite] = useState(null);
     const [uri, setUri] = useState(null);
+    const [owned, setOwned] = useState(Math.max(props.payedguides.includes(props.guideID), props.price === 0) === 1)
+
     if (favorite === null) {
         setFavorite(props.favorite);
     }
     if(uri === null){
         setUri(props.uri)
     }
+
+    const onClick = () => {
+        if(owned){
+            props.setChosenGuideID(props.guideID);
+            props.navigation.navigate("Guide")
+        }else{
+            props.navigation.navigate("Payments", {
+                guideID : props.guideID,
+                price : props.price,
+                ownedState : owned,
+                ownedFunc : setOwned
+            });
+        }
+    }
+
     return (
         <View style={styles.view}>
             <Image blurRadius={1} style={styles.image} source={{ uri: !props.uri ? defaultImageURI : uri }} />
@@ -44,12 +63,16 @@ const Card = (props) => {
                                         break;
                                     }
                                 }
+                                const json = await resp.json();
+                                setUserInfo(json);
                                 setFavorite(false)
                             }
                         } else if (favorite === false) {
                             resp = await SaveGuide(props.guideID, props.userID);
                             if (resp.status === 200) {
                                 props.savedguides.push(props.guideID);
+                                const json = await resp.json();
+                                setUserInfo(json);
                                 setFavorite(true)
                             }
                         }
@@ -92,10 +115,10 @@ const Card = (props) => {
                         alignItems: 'center',
                         flexDirection: 'column',
                     }}
-                        onPress={props.onClick}
+                        onPress={onClick}
                     >
                         <FontAwesome5 style={{marginBottom: -8}} name='chevron-down' size={22} color={'rgba(255, 255, 255, 0.8)'} />
-                        <Text style={styles.btntxt}>Show all</Text>
+                        <Text style={styles.btntxt}>{owned ? "Show all" : `Buy for ${(props.price/100).toFixed(2)} €`}</Text>
                     </Pressable>
                 </TouchableOpacity>
             </View>
