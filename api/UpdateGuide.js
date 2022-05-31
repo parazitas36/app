@@ -66,8 +66,7 @@ export const UpdateGuide = async(blocks, title, description, creatorID, latitude
 
     console.log(formData);
 
-    // const resp = await fetch("https://v-guide.herokuapp.com/api/guides" + guideId, {
-    const resp = await fetch("http://localhost:5000/api/guides", {
+    const resp = await fetch("https://v-guide.herokuapp.com/api/guides", {
         method: 'PUT',
         headers: {
         'Content-Type': 'multipart/form-data',
