@@ -208,6 +208,13 @@ const EditProfile = () => {
         <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
             <ScrollView >
                 <View style={styles.viewRow}>
+                    <Text style={styles.textTitle}>Change profile picture</Text>
+                </View>
+                <View style={styles.viewRow}>
+                    
+                </View>
+
+                <View style={styles.viewRow}>
                     <Text style={styles.textTitle}>Change name</Text>
                 </View>
                 <View style={styles.viewRow}>
