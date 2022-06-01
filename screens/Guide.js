@@ -11,27 +11,48 @@ import VideoBlock from '../components/blocks/VideoBlock';
 import Rating from '../components/Rating';
 import ResponseCard from '../components/ResponseCard';
 import MapView, { Marker } from 'react-native-maps';
+import { UnsaveGuide } from '../api/UnsaveGuide';
+import { SaveGuide } from '../api/SaveGuide';
 
 const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
 const tempText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius duis at consectetur lorem donec massa sapien. Egestas purus viverra accumsan in nisl nisi scelerisque eu.  Eget arcu dictum varius duis. Sodales neque sodales ut etiam sit amet nisl purus.  Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Facilisi morbi tempus iaculis urna id. Consequat nisl vel pretium lectus quam. Massa tempor nec feugiat nisl pretium fusce. Sit amet risus nullam eget felis eget. Nunc sed blandit libero volutpat sed cras ornare arcu. Odio ut enim blandit volutpat. Congue mauris rhoncus aenean vel. Nunc sed augue lacus viverra vitae congue eu. Semper viverra nam libero justo laoreet sit amet cursus. Risus quis varius quam quisque id diam. Sed turpis tincidunt id aliquet risus feugiat in ante. Non enim praesent elementum facilisis leo vel fringilla est."
 
-const Guide = ({navigation}) => {
-    const { guideID, creatorInfo, accInfo} = React.useContext(Context);
+const Guide = ({ navigation }) => {
+    const { guideID, creatorInfo, accInfo } = React.useContext(Context);
     const [userInfo, setUserInfo] = accInfo;
     const [chosenGuideID, setChosenGuideID] = guideID;
     const [guideInfo, setGuideInfo] = React.useState(null);
     const [chosenProfileID, setChosenProfileID] = creatorInfo;
     const [isRatingZero, setIfZero] = React.useState(true);
+    const [favorite, setFavorite] = React.useState(userInfo['savedguides'].includes(chosenGuideID))
 
     React.useLayoutEffect(() => {
         (async () => {
             const resp = await GetGuideById(chosenGuideID);
             setGuideInfo(resp);
-            if(resp['rating'] !== 0){
+            if (resp['rating'] !== 0) {
                 setIfZero(false);
             }
         })()
     }, [])
+
+    const changeFavorite = async () => {
+        if (favorite) {
+            const resp = await UnsaveGuide(chosenGuideID, userInfo["_id"]);
+            if (resp.status === 200) {
+                const json = await resp.json();
+                setUserInfo(json);
+                setFavorite(false)
+            }
+        } else {
+            const resp = await SaveGuide(chosenGuideID, userInfo["_id"]);
+            if (resp.status === 200) {
+                const json = await resp.json();
+                setUserInfo(json);
+                setFavorite(true)
+            }
+        }
+    }
 
     if (!guideInfo) {
         // Loading... indikatorius
@@ -84,21 +105,21 @@ const Guide = ({navigation}) => {
                 {/* Prideti i favorites */}
                 <View style={styles.guideButtons}>
                     <TouchableOpacity >
-                        <Pressable onPress={() => console.log('click')}>
-                            <IOnicons name={'heart-outline'} size={36} color={'white'} />
+                        <Pressable onPress={changeFavorite}>
+                            <IOnicons name={favorite ? 'heart' : 'heart-outline'} size={36} color={favorite ? "#ff1e5a" : 'white'} />
                         </Pressable>
                     </TouchableOpacity>
                 </View>
 
                 {/* Lokacija */}
-                <View style={[styles.guideButtons, { top: 125, flex: 1, flexDirection: 'row', alignItems: 'center'}]}>
+                <View style={[styles.guideButtons, { top: 125, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
                     <IOnicons name='location-outline' color="white" size={30} />
                     <Text numberOfLines={1} ellipsizeMode="tail" style={styles.city}>{guideInfo['city']}</Text>
                 </View>
 
                 {/* Reitingas */}
                 <View style={[styles.guideButtons, { top: 200 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
-                    <Text style={styles.rating}>Rating: {isRatingZero? "-" : guideInfo['rating']}/5</Text>
+                    <Text style={styles.rating}>Rating: {isRatingZero ? "-" : guideInfo['rating']}/5</Text>
                     <IOnicons name={'star'} size={25} color={'gold'} />
                 </View>
 
@@ -120,32 +141,32 @@ const Guide = ({navigation}) => {
                 })}
 
                 <MapView
-                style={{
-                    height: 250,
-                    width: '98%',
-                    alignSelf: 'center',
-                    marginTop: 20
-                }}
-                initialRegion={{
-                    latitude: guideInfo['latitude'],
-                    longitude: guideInfo['longtitude'],
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-                >
-                <Marker 
-                    title={guideInfo['title']}
-                    coordinate={{
-                        latitude: guideInfo['latitude'],
-                        longitude: guideInfo['longtitude']
+                    style={{
+                        height: 250,
+                        width: '98%',
+                        alignSelf: 'center',
+                        marginTop: 20
                     }}
-                    pinColor='red'
+                    initialRegion={{
+                        latitude: guideInfo['latitude'],
+                        longitude: guideInfo['longtitude'],
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
                 >
-                </Marker>
+                    <Marker
+                        title={guideInfo['title']}
+                        coordinate={{
+                            latitude: guideInfo['latitude'],
+                            longitude: guideInfo['longtitude']
+                        }}
+                        pinColor='red'
+                    >
+                    </Marker>
                 </MapView>
 
-                <Rating styles = {styles} userId = {userInfo['_id']} guideId = {guideInfo['_id']}/>
-                <ResponseCard userId = {userInfo['_id']} guideId = {guideInfo['_id']}></ResponseCard>
+                <Rating styles={styles} userId={userInfo['_id']} guideId={guideInfo['_id']} />
+                <ResponseCard userId={userInfo['_id']} guideId={guideInfo['_id']}></ResponseCard>
 
             </ScrollView>
         )

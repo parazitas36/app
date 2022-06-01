@@ -11,7 +11,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Context } from '../App';
 
 const image = require('../assets/images/background.png');
-const API_URL = "http://localhost:5000"
+const API_URL = "https://v-guide.herokuapp.com"
 
 const PaymentScreen = ({ route, navigation }) => {
   const { accInfo } = useContext(Context);
@@ -19,8 +19,6 @@ const PaymentScreen = ({ route, navigation }) => {
   const { guideID, price, ownedState, ownedFunc } = route.params;
   const [userInfo, setUserInfo] = accInfo;
   const [waiting, setWaiting] = React.useState(false);
-
-  console.log(userInfo)
 
   const handlePress = async () => {
     const response = await fetch(`${API_URL}/api/payments/create-payment-intent`, {
@@ -89,7 +87,7 @@ const PaymentScreen = ({ route, navigation }) => {
           }}
         />
         <TouchableOpacity style={{ width: 150, height: 100, alignSelf: 'center' }}>
-          <Button title={`Pay ${(price / 100).toFixed(2)} €`} style={{ flex: 1, color: 'white' }} onPress={handlePress} disabled={loading} />
+          <Button title={`Pay ${(price).toFixed(2)} €`} style={{ flex: 1, color: 'white' }} onPress={handlePress} disabled={loading} />
         </TouchableOpacity>
       </ImageBackground>
     </View>

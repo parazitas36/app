@@ -118,7 +118,7 @@ const Card = (props) => {
                         onPress={onClick}
                     >
                         <FontAwesome5 style={{marginBottom: -8}} name='chevron-down' size={22} color={'rgba(255, 255, 255, 0.8)'} />
-                        <Text style={styles.btntxt}>{owned ? "Show all" : `Buy for ${(props.price/100).toFixed(2)} €`}</Text>
+                        <Text style={styles.btntxt}>{owned ? "Show all" : `Buy for ${(props.price).toFixed(2)} €`}</Text>
                     </Pressable>
                 </TouchableOpacity>
             </View>
