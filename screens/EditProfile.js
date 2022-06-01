@@ -12,9 +12,11 @@ import {
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { ChangePassword } from '../api/ChangePassword';
 import { ChangeNames } from '../api/ChangeNames';
+import { UploadProfilePicture } from '../api/UploadProfilePicture';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import { Context } from '../App';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 const image = require('../assets/images/background.png');
 const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
@@ -59,6 +61,26 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderWidth: 1
     }, 
+    viewLeftImg:{
+        alignItems: 'center',
+        width: width * 0.45,
+        justifyContent: 'center',
+        height: 150,
+        borderColor: 'black',
+        borderRadius: 20,
+        borderWidth: 1,
+        marginRight: 5,
+    },
+    viewRightImg:{
+        alignItems: 'center',
+        width: width * 0.45,
+        justifyContent: 'center',
+        height: 150,
+        borderColor: 'black',
+        borderRadius: 20,
+        borderWidth: 1,
+        marginLeft: 5,
+    }, 
     viewLeftPSW:{
         alignItems: 'flex-start',
         width: width * 0.45,
@@ -101,6 +123,13 @@ const styles = StyleSheet.create({
         height: 40,
         marginLeft: 10,
         paddingTop: 17,
+        fontWeight: '500',
+    },
+    textImg:{
+        fontSize: 16,
+        color: 'black',
+        alignContent: 'center',
+        height: 40,
         fontWeight: '500',
     },
     textTitle:{
@@ -150,18 +179,59 @@ const styles = StyleSheet.create({
         alignSelf:'center',
         borderRadius: 5,
         marginTop: 5,
+    },
+    profileImage: {
+        width: 80,
+        height: 80,
+        borderRadius: 180,
+        resizeMode: 'center',
+    },
+    viewEndPage: {
+        height: 100,
     }
 })
 
 const EditProfile = () => {
+    const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
+    const [profileImage, setProfileImage] = React.useState("")
     const { accInfo } = React.useContext(Context);
     const [oldpassword, setOld] = React.useState("")
     const [newPassword, setNew] = React.useState("")
     const [newPasswordreEnter, setNewReEnter] = React.useState("")
     const [userInfo, setUserInfo] = accInfo;
+    const [photo, setPhoto] = React.useState(null)
+    
     const [newFName, setFname] = React.useState(userInfo['firstname'])
     const [newLName, setLname] = React.useState(userInfo['lastname'])
     console.log(newFName)
+
+    const uploadPhoto = async () => {
+        const options = {
+            mediaType: 'photo'
+        }
+
+        try {
+            const result = await launchImageLibrary(options);
+            if (result.didCancel) {
+                setPhoto(null);
+            } else {
+                setPhoto(result);
+            }
+        } catch (e) {
+            setPhoto(null);
+        }
+    }
+
+    React.useLayoutEffect(() => {
+        (async() => {
+            console.log(userInfo);
+            if(userInfo['ppicture'] === "" || userInfo['ppicture'] === null){
+                setProfileImage("https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg")
+            }else{
+                setProfileImage(userInfo['ppicture']);
+            }
+        })()
+    },[])
 
     const ChangePasswordMethod = async (uid) => {
         if(oldpassword !== "" && newPassword !== "" && newPasswordreEnter !== "" && newPassword === newPasswordreEnter){
@@ -204,6 +274,26 @@ const EditProfile = () => {
         }
     };
 
+    const ChangePhoto = async (photo, uid) => {
+        if(photo !== null){
+            var res = await UploadProfilePicture(photo, uid)
+            console.log(res.status);
+            if(res.status !== 200){
+                Alert.alert("Failed","Something went wrong, image was not changed",[
+                    {text: "Ok"}
+                ])
+            }else{
+                Alert.alert("Successful","Image was changed",[
+                    {text: "Ok"}
+                ])
+            }
+        }else{
+            Alert.alert("Notice","Please upload an image first",[
+                {text: "Ok"}
+            ])
+        }
+    };
+
     return(
         <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
             <ScrollView >
@@ -211,7 +301,34 @@ const EditProfile = () => {
                     <Text style={styles.textTitle}>Change profile picture</Text>
                 </View>
                 <View style={styles.viewRow}>
-                    
+                    <View style={styles.viewLeftImg}>
+                        <Text style={styles.textImg}>Current image</Text>
+                        <View style={styles.profileImageView}>
+                                <Image style={styles.profileImage} source={{ uri: profileImage }} />
+                        </View>
+                    </View>
+                    <View style={styles.viewRightImg}>
+                        <Text style={styles.textImg}>Chosen image</Text>
+                        <TouchableOpacity>
+                            <Pressable onPress={uploadPhoto}>
+                                {photo &&
+                                    <Image style={styles.profileImage} source={{ uri: photo.assets[0].uri }} />
+                                }
+                                {!photo &&
+                                    <FontAwesome  name='cloud-upload' size={80} color={'black'} />
+                                }
+                            </Pressable>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                <View style={styles.viewRow}>
+                    <View style={styles.viewBTNSave}>
+                        <TouchableOpacity>
+                            <Pressable style={styles.btnPressSave} onPress={()=>{ChangePhoto(photo, userInfo['_id'])}}>
+                                <Text style={styles.btnSave}>Save</Text>
+                            </Pressable>
+                        </TouchableOpacity>
+                    </View>
                 </View>
 
                 <View style={styles.viewRow}>
@@ -245,14 +362,6 @@ const EditProfile = () => {
                             </Pressable>
                         </TouchableOpacity>
                     </View>
-                    
-                    {/* <View style={styles.viewBTNDiscard}>
-                        <TouchableOpacity>
-                            <Pressable style={styles.btnPressDiscard} onPress={()=>{console.log("paspaude")}}>
-                                <Text style={styles.btnSave}>Discard</Text>
-                            </Pressable>
-                        </TouchableOpacity>
-                    </View> */}
                 </View>  
                 <View style={styles.viewRow}>
                     <Text style={styles.textTitle}>Change password</Text>
@@ -301,7 +410,8 @@ const EditProfile = () => {
                             </Pressable>
                         </TouchableOpacity>
                     </View> */}
-                </View>    
+                </View> 
+                <View style={styles.viewEndPage}></View>   
             </ScrollView>
         </ImageBackground>
         
