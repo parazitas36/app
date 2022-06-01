@@ -88,11 +88,12 @@ const Home = ({ navigation }) => {
     React.useLayoutEffect(() => {
         (async () => {
             const temp = await GetAllGuides();
+            setGuides([]);
             setGuides(temp);
             setRefresh(false);
             setFirstLoad(false);
         })()
-    }, [refresh])
+    }, [refresh, userInfo])
 
     if (firstLoad) {
         return (
@@ -140,15 +141,13 @@ const Home = ({ navigation }) => {
                                         title={item['title']}
                                         description={item['description']}
                                         guideID={item['_id']}
+                                        price={item['price']}
                                         favorite={userInfo['savedguides'].includes(item['_id'])}
                                         savedguides={userInfo['savedguides']}
+                                        payedguides={userInfo['payedguides']}
                                         userID={userInfo['_id']}
-                                        onClick={() => {
-                                            setChosenGuideID(item['_id']);
-                                            console.log(item['_id'])
-                                            navigation.navigate("Guide")
-                                        }
-                                        }
+                                        navigation={navigation}
+                                        setChosenGuideID={setChosenGuideID}
                                     />
                                 }
                             })

@@ -27,7 +27,7 @@ const windowHeight = Dimensions.get('window').height;
 
 export const EditGuideContext = createContext();
 
-const EditGuide = ({ navigation }) => {
+const EditGuide = ({ navigation, route }) => {
     const categories = [
         "Museums",
         "Ancient Buildings",
@@ -58,7 +58,7 @@ const EditGuide = ({ navigation }) => {
     const [rerender, setRerender] = React.useState(false);
     const [waiting, setWaiting] = React.useState(false);
 
-    const [guideId, setGuideID]  = React.useState("6295d48f72269d7bdd0fd37c");
+    const { guideId } = route.params;
     
     const { accInfo } = useContext(Context);
     const [userInfo, setUserInfo] = accInfo;
@@ -137,6 +137,8 @@ const EditGuide = ({ navigation }) => {
     const [guideInfo, setGuideInfo] = React.useState(null);
     const [isRatingZero, setIfZero] = React.useState(true);
     const [isGuideSet, setGuideSet] = React.useState(false);
+
+    console.log("guideinfo", guideInfo)
 
     React.useLayoutEffect(() => {
         if ((text !== null || photo !== null || video !== null)
