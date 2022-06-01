@@ -105,6 +105,12 @@ const SearchModal = (props) => {
                             setFilteredGuides(resp);
                             props.goBack();
                         }}
+                        onKeyPress={async() => {
+                            const resp = await Filter();
+                            console.log(resp);
+                            setFilteredGuides(resp);
+                            props.goBack();}
+                        }
                     />
                 </View>
                 <View style={styles.viewTwoButtonsRow}>

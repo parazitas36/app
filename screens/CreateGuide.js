@@ -273,6 +273,11 @@ const CreateGuide = ({ navigation }) => {
                                     ToastAndroid.SHORT);
                                     return;
                                 }
+                                if(!location){
+                                    ToastAndroid.show("You must add the location!",
+                                    ToastAndroid.SHORT);
+                                    return;
+                                }
                                 setWaiting(true);
                                 const resp = await PostGuide(
                                     blocks,
