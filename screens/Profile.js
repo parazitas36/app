@@ -11,6 +11,7 @@ import { Searchbar } from 'react-native-paper';
 import SearchBtn from '../components/buttons/SearchBtn';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Button from '../components/Button'
+import {Context} from '../App'
 
 const image = require('../assets/images/background.png');
 const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     profileImageView: {
-        width: '25%',
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
         resizeMode: 'center',
     },
     profileName: {
-        width: '45%',
+        flex: 1.5,
         justifyContent: 'center'
     },
     profileNameText: {
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5
     },
     editView: {
-        width: '30%',
+        flex: 1,
         alignItems: 'center'
     },
     btn: {
@@ -59,8 +60,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.9)',
         justifyContent: 'center',
         borderRadius: 5,
-        padding: 1,
-        paddingHorizontal: 3
+        padding: 5,
+        paddingHorizontal: 15
     },
     btntxt: {
         color: 'black',
@@ -71,6 +72,9 @@ const styles = StyleSheet.create({
 })
 
 const Profile = ({navigation}) => {
+    const { accInfo } = React.useContext(Context);
+    const [userInfo, setUserInfo] = accInfo;
+
     return (
         <View style={{ flex: 1 }}>
             <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
@@ -80,7 +84,7 @@ const Profile = ({navigation}) => {
                             <Image style={styles.profileImage} source={{ uri: profile_img }} />
                         </View>
                         <View style={styles.profileName}>
-                            <Text numberOfLines={3} ellipsizeMode={'tail'} style={styles.profileNameText}>Name Surname</Text>
+                            <Text numberOfLines={3} ellipsizeMode={'tail'} style={styles.profileNameText}>{`${userInfo['firstname']} ${userInfo['lastname']}`}</Text>
                         </View>
                         <View style={styles.editView}>
                             <View
@@ -103,8 +107,16 @@ const Profile = ({navigation}) => {
                                 position: 'absolute',
                                 bottom: 8,
                             }}>
-                                <Button onPress={()=>{navigation.navigate("EditProfile")}} styles={styles} title={"Edit Profile"} />
+                                <Button onPress={()=>{navigation.navigate("EditProfile")}} styles={styles} title={"Edit"} />
                             </View>
+                        </View>
+                    </View>
+                    <View style={{width: '96%', height: 80, marginTop: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                        <View style={{backgroundColor: 'rgba(0, 0, 0, .15)', padding: 10, marginRight: 5, borderRadius: 3}}>
+                            <Text style={{color: 'black', fontWeight: '500', fontSize: 18}}>Followers: {userInfo['followers'].length}</Text>
+                        </View>
+                        <View style={{backgroundColor: 'rgba(0, 0, 0, .15)', padding: 10, marginLeft: 5, borderRadius: 3}}>
+                            <Text style={{color: 'black', fontWeight: '500', fontSize: 18}}>Following: {userInfo['followed'].length}</Text>
                         </View>
                     </View>
                 </View>

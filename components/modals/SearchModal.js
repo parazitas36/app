@@ -105,7 +105,7 @@ const SearchModal = (props) => {
                             setFilteredGuides(resp);
                             props.goBack();
                         }}
-                        onKeyPress={async() => {
+                        onEndEditing={async() => {
                             const resp = await Filter();
                             console.log(resp);
                             setFilteredGuides(resp);
