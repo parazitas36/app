@@ -89,7 +89,7 @@ const Card = (props) => {
 
             <View style={[styles.guideButtons, { top: 165 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
                 <Text style={styles.rating}>Rating: {props.rating ? props.rating : '-'}/5</Text>
-                <IOnicons name={'star'} size={25} color={'gold'} />
+                <IOnicons name={'star'} size={25} color={'#B5C6A6'} />
             </View>
 
 
@@ -116,7 +116,7 @@ const Card = (props) => {
                     }}
                         onPress={onClick}
                     >
-                        <FontAwesome5 style={{marginBottom: -8}} name='chevron-down' size={22} color={'rgba(255, 255, 255, 0.8)'} />
+                        <FontAwesome5 style={{marginBottom: -8}} name='chevron-down' size={22} color={'rgba(255, 255, 255, .85)'} />
                         <Text style={styles.btntxt}>{owned ? "Show all" : `Buy for ${(props.price).toFixed(2)} €`}</Text>
                     </Pressable>
                 </TouchableOpacity>
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     },
     btntxt: {
         fontSize: 16,
-        color: 'rgba(255, 255, 255, 0.8)',
+        color: 'rgba(255, 255, 255, .85)',
         fontWeight: '500',
         marginBottom: 5
     },
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'column',
         paddingVertical: 5,
-        backgroundColor: 'rgba( 93, 122, 152, 0.85 )',
+        backgroundColor: 'rgba(95, 119, 147, 0.9)',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
         position: 'absolute',

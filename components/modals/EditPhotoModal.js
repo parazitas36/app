@@ -1,4 +1,4 @@
-import { Dimensions, ScrollView, TextInput, View, Modal, StyleSheet, Image } from 'react-native'
+import { Dimensions, ScrollView, TextInput, View, Modal, StyleSheet, Image, ImageBackground, Text } from 'react-native'
 import React, { useContext } from 'react'
 import { CreateGuideContext } from '../../screens/CreateGuide'
 import Button from '../Button'
@@ -46,35 +46,41 @@ const EditPhotoModal = (props) => {
     if (showEditPhoto) {
         return (
             <Modal animationType='slide' visible={showEditPhoto}>
-                <ScrollView>
-                    <View style={styles.view}>
-                        <UploadBtn onPress={uploadPhoto} />
-                        {photo &&
-                            <View style={styles.imageView}>
-                                <Image
-                                    style={{ flex: 1, height: undefined, width: undefined }}
-                                    source={{ uri: photo.assets[0].uri }} />
-                            </View>
-                        }
-                        <View style={styles.viewButtons}>
-                            <AgreeBtn
-                                onPress={
-                                    () => {
-                                        if (photo === null) { alert('No photo has been selected!'); return; }
-                                        else {
-                                            blocks[editID].object = photo;
-                                            setShowEditPhoto(false);
-                                        }
-                                    }
+                <View style={{ flex: 1 }}>
+                    <ImageBackground source={require('../../assets/images/background.png')} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+                        <ScrollView contentContainerStyle={{paddingBottom: 20}}>
+                            <Text style={styles.title}>Image Block</Text>
+                            <View style={styles.view}>
+                                <UploadBtn onPress={uploadPhoto} title="Change"/>
+                                {photo &&
+                                    <View style={styles.imageView}>
+                                        <Image
+                                            style={{ flex: 1, height: undefined, width: undefined }}
+                                            source={{ uri: photo.assets[0].uri }} />
+                                    </View>
                                 }
-                            />
-                            <DiscardBtn onPress={
-                                () => { setShowEditPhoto(false); }
-                            }
-                            />
-                        </View>
-                    </View>
-                </ScrollView>
+                                <View style={styles.viewButtons}>
+                                    {photo && <AgreeBtn
+                                        onPress={
+                                            () => {
+                                                if (photo === null) { alert('No photo has been selected!'); return; }
+                                                else {
+                                                    blocks[editID].object = photo;
+                                                    setShowEditPhoto(false);
+                                                }
+                                            }
+                                        }
+                                        title="Save"
+                                    />}
+                                    <DiscardBtn onPress={
+                                        () => { setShowEditPhoto(false); }
+                                    }
+                                    />
+                                </View>
+                            </View>
+                        </ScrollView>
+                    </ImageBackground>
+                </View>
             </Modal>
         )
     }
@@ -103,16 +109,24 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 20,
     },
     viewButtons: {
         flex: 1,
         flexDirection: 'row',
-        marginTop: 20
+        marginTop: 15
     },
     imageView: {
         height: windowHeight * .6,
         width: '90%'
+    },
+    title: {
+        fontSize: 28,
+        color: 'black',
+        fontWeight: '500',
+        textAlign: 'center',
+        paddingVertical: 10,
+        marginBottom: 10,
+        marginTop: 10,
     }
 })
 

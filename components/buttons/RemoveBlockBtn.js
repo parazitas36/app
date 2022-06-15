@@ -9,8 +9,8 @@ const windowHeight = Dimensions.get('window').height;
 const RemoveBlockBtn = (props) => {
     return (
         <TouchableOpacity>
-            <Pressable onPress={props.onPress}>
-                <FontAwesome name='trash-o' size={windowWidth*.1} color="#D82A17"/>
+            <Pressable onPress={props.onPress} style={{marginVertical: 5}}>
+                <FontAwesome name='trash-o' size={38} color="rgba(223, 71, 89, 0.9)"/>
             </Pressable>
         </TouchableOpacity>
     );

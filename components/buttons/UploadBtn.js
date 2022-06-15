@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderStyle: 'dashed',
-        borderColor: 'rgba(10, 10, 10, 0.8)',
+        backgroundColor: "rgba(255, 255, 255, 0.4)",
         borderWidth: 3,
         borderRadius: 20,
         padding: 5,
@@ -36,7 +36,7 @@ const UploadBtn = (props) => {
         <TouchableOpacity>
             <Pressable style={styles.pressable} onPress={props.onPress}>
                 <FontAwesome style={styles.icon} name='cloud-upload' size={80} color="black"/>
-                <Text style={styles.text}>Upload</Text>
+                <Text style={styles.text}>{props.title ? props.title : "Upload" }</Text>
             </Pressable>
         </TouchableOpacity>
     );

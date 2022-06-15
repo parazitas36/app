@@ -132,7 +132,7 @@ const Guide = ({ navigation }) => {
                 {/* Reitingas */}
                 <View style={[styles.guideButtons, { top: 200 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
                     <Text style={styles.rating}>Rating: {isRatingZero ? "-" : guideInfo['rating']}/5</Text>
-                    <IOnicons name={'star'} size={25} color={'gold'} />
+                    <IOnicons name={'star'} size={25} color={'#B5C6A6'} />
                 </View>
 
                 {/* Nuo cia gido vidus */}

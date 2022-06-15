@@ -64,14 +64,14 @@ const RatingBlock = (props) => {
         return (
             <ScrollView>
                 <View>
-                    <Text style={styles.text}>{!isNull? "Your's rating" : "Rate the guide"}</Text>
+                    <Text style={styles.text}>{!isNull? "Your rating" : "Rate the guide"}</Text>
                 </View>
                  <View style={styles.rating}>
                     {stars.map((star) => {
                         return (
                         <TouchableOpacity >
                         <Pressable  onPress = {() => setRating(star)}>
-                        <MaterialIcons name={star <= rating ? 'star' : 'star-border'} size={25} color={'gold'}/> 
+                        <MaterialIcons name={star <= rating ? 'star' : 'star-border'} size={25} color={'#B5C6A6'}/> 
                         </Pressable>
                         </TouchableOpacity>)
                         }

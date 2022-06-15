@@ -1,4 +1,4 @@
-import { Dimensions, View, Text, StyleSheet, Image } from 'react-native';
+import { Dimensions, View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import React from 'react';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Button from '../Button';
@@ -35,8 +35,9 @@ const AddPhotoBlock = (props) => {
         }
     }
     return (
-        <View style={styles.view}>
-            <UploadBtn onPress={uploadPhoto} />
+        <ScrollView contentContainerStyle={styles.view}>
+            <Text style={styles.title}>Image Block</Text>
+            <UploadBtn onPress={uploadPhoto} title={photo ? "Change" : "Upload"} />
             {photo &&
                 <View style={styles.imageView}>
                     <Image
@@ -53,10 +54,10 @@ const AddPhotoBlock = (props) => {
                 </View>
             }
             <View style={styles.viewButtons}>
-                <AgreeBtn onPress={() => { props.onPress() }} />
+                {photo && <AgreeBtn onPress={() => { props.onPress() }} />}
                 <DiscardBtn onPress={() => { props.resetChosen(null) }} />
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -73,16 +74,25 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 20,
+        paddingBottom: 20,
     },
     viewButtons: {
         flex: 1,
         flexDirection: 'row',
-        marginTop: 20
+        marginTop: 10
     },
     imageView: {
         height: windowHeight * .6,
         width: '90%'
+    },
+    title: {
+        fontSize: 28,
+        color: 'black',
+        fontWeight: '500',
+        textAlign: 'center',
+        paddingVertical: 10,
+        marginBottom: 10,
+        marginTop: 10,
     }
 });
 

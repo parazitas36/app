@@ -9,6 +9,7 @@ import { StripeProvider } from '@stripe/stripe-react-native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Entypo from 'react-native-vector-icons/Entypo';
 
 import Login from './screens/Login';
 import Register from './screens/Register';
@@ -90,7 +91,6 @@ const App = () => {
   const [chosenGuideID, setChosenGuideID] = React.useState(null);
   const [chosenProfileID, setChosenProfileID] = React.useState(null);
   const [userInfo, setUserInfo] = React.useState(null);
-  const [fetchGuides, setFetchGuides] = React.useState(false);
   const [refreshPicture, setRefreshPicture] = React.useState(false);
 
   return (
@@ -102,7 +102,6 @@ const App = () => {
         guideID: [chosenGuideID, setChosenGuideID],
         accInfo: [userInfo, setUserInfo],
         creatorInfo: [chosenProfileID, setChosenProfileID],
-        fetchGuidesData: [fetchGuides, setFetchGuides],
         refreshProfilePicture : [refreshPicture, setRefreshPicture]
       }}
       >
@@ -148,7 +147,8 @@ const App = () => {
                     fontSize: 13,
                     position: 'absolute',
                   },
-                  tabBarActiveTintColor: 'rgba(55, 155, 200, 1)',
+                  tabBarActiveTintColor: 'rgba(170, 148, 123, 0.95)',
+                  tabBarInactiveTintColor: 'rgba(123, 145, 170, 0.8)',
                   headerShown: false,
                   tabBarHideOnKeyboard: true
                 }}
@@ -195,7 +195,17 @@ const App = () => {
                       padding: 0,
                     },
                     tabBarIcon: (props) => (
-                      <FontAwesome5 style={props.style} name={"plus-circle"} size={props.size * 1.75} color={props.color} />
+                      <View style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        position: 'absolute',
+                        bottom: -4,
+                        alignSelf: 'center',
+                        width: 80,
+                        height: 80,
+                      }}>
+                        <Entypo size={78} name={"circle-with-plus"} color={props.focused ? 'rgba(170, 148, 123, 0.95)' : 'rgba(123, 145, 170, 0.95)'} />
+                      </View>
                     )
                   }}
                 />

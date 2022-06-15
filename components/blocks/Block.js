@@ -7,8 +7,6 @@ import EditBlockBtn from '../buttons/EditBlockBtn';
 import RemoveBlockBtn from '../buttons/RemoveBlockBtn';
 
 const Block = (item, Up, Down, Edit, Remove) => {
-    const windowWidth = Dimensions.get('window').width;
-    const windowHeight = Dimensions.get('window').height;
 
     const styles = StyleSheet.create({
         blockView: {
@@ -23,8 +21,9 @@ const Block = (item, Up, Down, Edit, Remove) => {
             marginBottom: 5,
             alignItems: 'center',
             width: '96%',
-            marginLeft: '2%',
-            paddingHorizontal: 5
+            alignSelf: 'center',
+            paddingHorizontal: 5,
+            paddingVertical: 15
         },
         arrowView: {
             flex: 1,
@@ -36,7 +35,9 @@ const Block = (item, Up, Down, Edit, Remove) => {
             alignSelf: 'center',
             justifyContent: 'center',
             alignItems: 'center',
-            alignContent: 'center'
+            alignContent: 'center',
+            paddingVertical: 5,
+            marginVertical: 5
         },
         buttonView: {
             flex: 1,
@@ -50,7 +51,6 @@ const Block = (item, Up, Down, Edit, Remove) => {
     });
 
     const ShowByBlockType = (item) => {
-        console.log(item.object)
         switch (item.type) {
             case 'Text':
                 return (
