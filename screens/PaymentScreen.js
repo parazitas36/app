@@ -5,7 +5,8 @@ import {
   View,
   Button,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
+  ToastAndroid
 } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Context } from '../App';
@@ -16,7 +17,7 @@ const API_URL = "https://v-guide.herokuapp.com"
 const PaymentScreen = ({ route, navigation }) => {
   const { accInfo } = useContext(Context);
   const { confirmPayment, loading } = useConfirmPayment();
-  const { guideID, price, ownedState, ownedFunc } = route.params;
+  const { guideID, price, title } = route.params;
   const [userInfo, setUserInfo] = accInfo;
   const [waiting, setWaiting] = React.useState(false);
 
@@ -39,7 +40,8 @@ const PaymentScreen = ({ route, navigation }) => {
     })
 
     if (error) {
-      alert("Error")
+      ToastAndroid.show("Could not make a payment!",
+        ToastAndroid.SHORT);
     } else {
       setWaiting(true);
       const resp = await fetch(`${API_URL}/api/payments/payment-check/${paymentIntent.id}`, {
@@ -66,7 +68,11 @@ const PaymentScreen = ({ route, navigation }) => {
   return (
     <View style={{ flex: 1 }}>
       <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
-        <Text style={{ color: 'black', fontSize: 22, fontWeight: '500', textAlign: 'center', paddingTop: 20 }}>Enter your credit card data</Text>
+        <Text numberOfLines={2} 
+              ellipsizeMode="tail" 
+              style={{ color: 'black', fontSize: 22, fontWeight: '500', textAlign: 'center', paddingTop: 20 }}>
+          {`You are buying guide: ${title}`}
+        </Text>
         <CardField
           postalCodeEnabled={false}
           placeholders={{

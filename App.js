@@ -40,17 +40,17 @@ const WelcomeScreen = () => {
   return (
     <WelcomeScreenStack.Navigator>
       <WelcomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Welcome" component={Welcome} />
-      <WelcomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false  }} name="Login" component={Login} />
-      <WelcomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false  }} name="Register" component={Register} />
+      <WelcomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Login" component={Login} />
+      <WelcomeScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Register" component={Register} />
     </WelcomeScreenStack.Navigator>
   );
 }
-const ProfileScreen = () =>{
-  return(
+const ProfileScreen = () => {
+  return (
     <ProfileScreenStack.Navigator
-    screenOptions={{
-      headerTitleAlign: 'center'
-    }}
+      screenOptions={{
+        headerTitleAlign: 'center'
+      }}
     >
       <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Profile" component={Profile} />
       <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="EditProfile" component={EditProfile} />
@@ -96,139 +96,139 @@ const App = () => {
     <StripeProvider
       publishableKey={publishableKey}
     >
-    <Context.Provider value={{
-      loggedIn, setLoggedIn,
-      guideID: [chosenGuideID, setChosenGuideID],
-      accInfo: [userInfo, setUserInfo],
-      creatorInfo: [chosenProfileID, setChosenProfileID],
-      fetchGuidesData: [fetchGuides, setFetchGuides]
-    }}
-    >
-      <StatusBar barStyle="dark-content" backgroundColor="#eeeeee" />
-      <NavigationContainer>
-        {
-          loggedIn === false
-          &&
-          <WelcomeScreen />
-        }
-        {
-          loggedIn === true
-          &&
-          <View style={{ backgroundColor: 'rgb(242, 242, 242)', height: '100%' }}>
-            <Tab.Navigator
-              screenOptions={{
-                tabBarStyle: {
-                  height: 65,
-                  borderRadius: 10,
-                  width: '96%',
-                  marginLeft: '2%',
-                  marginBottom: 10,
-                  backgroundColor: "rgba(255, 255, 255, 0.9)",
-                  paddingBottom: 9,
-                  paddingTop: 6,
-                  position: 'absolute',
-                  overflow: 'visible'
-                },
-                tabBarIconStyle: {
-                  width: 32,
-                  height: 32,
-                  justifyContent: 'center',
-                  alignContent: 'center',
-                  alignItems: 'center',
-                  alignSelf: 'center',
-                  position: 'absolute',
-                  margin: 0,
-                  overflow: 'visible',
-                  elevation: 15,
-                  zIndex: 9999
-                },
-                tabBarLabelStyle: {
-                  fontSize: 13,
-                  position: 'absolute',
-                },
-                tabBarActiveTintColor: 'rgba(55, 155, 200, 1)',
-                headerShown: false,
-                tabBarHideOnKeyboard: true
-              }}
-            >
-              <Tab.Screen
-                name="HomeTab"
-                component={HomeScreen}
-                options={{
-                  tabBarLabel: "Home",
-                  tabBarIconStyle: {
-                    marginTop: -16
-                  },
-                  tabBarIcon: (props) => (
-                    <FontAwesome5 name={"home"} size={props.size} color={props.color} />
-                  )
-                }}
-              />
-              <Tab.Screen
-                name="MyGuides"
-                component={MyGuides}
-                options={{
-                  tabBarLabel: "My Guides",
-                  tabBarIconStyle: {
-                    marginTop: -16
-                  },
-                  tabBarIcon: (props) => (
-                    <FontAwesome5 name={"book"} size={props.size} color={props.color} />
-                  )
-                }}
-              />
-              <Tab.Screen
-                name="GuideCreationTab"
-                component={CreateGuideScreen}
-                options={{
-                  tabBarLabel: "",
-                  tabBarLabelStyle: {
-                    height: 0,
-                    visibility: 'hidden'
+      <Context.Provider value={{
+        loggedIn, setLoggedIn,
+        guideID: [chosenGuideID, setChosenGuideID],
+        accInfo: [userInfo, setUserInfo],
+        creatorInfo: [chosenProfileID, setChosenProfileID],
+        fetchGuidesData: [fetchGuides, setFetchGuides]
+      }}
+      >
+        <StatusBar barStyle="dark-content" backgroundColor="#eeeeee" />
+        <NavigationContainer>
+          {
+            loggedIn === false
+            &&
+            <WelcomeScreen />
+          }
+          {
+            loggedIn === true
+            &&
+            <View style={{ backgroundColor: 'rgb(242, 242, 242)', height: '100%' }}>
+              <Tab.Navigator
+                screenOptions={{
+                  tabBarStyle: {
+                    height: 65,
+                    borderRadius: 10,
+                    width: '96%',
+                    marginLeft: '2%',
+                    marginBottom: 10,
+                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                    paddingBottom: 9,
+                    paddingTop: 6,
+                    position: 'absolute',
+                    overflow: 'visible'
                   },
                   tabBarIconStyle: {
+                    width: 32,
+                    height: 32,
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    position: 'absolute',
+                    margin: 0,
                     overflow: 'visible',
                     elevation: 15,
-                    zIndex: 9999,
-                    padding: 0,
+                    zIndex: 9999
                   },
-                  tabBarIcon: (props) => (
-                    <FontAwesome5 style={props.style} name={"plus-circle"} size={props.size * 1.75} color={props.color} />
-                  )
-                }}
-              />
-              <Tab.Screen
-                name="SearchMaps"
-                component={SearchMaps}
-                options={{
-                  tabBarLabel: "Explore",
-                  tabBarIconStyle: {
-                    marginTop: -16
+                  tabBarLabelStyle: {
+                    fontSize: 13,
+                    position: 'absolute',
                   },
-                  tabBarIcon: (props) => (
-                    <Fontisto name={"world-o"} size={props.size} color={props.color} />
-                  )
+                  tabBarActiveTintColor: 'rgba(55, 155, 200, 1)',
+                  headerShown: false,
+                  tabBarHideOnKeyboard: true
                 }}
-              />
-              <Tab.Screen
-                name="ProfileTab"
-                component={ProfileScreen}
-                options={{
-                  tabBarLabel: "Profile",
-                  tabBarIconStyle: {
-                    marginTop: -16
-                  },
-                  tabBarIcon: (props) => (
-                    <Ionicons name={"person-outline"} size={props.size} color={props.color} />
-                  )
-                }}
-              />
-            </Tab.Navigator>
-          </View>
-        }
+              >
+                <Tab.Screen
+                  name="HomeTab"
+                  component={HomeScreen}
+                  options={{
+                    tabBarLabel: "Home",
+                    tabBarIconStyle: {
+                      marginTop: -16
+                    },
+                    tabBarIcon: (props) => (
+                      <FontAwesome5 name={"home"} size={props.size} color={props.color} />
+                    )
+                  }}
+                />
+                <Tab.Screen
+                  name="MyGuides"
+                  component={MyGuides}
+                  options={{
+                    tabBarLabel: "My Guides",
+                    tabBarIconStyle: {
+                      marginTop: -16
+                    },
+                    tabBarIcon: (props) => (
+                      <FontAwesome5 name={"book"} size={props.size} color={props.color} />
+                    )
+                  }}
+                />
+                <Tab.Screen
+                  name="GuideCreationTab"
+                  component={CreateGuideScreen}
+                  options={{
+                    tabBarLabel: "",
+                    tabBarLabelStyle: {
+                      height: 0,
+                      visibility: 'hidden'
+                    },
+                    tabBarIconStyle: {
+                      overflow: 'visible',
+                      elevation: 15,
+                      zIndex: 9999,
+                      padding: 0,
+                    },
+                    tabBarIcon: (props) => (
+                      <FontAwesome5 style={props.style} name={"plus-circle"} size={props.size * 1.75} color={props.color} />
+                    )
+                  }}
+                />
+                <Tab.Screen
+                  name="SearchMaps"
+                  component={SearchMaps}
+                  options={{
+                    tabBarLabel: "Explore",
+                    tabBarIconStyle: {
+                      marginTop: -16
+                    },
+                    tabBarIcon: (props) => (
+                      <Fontisto name={"world-o"} size={props.size} color={props.color} />
+                    )
+                  }}
+                />
+                <Tab.Screen
+                  name="ProfileTab"
+                  component={ProfileScreen}
+                  options={{
+                    tabBarLabel: "Profile",
+                    tabBarIconStyle: {
+                      marginTop: -16
+                    },
+                    tabBarIcon: (props) => (
+                      <Ionicons name={"person-outline"} size={props.size} color={props.color} />
+                    )
+                  }}
+                />
+              </Tab.Navigator>
+            </View>
+          }
 
-      </NavigationContainer>
-    </Context.Provider>
+        </NavigationContainer>
+      </Context.Provider>
     </StripeProvider>
   );
 };

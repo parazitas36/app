@@ -17,7 +17,7 @@ const Card = (props) => {
     const [userInfo, setUserInfo] = accInfo;
     const [favorite, setFavorite] = useState(null);
     const [uri, setUri] = useState(null);
-    const [owned, setOwned] = useState(Math.max(props.payedguides.includes(props.guideID), props.price === 0) === 1)
+    const [owned, setOwned] = useState(Math.max(props.payedguides.includes(props.guideID), props.price === 0, props.creatorID === props.userID) === 1)
 
     if (favorite === null) {
         setFavorite(props.favorite);
@@ -34,8 +34,7 @@ const Card = (props) => {
             props.navigation.navigate("Payments", {
                 guideID : props.guideID,
                 price : props.price,
-                ownedState : owned,
-                ownedFunc : setOwned
+                title: props.title
             });
         }
     }

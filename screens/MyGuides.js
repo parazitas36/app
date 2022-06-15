@@ -8,6 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Guide from './Guide';
 import CreatorProfile from './CreatorProfile';
 import EditGuide from './EditGuide';
+import PaymentScreen from './PaymentScreen';
 
 const TopTab = createMaterialTopTabNavigator();
 const MyGuidesScreenNavigator = createStackNavigator();
@@ -38,6 +39,7 @@ const FavoritesScreen = () => {
       <FavoritesScreenNavigator.Screen options={{ headerShown: false, animationEnabled: true }} name="Favorites" component={Favorites} />
       <FavoritesScreenNavigator.Screen options={{animationEnabled: true, headerShown: false}} name="Guide" component={Guide} />
       <FavoritesScreenNavigator.Screen options={{animationEnabled: true, headerShown: false}} name="CreatorProfile" component={CreatorProfile} />
+      <FavoritesScreenNavigator.Screen options={{ animationEnabled: true, headerShown: false }} name="Payments" component={PaymentScreen} />
     </FavoritesScreenNavigator.Navigator>
   );
 }

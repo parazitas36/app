@@ -183,8 +183,8 @@ const styles = StyleSheet.create({
     profileImage: {
         width: 80,
         height: 80,
-        borderRadius: 180,
-        overflow: 'hidden',
+        borderRadius: 45,
+        resizeMode: 'cover',
     },
     viewEndPage: {
         height: 100,
@@ -313,6 +313,7 @@ const EditProfile = () => {
                     </View>
                     <View style={styles.viewRightImg}>
                         <Text style={styles.textImg}>Chosen image</Text>
+                        <View style={{borderRadius: 180}}>
                         <TouchableOpacity>
                             <Pressable onPress={uploadPhoto}>
                                 {photo &&
@@ -323,6 +324,7 @@ const EditProfile = () => {
                                 }
                             </Pressable>
                         </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
                 <View style={styles.viewRow}>

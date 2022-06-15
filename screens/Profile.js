@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     profileImageView: {
-        width: '25%',
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
         
     },
     profileName: {
-        width: '45%',
+        flex: 1.5,
         justifyContent: 'center'
     },
     profileNameText: {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5
     },
     editView: {
-        width: '30%',
+        flex: 1,
         alignItems: 'center'
     },
     btn: {
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.9)',
         justifyContent: 'center',
         borderRadius: 5,
-        padding: 1,
-        paddingHorizontal: 3
+        padding: 5,
+        paddingHorizontal: 15
     },
     btntxt: {
         color: 'black',
@@ -99,7 +99,7 @@ const Profile = ({navigation}) => {
                             <Image style={styles.profileImage} source={{ uri: profileImage }} />
                         </View>
                         <View style={styles.profileName}>
-                            <Text numberOfLines={3} ellipsizeMode={'tail'} style={styles.profileNameText}>Name Surname</Text>
+                            <Text numberOfLines={3} ellipsizeMode={'tail'} style={styles.profileNameText}>{`${userInfo['firstname']} ${userInfo['lastname']}`}</Text>
                         </View>
                         <View style={styles.editView}>
                             <View
@@ -122,8 +122,16 @@ const Profile = ({navigation}) => {
                                 position: 'absolute',
                                 bottom: 8,
                             }}>
-                                <Button onPress={()=>{navigation.navigate("EditProfile")}} styles={styles} title={"Edit Profile"} />
+                                <Button onPress={()=>{navigation.navigate("EditProfile")}} styles={styles} title={"Edit"} />
                             </View>
+                        </View>
+                    </View>
+                    <View style={{width: '96%', height: 80, marginTop: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                        <View style={{backgroundColor: 'rgba(0, 0, 0, .15)', padding: 10, marginRight: 5, borderRadius: 3}}>
+                            <Text style={{color: 'black', fontWeight: '500', fontSize: 18}}>Followers: {userInfo['followers'].length}</Text>
+                        </View>
+                        <View style={{backgroundColor: 'rgba(0, 0, 0, .15)', padding: 10, marginLeft: 5, borderRadius: 3}}>
+                            <Text style={{color: 'black', fontWeight: '500', fontSize: 18}}>Following: {userInfo['followed'].length}</Text>
                         </View>
                     </View>
                 </View>
