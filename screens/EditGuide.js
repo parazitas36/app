@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react'
-import { Dimensions, ScrollView, Text, StyleSheet, Image, View, Alert } from 'react-native';
+import { Dimensions, ScrollView, Text, StyleSheet, Image, ImageBackground, View, Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Video from 'react-native-video';
 import AddBlockBtn from '../components/buttons/AddBlockBtn';
@@ -215,6 +215,7 @@ const EditGuide = ({ navigation, route }) => {
     else{
         return (
             <EditGuideContext.Provider value={value}>
+                <ImageBackground source={require('../assets/images/background.png')} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
                 <ScrollView contentContainerStyle={styles.container}>
                     <CreateBlockModal
                         visible={showBlock}
@@ -279,13 +280,45 @@ const EditGuide = ({ navigation, route }) => {
                             fontWeight: '500',
                             fontSize: 16
                         }}>Public: </Text>
-                        <CheckBox value={publish} onValueChange={setPublish} />
+                        <CheckBox tintColors={{ true: 'rgba(255, 255, 255, .75)', false: 'black' }} value={publish} onValueChange={setPublish} />
                     </View>
                     {blocks.length > 0 &&
                         <View style={styles.viewButtons}>
                             <SaveBtn
                                 text={publish ? "Post" : "Save"}
                                 onPress={async () => {
+                                    let reg = /^\d{0,8}(\.\d{2})+$/;
+                                    const priceTxt = String(price)
+                                    if(!reg.test(priceTxt)){
+                                        ToastAndroid.show("Invalid price! Enter in format {$.cc}",
+                                        ToastAndroid.SHORT);
+                                        return;
+                                    }
+                                    if(!title || title === ""){
+                                        ToastAndroid.show("You must enter the title of guide!",
+                                        ToastAndroid.SHORT);
+                                        return;
+                                    }
+                                    if(!description || description === ""){
+                                        ToastAndroid.show("You must enter the description of guide!",
+                                        ToastAndroid.SHORT);
+                                        return;
+                                    }
+                                    if(blocks.filter(x => x.type === 'Image').length === 0){
+                                        ToastAndroid.show("You must add at least one block of image!",
+                                        ToastAndroid.SHORT);
+                                        return;
+                                    }
+                                    if(blocks.filter(x => x.type === 'Text').length === 0){
+                                        ToastAndroid.show("You must add at least one block of text!",
+                                        ToastAndroid.SHORT);
+                                        return;
+                                    }
+                                    if(!location){
+                                        ToastAndroid.show("You must add the location!",
+                                        ToastAndroid.SHORT);
+                                        return;
+                                    }
                                     setWaiting(true);
                                     const resp = await UpdateGuide(
                                         blocks, 
@@ -319,6 +352,7 @@ const EditGuide = ({ navigation, route }) => {
                         </View>
                     }
                 </ScrollView>
+                </ImageBackground>
             </EditGuideContext.Provider>
         )
     }
@@ -330,12 +364,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
         borderWidth: 1,
         width: '80%',
-        borderTopWidth: 0,
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
         alignSelf: 'center',
         textAlign: 'center',
-        color: 'black'
+        color: 'black',
+        borderRadius: 3,
+        backgroundColor: 'rgba(0, 0, 0, .25)',
+        borderColor: 'rgba(255, 255, 255, .25)'
     }, btn: {
 
     },
@@ -363,7 +397,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
         width: '96%',
         marginLeft: '2%',
-        color: 'black'
+        color: 'black',
+        backgroundColor: 'rgba(0, 0, 0, .25)',
+        paddingHorizontal: 10
     }
 })
 
