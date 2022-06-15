@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     profileImageView: {
-        flex: 1,
+        flex: 1.2,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -42,27 +42,23 @@ const styles = StyleSheet.create({
         
     },
     profileName: {
-        flex: 1.5,
-        justifyContent: 'center'
+        flex: 3,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     profileNameText: {
         fontSize: 20,
         color: 'black',
-        marginBottom: 25,
-        paddingHorizontal: 5
-    },
-    editView: {
-        flex: 1,
-        alignItems: 'center'
+        paddingHorizontal: 5,
+        fontWeight: '500'
     },
     btn: {
-        width: '100%',
+        width: 110,
         height: 35,
         backgroundColor: 'rgba(255, 255, 255, 0.9)',
         justifyContent: 'center',
         borderRadius: 5,
         padding: 5,
-        paddingHorizontal: 15
     },
     btntxt: {
         color: 'black',
@@ -72,9 +68,27 @@ const styles = StyleSheet.create({
     }
 })
 
+const LogoutButtonStyleSheet = StyleSheet.create({
+    btn: {
+        width: 90,
+        height: 35,
+        backgroundColor: 'rgba(223, 71, 89, 1)',
+        justifyContent: 'center',
+        borderRadius: 5,
+        padding: 5,
+        marginLeft: 10
+    },
+    btntxt: {
+        color: 'white',
+        fontSize: 18,
+        fontWeight: '500',
+        textAlign: 'center'
+    }
+})
+
 const Profile = ({navigation}) => {
 
-    const { accInfo, refreshProfilePicture } = React.useContext(Context);
+    const { accInfo, refreshProfilePicture, setLoggedIn } = React.useContext(Context);
     const [userInfo, setUserInfo] = accInfo;
     const [refreshPicture, setRefreshPicture] = refreshProfilePicture;
     const [profileImage, setProfileImage] = React.useState("")
@@ -100,30 +114,27 @@ const Profile = ({navigation}) => {
                             <Image style={styles.profileImage} source={{ uri: profileImage }} />
                         </View>
                         <View style={styles.profileName}>
-                            <Text numberOfLines={3} ellipsizeMode={'tail'} style={styles.profileNameText}>{`${userInfo['firstname']} ${userInfo['lastname']}`}</Text>
-                        </View>
-                        <View style={styles.editView}>
-                            <View
-                                style={{
-                                    position: 'absolute',
-                                    top: 15,
-                                    flexDirection: 'row',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <FontAwesome name='star' size={20} color="gold" />
-                                <FontAwesome style={{ marginLeft: 1 }} name='star' size={20} color="gold" />
-                                <FontAwesome style={{ marginLeft: 1 }} name='star' size={20} color="gold" />
-                                <FontAwesome style={{ marginLeft: 1 }} name='star' size={20} color="gold" />
-                                <FontAwesome style={{ marginLeft: 1 }} name='star' size={20} color="gold" />
-
-                            </View>
                             <View style={{
-                                position: 'absolute',
-                                bottom: 8,
+                                flex: 2,
+                                width: '100%',
+                                alignItems: 'center',
+                                paddingHorizontal: 5,
+                                marginTop: 10,
                             }}>
-                                <Button onPress={()=>{navigation.navigate("EditProfile")}} styles={styles} title={"Edit"} />
+                                <Text numberOfLines={2} ellipsizeMode={'tail'} style={styles.profileNameText}>{`${userInfo['firstname']} ${userInfo['lastname']}`}</Text>
+                            </View>
+
+                            <View style={{
+                                flex: 1,
+                                width: '100%',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                paddingHorizontal: 3,
+                                marginBottom: 8,
+                                flexDirection: 'row'                   
+                            }}>
+                                <Button onPress={()=>{navigation.navigate("EditProfile")}} styles={styles} title={"Edit Profile"} />
+                                <Button onPress={()=>{ setLoggedIn(false); setUserInfo(false); }} styles={LogoutButtonStyleSheet} title={"Log Out"} />
                             </View>
                         </View>
                     </View>

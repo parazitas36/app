@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         alignContent: 'center',
-        paddingBottom: 75,
+        paddingTop: 10,
+        paddingBottom: 85,
     },
     input: {
         width: '80%',

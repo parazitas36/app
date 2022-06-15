@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     btnSave:{
         fontSize: 16,
         fontWeight: '500',
-        color: 'black',
+        color: 'rgba(255, 255, 255, 0.9)',
     },
     viewBTNDiscard:{
         marginRight: 10,
@@ -155,11 +155,11 @@ const styles = StyleSheet.create({
         paddingRight: 5,
     },
     btnPressSave:{
-        backgroundColor: '#5B9875',
+        backgroundColor: 'rgba(170, 148, 123, 0.9)',
         width: 80,
         height: 35,
         borderWidth: 1.85,
-        borderColor: '#5B9875',
+        borderColor: 'rgba(170, 148, 123, 0.9)',
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',

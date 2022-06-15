@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Dimensions, StyleSheet, ScrollView, Modal, View } from 'react-native';
+import { Dimensions, StyleSheet, ScrollView, Modal, View, ImageBackground, Text } from 'react-native';
 import { CreateGuideContext } from '../../screens/CreateGuide';
 import AddPhotoBlock from '../blocks/AddPhotoBlock';
 import AddTextBlock from '../blocks/AddTextBlock';
@@ -14,13 +14,15 @@ const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     btn: {
-        width: windowWidth * .2,
+        width: 90,
         alignItems: 'center',
         alignContent: 'center'
     },
     btntxt: {
         textAlign: 'center',
-        color: 'black'
+        color: 'black',
+        fontWeight: '600',
+        fontSize: 14
     },
     modal: {
         flex: 1,
@@ -43,13 +45,16 @@ const styles = StyleSheet.create({
 const backBtnStyle = StyleSheet.create({
     btntxt: {
         fontSize: 16,
-        color: "black"
+        color: "black",
+        fontWeight: '500'
     },
     btn: {
-        borderWidth: 1,
+        borderWidth: 1.5,
         padding: 5,
         borderRadius: 10,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        backgroundColor: "rgba(255, 255, 255, 0.3)",
+        borderColor: 'rgba(0, 0, 0, 0.75)'
     }
 });
 
@@ -66,9 +71,20 @@ const CreateBlockModal = (props) => {
 
     return (
         <Modal animationType='slide' visible={showBlock}>
+            <View style={{flex: 1}}>
+            <ImageBackground source={require('../../assets/images/background.png')} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
             {
                 chosenBlock === null &&
                 <View style={styles.modalBtn}>
+                    <Text style={{
+                        position: 'absolute', 
+                        top: 45, 
+                        fontSize: 28, 
+                        color: 'rgba(0, 0, 0, 1)',
+                        fontWeight: '500',
+                    }}>
+                        Choose the block type
+                    </Text>
                     <View style={styles.modal}>
                         <TextBlockBtn styles={styles} onPress={() => setChosenBlock('Text')} />
                         <VideoBlockBtn styles={styles} onPress={() => setChosenBlock('Video')} />
@@ -82,6 +98,7 @@ const CreateBlockModal = (props) => {
                 <ScrollView>
                     <AddTextBlock
                         styles={styles}
+                        text={text}
                         onChangeText={setText}
                         onPress={() => {
                             if (text === null || text === "") { alert('No text has been entered!'); return; }
@@ -127,6 +144,8 @@ const CreateBlockModal = (props) => {
                     />
                 </ScrollView>
             }
+            </ImageBackground>
+            </View>
         </Modal>
     )
 }

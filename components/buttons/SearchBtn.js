@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions, StyleSheet, Pressable, Text } from 'react-native';
+import { Dimensions, StyleSheet, Pressable, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
@@ -14,17 +14,27 @@ const styles = StyleSheet.create({
 
 const SearchBtn = (props) => {
     return (
-        <TouchableOpacity>
-            <Pressable style={{
-                marginVertical: 10,
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center'
-            }}
-                onPress={props.onPress}>
-                <FontAwesome5 name='search' size={25} color="black" />
-            </Pressable>
-        </TouchableOpacity>
+        <View  style={{
+            width: 50,
+            height: 50,
+            backgroundColor: 'rgba(255, 255, 255, 0.8)',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 90,
+            position: 'absolute',
+            bottom: 90,
+            right: 10,
+            zIndex: 9999,
+            elevation: 30
+        }}>
+            <TouchableOpacity>
+                <Pressable onPress={props.onPress}>
+                    <FontAwesome5 name='search' size={25} color="black" />
+                </Pressable>
+            </TouchableOpacity>
+        </View>
+
+
     );
 }
 

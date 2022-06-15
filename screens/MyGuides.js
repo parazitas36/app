@@ -18,7 +18,7 @@ const MyGuidesScreen = () => {
   return (
     <MyGuidesScreenNavigator.Navigator
       screenOptions={{
-        headerTitleAlign: 'center'
+        headerTitleAlign: 'center',
       }}
     >
       <MyGuidesScreenNavigator.Screen options={{ headerShown: false, animationEnabled: true }} name="MyGuides" component={UserGuides} />
@@ -50,6 +50,9 @@ const MyGuides = () => {
       screenOptions={{
         tabBarStyle: {
           marginBottom: 0.2
+        },
+        tabBarIndicatorStyle: {
+          backgroundColor: '#A7A6C6'
         }
       }}
     >

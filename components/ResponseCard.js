@@ -57,7 +57,7 @@ const ResponseCard = (props) => {
                                 <View style = {styles.star}>
                                     {stars.map((star) => {
                                         return (
-                                        <MaterialIcons name={'star'} size={25} color={'gold'}/> 
+                                        <MaterialIcons name={'star'} size={25} color={'#B5C6A6'}/> 
                                         )}
                                     )}
                                 </View >

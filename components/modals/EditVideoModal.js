@@ -1,4 +1,4 @@
-import { Dimensions, ScrollView, TextInput, View, Modal, StyleSheet } from 'react-native'
+import { Dimensions, ScrollView, TextInput, View, Modal, StyleSheet, ImageBackground, Text } from 'react-native'
 import React, { useContext } from 'react'
 import { CreateGuideContext } from '../../screens/CreateGuide'
 import Button from '../Button'
@@ -45,35 +45,41 @@ const EditVideoModal = (props) => {
     if (showEditVideo) {
         return (
             <Modal animationType='slide' visible={showEditVideo}>
-                <ScrollView>
-                    <View style={styles.view}>
-                        <UploadBtn onPress={uploadVideo} />
-                        {video &&
-                            <View style={styles.videoView}>
-                                <Video
-                                    controls={false}
-                                    resizeMode='contain'
-                                    style={{ flex: 1, height: undefined, width: undefined }}
-                                    source={{ uri: video.assets[0].uri }}
-                                />
+                <View style={{ flex: 1 }}>
+                    <ImageBackground source={require('../../assets/images/background.png')} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+                        <ScrollView contentContainerStyle={{paddingBottom: 20}}>
+                            <Text style={styles.title}>Video Block</Text>
+                            <View style={styles.view}>
+                                <UploadBtn onPress={uploadVideo} title="Change"/>
+                                {video &&
+                                    <View style={styles.videoView}>
+                                        <Video
+                                            controls={false}
+                                            resizeMode='contain'
+                                            style={{ flex: 1, height: undefined, width: undefined }}
+                                            source={{ uri: video.assets[0].uri }}
+                                        />
+                                    </View>
+                                }
+                                <View style={styles.viewButtons}>
+                                    {video && <AgreeBtn
+                                        onPress={() => {
+                                            if (video === null) { alert('No video has been selected!'); return; }
+                                            else {
+                                                blocks[editID].object = video;
+                                                setShowEditVideo(false);
+                                            }
+                                        }}
+                                        title="Save"
+                                    />}
+                                    <DiscardBtn
+                                        onPress={() => { setShowEditVideo(false); }}
+                                    />
+                                </View>
                             </View>
-                        }
-                        <View style={styles.viewButtons}>
-                            <AgreeBtn
-                                onPress={() => {
-                                    if (video === null) { alert('No video has been selected!'); return; }
-                                    else {
-                                        blocks[editID].object = video;
-                                        setShowEditVideo(false);
-                                    }
-                                }}
-                            />
-                            <DiscardBtn
-                                onPress={() => { setShowEditVideo(false); }}
-                            />
-                        </View>
-                    </View>
-                </ScrollView>
+                        </ScrollView>
+                    </ImageBackground>
+                </View>
             </Modal>
         )
     }
@@ -102,17 +108,25 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 20,
     },
     viewButtons: {
         flex: 1,
         flexDirection: 'row',
-        marginTop: 20
+        marginTop: 15
     },
     videoView: {
         flex: 1,
         height: windowHeight * .6,
         width: '100%'
+    },
+    title: {
+        fontSize: 28,
+        color: 'black',
+        fontWeight: '500',
+        textAlign: 'center',
+        paddingVertical: 10,
+        marginBottom: 10,
+        marginTop: 10,
     }
 })
 
