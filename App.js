@@ -55,6 +55,7 @@ const ProfileScreen = () => {
     >
       <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Profile" component={Profile} />
       <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="EditProfile" component={EditProfile} />
+      <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="CreatorProfile" component={CreatorProfile} />
     </ProfileScreenStack.Navigator>
   )
 }
@@ -102,7 +103,7 @@ const App = () => {
         guideID: [chosenGuideID, setChosenGuideID],
         accInfo: [userInfo, setUserInfo],
         creatorInfo: [chosenProfileID, setChosenProfileID],
-        refreshProfilePicture : [refreshPicture, setRefreshPicture]
+        refreshProfilePicture: [refreshPicture, setRefreshPicture]
       }}
       >
         <StatusBar barStyle="dark-content" backgroundColor="#eeeeee" />
@@ -199,12 +200,12 @@ const App = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         position: 'absolute',
-                        bottom: -4,
+                        bottom: -2,
                         alignSelf: 'center',
-                        width: 80,
-                        height: 80,
+                        width: 71,
+                        height: 71,
                       }}>
-                        <Entypo size={78} name={"circle-with-plus"} color={props.focused ? 'rgba(170, 148, 123, 0.95)' : 'rgba(123, 145, 170, 0.95)'} />
+                        <Entypo size={70} name={"circle-with-plus"} color={props.focused ? 'rgba(170, 148, 123, 0.95)' : 'rgba(123, 145, 170, 0.95)'} />
                       </View>
                     )
                   }}

@@ -15,7 +15,7 @@ const height = Dimensions.get('window').height;
 const RatingBlock = (props) => {
 
     const [stars, setStars] = React.useState([1, 2, 3, 4, 5]);
-	const [rating, setRating] = React.useState(0);
+    const [rating, setRating] = React.useState(0);
     const [userResponse, setUserResponse] = React.useState(null);
     const [isNull, setRatingBool] = React.useState(true);
     const [loading, setLoading] = React.useState(true);
@@ -24,10 +24,10 @@ const RatingBlock = (props) => {
     React.useLayoutEffect(() => {
         (async () => {
             const userRating = await GetUserResponse(props.userId, props.guideId);
-            if(userRating === null){
+            if (userRating === null) {
                 setUserResponse(null);
                 setLoading(false)
-            }else{
+            } else {
                 setUserResponse(userRating);
                 setRatingBool(false)
                 setRating(userRating['rating'])
@@ -36,18 +36,18 @@ const RatingBlock = (props) => {
             }
         })()
     }, []);
-    
+
     const PublishResponse = async (gid, uid) => {
-        if(rating > 0){
+        if (rating > 0) {
             console.log(gid);
             var res = await SendResponse(gid, uid, text, rating)
-            Alert.alert("Successful","Rating published",[
-                {text: "Ok"}
+            Alert.alert("Successful", "Rating published", [
+                { text: "Ok" }
             ]
             )
-        }else{
-            Alert.alert("Details","Please select the rating star first",[
-                {text: "Ok"}
+        } else {
+            Alert.alert("Details", "Please select the rating star first", [
+                { text: "Ok" }
             ]
             )
         }
@@ -60,66 +60,61 @@ const RatingBlock = (props) => {
                 <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
             </View>
         )
-    }else{
+    } else {
         return (
             <ScrollView>
                 <View>
-                    <Text style={styles.text}>{!isNull? "Your rating" : "Rate the guide"}</Text>
+                    <Text style={styles.text}>{!isNull ? "Your rating" : "Rate the guide"}</Text>
                 </View>
-                 <View style={styles.rating}>
+                <View style={styles.rating}>
                     {stars.map((star) => {
                         return (
-                        <TouchableOpacity >
-                        <Pressable  onPress = {() => setRating(star)}>
-                        <MaterialIcons name={star <= rating ? 'star' : 'star-border'} size={25} color={'#B5C6A6'}/> 
-                        </Pressable>
-                        </TouchableOpacity>)
-                        }
+                            <TouchableOpacity >
+                                <Pressable onPress={() => setRating(star)}>
+                                    <MaterialIcons name={star <= rating ? 'star' : 'star-border'} size={25} color={'#B5C6A6'} />
+                                </Pressable>
+                            </TouchableOpacity>)
+                    }
                     )}
                 </View>
-                <View style = {styles.view}>
-                    <TextInput 
-                        style = {styles.textInput} 
-                        defaultValue = {!isNull ? userResponse['text'] : ''}
-                        placeholder = {"Enter a comment"}
-                        multiline = {true}
-                        onChangeText = {setText}></TextInput>
+                <View style={styles.view}>
+                    <TextInput
+                        style={styles.textInput}
+                        defaultValue={!isNull ? userResponse['text'] : ''}
+                        placeholder={"Enter a comment"}
+                        multiline={true}
+                        onChangeText={setText}></TextInput>
                     <TouchableOpacity>
-                        <Pressable style = {styles.btn} onPress={() => {PublishResponse(props.guideId, props.userId)}}>
-                            <Fontisto name = {'email'} size ={30} color={'black'}></Fontisto>
+                        <Pressable style={styles.btn} onPress={() => { PublishResponse(props.guideId, props.userId) }}>
+                            <Text style={{color: 'rgba(255, 255, 255, .95)', fontSize: 18, fontWeight: '500'}}>{isNull ? "Rate" : "Change"}</Text>
                         </Pressable>
                     </TouchableOpacity>
-                    {/* <Button 
-                        color='blue' 
-                        style = {styles.btn} 
-                        onPress = {() => {PublishResponse(props.guideId, props.userId)}}>Publish
-                    </Button> */}
                 </View>
             </ScrollView>
-          )
-    }   
+        )
+    }
 }
 
 export default RatingBlock
 
 const styles = StyleSheet.create({
-    rating:{
+    rating: {
         width: '90%',
         fontSize: 16,
         paddingHorizontal: 20,
         flexDirection: 'row'
     },
-    text:{
+    text: {
         fontSize: 17,
         paddingHorizontal: 20,
         paddingVertical: 10,
         color: 'black',
         fontWeight: '500',
     },
-    stars:{
+    stars: {
         flexDirection: 'row'
     },
-    textInput:{
+    textInput: {
         marginTop: 10,
         width: width * 0.9,
         textAlign: 'justify',
@@ -136,15 +131,17 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         overflow: 'hidden'
     },
-    btn:{
+    btn: {
         width: 85,
         height: 35,
-        borderWidth: 1.85,
+        borderWidth: 1.2,
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        alignSelf:'center',
+        alignSelf: 'center',
         borderRadius: 5,
-        marginTop: 5,
+        marginVertical: 10,
+        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+        borderColor: 'rgba(0, 0, 0, 0.9)',
     }
 })

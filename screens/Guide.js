@@ -152,6 +152,12 @@ const Guide = ({ navigation }) => {
                     }
                 })}
 
+                <View style={{marginTop: 10, marginBottom: 5, alignSelf: 'center'}}>
+                    <Text style={{color: 'black', fontSize: 28, fontWeight: '500', textDecorationLine: 'underline', textDecorationStyle: "double"}}>
+                        Location
+                    </Text>
+                </View>
+
                 <MapView
                     style={{
                         height: 250,
@@ -211,7 +217,7 @@ const styles = StyleSheet.create({
     },
     image: {
         flex: 1,
-        aspectRatio: 1.5,
+        aspectRatio: 1,
         borderRadius: 3,
     },
     imageview: {
