@@ -74,8 +74,9 @@ const styles = StyleSheet.create({
 
 const Profile = ({navigation}) => {
 
-    const { accInfo } = React.useContext(Context);
+    const { accInfo, refreshProfilePicture } = React.useContext(Context);
     const [userInfo, setUserInfo] = accInfo;
+    const [refreshPicture, setRefreshPicture] = refreshProfilePicture;
     const [profileImage, setProfileImage] = React.useState("")
 
     React.useLayoutEffect(() => {
@@ -86,9 +87,9 @@ const Profile = ({navigation}) => {
             }else{
                 setProfileImage(userInfo['ppicture']);
             }
+            setRefreshPicture(false);
         })()
-    },[])
-
+    },[userInfo])
 
     return (
         <View style={{ flex: 1 }}>

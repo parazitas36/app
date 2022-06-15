@@ -193,13 +193,14 @@ const styles = StyleSheet.create({
 
 const EditProfile = () => {
     const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
-    const [profileImage, setProfileImage] = React.useState("")
-    const { accInfo } = React.useContext(Context);
+    const [profileImage, setProfileImage] = React.useState(null)
+    const { accInfo, refreshProfilePicture } = React.useContext(Context);
     const [oldpassword, setOld] = React.useState("")
     const [newPassword, setNew] = React.useState("")
     const [newPasswordreEnter, setNewReEnter] = React.useState("")
     const [userInfo, setUserInfo] = accInfo;
     const [photo, setPhoto] = React.useState(null)
+    const [refreshPicture, setRefreshPicture] = refreshProfilePicture;
     
     const [newFName, setFname] = React.useState(userInfo['firstname'])
     const [newLName, setLname] = React.useState(userInfo['lastname'])
@@ -231,7 +232,7 @@ const EditProfile = () => {
                 setProfileImage(userInfo['ppicture']);
             }
         })()
-    },[])
+    },[userInfo])
 
     const ChangePasswordMethod = async (uid) => {
         if(oldpassword !== "" && newPassword !== "" && newPasswordreEnter !== "" && newPassword === newPasswordreEnter){
@@ -290,6 +291,7 @@ const EditProfile = () => {
                 ])
                 const json = await res.json();
                 setUserInfo(json);
+                setRefreshPicture(true);
             }
         }else{
             Alert.alert("Notice","Please upload an image first",[

@@ -91,6 +91,7 @@ const App = () => {
   const [chosenProfileID, setChosenProfileID] = React.useState(null);
   const [userInfo, setUserInfo] = React.useState(null);
   const [fetchGuides, setFetchGuides] = React.useState(false);
+  const [refreshPicture, setRefreshPicture] = React.useState(false);
 
   return (
     <StripeProvider
@@ -101,7 +102,8 @@ const App = () => {
         guideID: [chosenGuideID, setChosenGuideID],
         accInfo: [userInfo, setUserInfo],
         creatorInfo: [chosenProfileID, setChosenProfileID],
-        fetchGuidesData: [fetchGuides, setFetchGuides]
+        fetchGuidesData: [fetchGuides, setFetchGuides],
+        refreshProfilePicture : [refreshPicture, setRefreshPicture]
       }}
       >
         <StatusBar barStyle="dark-content" backgroundColor="#eeeeee" />

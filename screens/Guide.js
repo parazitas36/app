@@ -26,7 +26,7 @@ const Guide = ({ navigation }) => {
     const [chosenProfileID, setChosenProfileID] = creatorInfo;
     const [isRatingZero, setIfZero] = React.useState(true);
     const [favorite, setFavorite] = React.useState(userInfo['savedguides'].includes(chosenGuideID))
-    const [profileImage, setProfileImage] = React.useState("")
+    const [profileImage, setProfileImage] = React.useState(null)
     const [profileData, setProfileData] = React.useState(null);
 
     React.useLayoutEffect(() => {
@@ -39,6 +39,11 @@ const Guide = ({ navigation }) => {
             const resp2 = await GetCreator(resp['creatorId']);
             const json = await resp2.json();
             setProfileData(json);
+            if(json['ppicture'] === "" || json['ppicture'] === null){
+                setProfileImage("https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg")
+            }else{
+                setProfileImage(json['ppicture']);
+            }
             console.log(json);
         })()
     }, [])
@@ -101,7 +106,7 @@ const Guide = ({ navigation }) => {
                             }}
                         >
                             <Image
-                                source={{ uri: profile_img }}
+                                source={{ uri: profileImage }}
                                 style={styles.profile_image}
                                 resizeMode="cover"
                             />

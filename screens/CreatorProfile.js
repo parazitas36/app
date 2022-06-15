@@ -23,7 +23,11 @@ const CreatorProfile = () => {
             const json = await resp.json();
             setUpdate(false);
             setProfileData(json);
-            
+            if(json['ppicture'] === "" || json['ppicture'] === null){
+                setProfileImage("https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg")
+            }else{
+                setProfileImage(json['ppicture']);
+            }  
         })()
     },[update])
 
@@ -34,7 +38,7 @@ const CreatorProfile = () => {
   return (
     <View style={styles.view}>
       <View style={styles.image_view}>
-          <Image style={styles.image} source={{uri: profile_img}}/>
+          <Image style={styles.image} source={{uri: profileImage}}/>
           <Text style={{color: 'black', marginTop: 20, fontSize: 26, textAlign: 'center'}}>{profileData['firstname']} {profileData['lastname']}</Text>
           <Button title={userInfo['followed'].includes(chosenProfileID) ? "unfollow" : "follow"} styles={styles}
             onPress={async() => {
