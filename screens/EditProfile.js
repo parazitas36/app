@@ -263,6 +263,8 @@ const EditProfile = () => {
                     {text: "Ok"}
                 ])
             }else{
+                const json = await res.json();
+                setUserInfo(json);
                 Alert.alert("Successful","FirstName and LastName were changed",[
                     {text: "Ok"}
                 ])
@@ -286,6 +288,8 @@ const EditProfile = () => {
                 Alert.alert("Successful","Image was changed",[
                     {text: "Ok"}
                 ])
+                const json = await res.json();
+                setUserInfo(json);
             }
         }else{
             Alert.alert("Notice","Please upload an image first",[

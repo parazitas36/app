@@ -15,7 +15,7 @@ export const UploadProfilePicture = async(photo, uid) => {
         method: 'POST',
         headers: {
             "Accept" : "*/*",
-            "Content-Type": "application/json"
+            "Content-Type": "multipart/form-data"
         },
         body: formData
     });
