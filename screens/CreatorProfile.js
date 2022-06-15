@@ -15,6 +15,7 @@ const CreatorProfile = () => {
     const [profileData, setProfileData] = React.useState(null);
     const [userInfo, setUserInfo] = accInfo;
     const [update, setUpdate] = React.useState(false);
+    const [profileImage, setProfileImage] = React.useState("")
 
     React.useLayoutEffect(() => {
         (async() => {
@@ -22,6 +23,7 @@ const CreatorProfile = () => {
             const json = await resp.json();
             setUpdate(false);
             setProfileData(json);
+            
         })()
     },[update])
 

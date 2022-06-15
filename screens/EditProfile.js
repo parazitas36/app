@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
         borderRadius: 180,
-        resizeMode: 'center',
+        overflow: 'hidden',
     },
     viewEndPage: {
         height: 100,
