@@ -228,7 +228,7 @@ const App = () => {
                       marginTop: -16
                     },
                     tabBarIcon: (props) => (
-                      <Fontisto name={"world-o"} size={props.size} color={props.color} />
+                      <Entypo name={"globe"} size={props.size} color={props.color} />
                     )
                   }}
                 />
@@ -241,7 +241,7 @@ const App = () => {
                       marginTop: -16
                     },
                     tabBarIcon: (props) => (
-                      <Ionicons name={"person-outline"} size={props.size} color={props.color} />
+                      <Ionicons name={"person-sharp"} size={props.size} color={props.color} />
                     )
                   }}
                 />

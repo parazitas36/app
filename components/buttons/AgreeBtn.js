@@ -10,10 +10,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 110,
         height: 45,
-        borderWidth: 2,
+        borderWidth: 1.25,
         borderRadius: 6,
         borderColor: "rgba(0, 0, 0, 0.9)",
-        backgroundColor: "rgba(0, 0, 0, 0.9)",
+        backgroundColor: "rgba(123, 145, 170, 0.8)",
         marginRight: 5,
     },
     text: {

@@ -290,7 +290,7 @@ const CreateGuide = ({ navigation }) => {
                                     onPress={async () => {
                                         let reg = /^\d{0,8}(\.\d{2})+$/;
                                         const priceTxt = String(price)
-                                        if (!reg.test(priceTxt)) {
+                                        if (price && !reg.test(priceTxt)) {
                                             ToastAndroid.show("Invalid price! Enter in format {$.cc}",
                                                 ToastAndroid.SHORT);
                                             return;

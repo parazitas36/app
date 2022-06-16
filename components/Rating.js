@@ -134,14 +134,14 @@ const styles = StyleSheet.create({
     btn: {
         width: 85,
         height: 35,
-        borderWidth: 1.2,
+        borderWidth: .5,
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
         borderRadius: 5,
         marginVertical: 10,
-        backgroundColor: 'rgba(123, 145, 170, 0.95)',
-        borderColor: 'rgba(123, 145, 170, 0.95)',
+        backgroundColor: 'rgba(149, 148, 186, 1)',
+        borderColor: 'rgba(123, 145, 170, 1)',
     }
 })

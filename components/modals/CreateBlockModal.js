@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         alignContent: 'center',
-        marginBottom: 100
+        marginBottom: 50
     },
 });
 
@@ -49,12 +49,13 @@ const backBtnStyle = StyleSheet.create({
         fontWeight: '500'
     },
     btn: {
-        borderWidth: 1.5,
-        padding: 5,
+        borderWidth: 1.25,
+        padding: 7,
         borderRadius: 10,
-        paddingHorizontal: 10,
-        backgroundColor: "rgba(255, 255, 255, 0.3)",
-        borderColor: 'rgba(0, 0, 0, 0.75)'
+        paddingHorizontal: 15,
+        backgroundColor: "rgba(255, 255, 255, 0.45)",
+        borderColor: 'rgba(0, 0, 0, 0.75)',
+        marginBottom: 5,
     }
 });
 
