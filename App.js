@@ -36,6 +36,7 @@ const WelcomeScreenStack = createStackNavigator();
 const HomeScreenStack = createStackNavigator();
 const CreateGuideScreenStack = createStackNavigator();
 const ProfileScreenStack = createStackNavigator();
+const ExploreScreenStack = createStackNavigator();
 
 const WelcomeScreen = () => {
   return (
@@ -55,6 +56,7 @@ const ProfileScreen = () => {
     >
       <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Profile" component={Profile} />
       <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="EditProfile" component={EditProfile} />
+      <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="CreatorProfile" component={CreatorProfile} />
     </ProfileScreenStack.Navigator>
   )
 }
@@ -83,6 +85,14 @@ const CreateGuideScreen = () => {
   );
 }
 
+const ExploreScreen = () => {
+  return(
+    <ExploreScreenStack.Navigator>
+      <ExploreScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="SearchMaps" component={SearchMaps} />
+      <ExploreScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="Guide" component={Guide} />
+    </ExploreScreenStack.Navigator>
+  )
+}
 
 const Tab = createBottomTabNavigator();
 
@@ -102,10 +112,10 @@ const App = () => {
         guideID: [chosenGuideID, setChosenGuideID],
         accInfo: [userInfo, setUserInfo],
         creatorInfo: [chosenProfileID, setChosenProfileID],
-        refreshProfilePicture : [refreshPicture, setRefreshPicture]
+        refreshProfilePicture: [refreshPicture, setRefreshPicture]
       }}
       >
-        <StatusBar barStyle="dark-content" backgroundColor="#eeeeee" />
+        <StatusBar barStyle="dark-content" backgroundColor="rgb(243, 246, 251)" />
         <NavigationContainer>
           {
             loggedIn === false
@@ -115,7 +125,7 @@ const App = () => {
           {
             loggedIn === true
             &&
-            <View style={{ backgroundColor: 'rgb(242, 242, 242)', height: '100%' }}>
+            <View style={{ backgroundColor: 'rgb(243, 246, 251)', height: '100%' }}>
               <Tab.Navigator
                 screenOptions={{
                   tabBarStyle: {
@@ -124,7 +134,7 @@ const App = () => {
                     width: '96%',
                     marginLeft: '2%',
                     marginBottom: 10,
-                    backgroundColor: "rgba(255, 255, 255, 0.9)",
+                    backgroundColor: "rgba(243, 246, 251, 0.9)",
                     paddingBottom: 9,
                     paddingTop: 6,
                     position: 'absolute',
@@ -147,7 +157,7 @@ const App = () => {
                     fontSize: 13,
                     position: 'absolute',
                   },
-                  tabBarActiveTintColor: 'rgba(170, 148, 123, 0.95)',
+                  tabBarActiveTintColor: 'rgba(149, 148, 186, 1)',
                   tabBarInactiveTintColor: 'rgba(123, 145, 170, 0.8)',
                   headerShown: false,
                   tabBarHideOnKeyboard: true
@@ -199,19 +209,19 @@ const App = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         position: 'absolute',
-                        bottom: -4,
+                        bottom: -2,
                         alignSelf: 'center',
-                        width: 80,
-                        height: 80,
+                        width: 71,
+                        height: 71,
                       }}>
-                        <Entypo size={78} name={"circle-with-plus"} color={props.focused ? 'rgba(170, 148, 123, 0.95)' : 'rgba(123, 145, 170, 0.95)'} />
+                        <Entypo size={70} name={"circle-with-plus"} color={props.focused ? 'rgba(149, 148, 186, 0.95)' : 'rgba(123, 145, 170, 0.95)'} />
                       </View>
                     )
                   }}
                 />
                 <Tab.Screen
                   name="SearchMaps"
-                  component={SearchMaps}
+                  component={ExploreScreen}
                   options={{
                     tabBarLabel: "Explore",
                     tabBarIconStyle: {

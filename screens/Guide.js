@@ -118,7 +118,7 @@ const Guide = ({ navigation }) => {
                 <View style={styles.guideButtons}>
                     <TouchableOpacity >
                         <Pressable onPress={changeFavorite}>
-                            <IOnicons name={favorite ? 'heart' : 'heart-outline'} size={36} color={favorite ? "#ff1e5a" : 'white'} />
+                            <IOnicons name={favorite ? 'heart' : 'heart-outline'} size={36} color={favorite ? "rgba(255, 30, 90, .85)" : 'white'} />
                         </Pressable>
                     </TouchableOpacity>
                 </View>
@@ -132,7 +132,7 @@ const Guide = ({ navigation }) => {
                 {/* Reitingas */}
                 <View style={[styles.guideButtons, { top: 200 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
                     <Text style={styles.rating}>Rating: {isRatingZero ? "-" : guideInfo['rating']}/5</Text>
-                    <IOnicons name={'star'} size={25} color={'#B5C6A6'} />
+                    <IOnicons name={'star'} size={25} color={'rgb(149, 148, 186)'} />
                 </View>
 
                 {/* Nuo cia gido vidus */}
@@ -152,10 +152,16 @@ const Guide = ({ navigation }) => {
                     }
                 })}
 
+                <View style={styles.headerTextView}>
+                    <Text style={styles.headerText}>
+                        Location
+                    </Text>
+                </View>
+
                 <MapView
                     style={{
                         height: 250,
-                        width: '98%',
+                        width: '90%',
                         alignSelf: 'center',
                         marginTop: 20
                     }}
@@ -177,6 +183,12 @@ const Guide = ({ navigation }) => {
                     </Marker>
                 </MapView>
 
+                <View style={styles.headerTextView}>
+                    <Text style={styles.headerText}>
+                        Reviews
+                    </Text>
+                </View>
+
                 <Rating styles={styles} userId={userInfo['_id']} guideId={guideInfo['_id']} />
                 <ResponseCard userId={userInfo['_id']} guideId={guideInfo['_id']}></ResponseCard>
 
@@ -193,7 +205,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         width: '90%',
         color: 'black',
-        paddingHorizontal: 25,
+        paddingHorizontal: 20,
         marginLeft: '5%',
         fontWeight: '00',
         textAlign: 'justify',
@@ -211,7 +223,7 @@ const styles = StyleSheet.create({
     },
     image: {
         flex: 1,
-        aspectRatio: 1.5,
+        aspectRatio: 1,
         borderRadius: 3,
     },
     imageview: {
@@ -225,8 +237,9 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     videoview: {
-        width: '88%',
-        marginLeft: '6%'
+        marginTop: 10,
+        width: '87%',
+        alignSelf: 'center',
     },
     headerimage: {
         width: '100%',
@@ -246,13 +259,14 @@ const styles = StyleSheet.create({
         height: 200,
         width: '100%',
         top: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.225)',
+        backgroundColor: 'rgba(0, 0, 0, 0.35)',
         borderBottomLeftRadius: 3,
         borderBottomRightRadius: 3,
     },
     view: {
         width: '100%',
         paddingBottom: 85,
+        backgroundColor: 'rgb(243, 246, 251)'
     },
     title: {
         color: 'white',
@@ -324,7 +338,19 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         borderWidth: 1,
         borderColor: 'rgba(0, 0, 0, 0.15)', borderRadius: 180,
-    }
+    },
+    headerTextView:{
+        marginTop: 10, 
+        marginBottom: 5, 
+        alignSelf: 'center',
+    },
+    headerText: {
+        color: 'black', 
+        fontSize: 28, 
+        fontWeight: '500', 
+        textDecorationLine: 'underline', 
+        textDecorationStyle: "double",
+    },
 })
 
 export default Guide

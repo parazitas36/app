@@ -71,7 +71,7 @@ const MyCard = (props) => {
 
                 <View style={[styles.guideButtons, { top: 165 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
                     <Text style={styles.rating}>Rating: {props.rating ? props.rating : '-'}/5</Text>
-                    <IOnicons name={'star'} size={25} color={'#B5C6A6'} />
+                    <IOnicons name={'star'} size={25} color={'rgb(149, 148, 186)'} />
                 </View>
 
 
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     },
     imageOpacity: {
         height: 165,
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        backgroundColor: 'rgba(0, 0, 0, 0.175)',
         width: '100%',
         position: 'absolute',
         top: 0,

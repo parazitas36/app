@@ -6,12 +6,16 @@ import {
     ImageBackground,
     Image
 } from 'react-native';
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
 import SearchBtn from '../components/buttons/SearchBtn';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Button from '../components/Button'
 import { Context } from '../App';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import FollowersList from '../components/FollowersList'
+import FollowingList from '../components/FollowingList'
+
 
 const image = require('../assets/images/background.png');
 const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
         height: 80,
         borderRadius: 180,
         overflow: 'hidden',
-        
+
     },
     profileName: {
         flex: 3,
@@ -86,24 +90,33 @@ const LogoutButtonStyleSheet = StyleSheet.create({
     }
 })
 
-const Profile = ({navigation}) => {
+const Profile = ({ navigation }) => {
 
     const { accInfo, refreshProfilePicture, setLoggedIn } = React.useContext(Context);
     const [userInfo, setUserInfo] = accInfo;
     const [refreshPicture, setRefreshPicture] = refreshProfilePicture;
     const [profileImage, setProfileImage] = React.useState("")
+    const [listToggler, setListToggler] = React.useState(null);
+
+    const ToggleList = (listType) => {
+        if (listType !== listToggler) {
+            setListToggler(listType)
+            return;
+        }
+        setListToggler(null);
+    }
 
     React.useLayoutEffect(() => {
-        (async() => {
+        (async () => {
             console.log(userInfo);
-            if(userInfo['ppicture'] === "" || userInfo['ppicture'] === null){
+            if (userInfo['ppicture'] === "" || userInfo['ppicture'] === null) {
                 setProfileImage("https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg")
-            }else{
+            } else {
                 setProfileImage(userInfo['ppicture']);
             }
             setRefreshPicture(false);
         })()
-    },[userInfo])
+    }, [userInfo])
 
     return (
         <View style={{ flex: 1 }}>
@@ -131,21 +144,36 @@ const Profile = ({navigation}) => {
                                 justifyContent: 'center',
                                 paddingHorizontal: 3,
                                 marginBottom: 8,
-                                flexDirection: 'row'                   
+                                flexDirection: 'row'
                             }}>
-                                <Button onPress={()=>{navigation.navigate("EditProfile")}} styles={styles} title={"Edit Profile"} />
-                                <Button onPress={()=>{ setLoggedIn(false); setUserInfo(false); }} styles={LogoutButtonStyleSheet} title={"Log Out"} />
+                                <Button onPress={() => { navigation.navigate("EditProfile") }} styles={styles} title={"Edit Profile"} />
+                                <Button onPress={() => { setUserInfo(false); setLoggedIn(false);  }} styles={LogoutButtonStyleSheet} title={"Log Out"} />
                             </View>
                         </View>
                     </View>
-                    <View style={{width: '96%', height: 80, marginTop: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                        <View style={{backgroundColor: 'rgba(0, 0, 0, .15)', padding: 10, marginRight: 5, borderRadius: 3}}>
-                            <Text style={{color: 'black', fontWeight: '500', fontSize: 18}}>Followers: {userInfo['followers'].length}</Text>
-                        </View>
-                        <View style={{backgroundColor: 'rgba(0, 0, 0, .15)', padding: 10, marginLeft: 5, borderRadius: 3}}>
-                            <Text style={{color: 'black', fontWeight: '500', fontSize: 18}}>Following: {userInfo['followed'].length}</Text>
-                        </View>
+
+                    <View style={{ width: '96%', height: 80, marginTop: 10, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        <TouchableOpacity>
+                            <Pressable onPress={() => ToggleList("Followers")}>
+                                <View style={{ backgroundColor: 'rgba(0, 0, 0, .15)', padding: 10, marginRight: 5, borderRadius: 3 }}>
+                                    <Text style={{ color: listToggler === "Followers" ? "white" : 'black', fontWeight: '500', fontSize: 18 }}>Followers: {userInfo['followers'].length}</Text>
+                                </View>
+                            </Pressable>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Pressable onPress={() => ToggleList("Following")}>
+                                <View style={{ backgroundColor: 'rgba(0, 0, 0, .15)', padding: 10, marginLeft: 5, borderRadius: 3 }}>
+                                    <Text style={{ color: listToggler === "Following" ? "white" :  'black', fontWeight: '500', fontSize: 18 }}>Following: {userInfo['followed'].length}</Text>
+                                </View>
+                            </Pressable>
+                        </TouchableOpacity>
                     </View>
+
+                    {listToggler && listToggler === "Followers" &&
+                        <FollowersList navigation={navigation} userID={userInfo['_id']} />}
+
+                    {listToggler && listToggler === "Following" &&
+                        <FollowingList navigation={navigation} userID={userInfo['_id']} />}
                 </View>
             </ImageBackground>
         </View>
