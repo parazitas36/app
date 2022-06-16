@@ -46,7 +46,7 @@ const FollowersList = ({ navigation, userID }) => {
                                     />
                                 </View>
                                 <View style={styles.textview}>
-                                    <Text style={styles.text} ellipsizeMode="tail">
+                                    <Text style={styles.text} ellipsizeMode="tail" numberOfLines={1}>
                                         {`${item['firstname']} ${item['lastname']}`}
                                     </Text>
                                 </View>
@@ -75,15 +75,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
-        width: 60,
-        height: 60,
+        width: 58,
+        height: 58,
         borderRadius: 180,
+        borderWidth: 2,
+        borderColor: 'rgba(255, 255, 255, .2)',
     },
     textview: {
         width: '75%',
         justifyContent: 'center',
         alignItems: 'flex-end',
-        paddingHorizontal: 20,
+        paddingRight: 20,
     },
     text: {
         fontSize: 24,

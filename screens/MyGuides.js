@@ -49,11 +49,15 @@ const MyGuides = () => {
     <TopTab.Navigator
       screenOptions={{
         tabBarStyle: {
-          marginBottom: 0.2
+          marginBottom: 0.2,
+        },
+        tabBarLabelStyle: {
+          fontWeight: '500'
         },
         tabBarIndicatorStyle: {
           backgroundColor: '#A7A6C6'
-        }
+        },
+        tabBarActiveTintColor: '#A7A6C6',
       }}
     >
         <TopTab.Screen options={{title: "My Guides"}} name="MyGuidesScreen" component={MyGuidesScreen}/>

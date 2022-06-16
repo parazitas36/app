@@ -147,7 +147,7 @@ const Profile = ({ navigation }) => {
                                 flexDirection: 'row'
                             }}>
                                 <Button onPress={() => { navigation.navigate("EditProfile") }} styles={styles} title={"Edit Profile"} />
-                                <Button onPress={() => { setLoggedIn(false); setUserInfo(false); }} styles={LogoutButtonStyleSheet} title={"Log Out"} />
+                                <Button onPress={() => { setUserInfo(false); setLoggedIn(false);  }} styles={LogoutButtonStyleSheet} title={"Log Out"} />
                             </View>
                         </View>
                     </View>

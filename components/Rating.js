@@ -1,11 +1,10 @@
-import { View, StyleSheet, Dimensions, Text, Pressable, Alert } from 'react-native'
+import { View, StyleSheet, Dimensions, Text, Pressable, Alert, TextInput } from 'react-native'
 import React from 'react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Fontisto from 'react-native-vector-icons/Fontisto'
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { GetUserResponse } from '../api/GetUserResponse';
 import { SendResponse } from '../api/SendResponse';
-import { Button, TextInput } from 'react-native-paper';
 import { ActivityIndicator } from 'react-native-paper';
 
 
@@ -71,7 +70,7 @@ const RatingBlock = (props) => {
                         return (
                             <TouchableOpacity >
                                 <Pressable onPress={() => setRating(star)}>
-                                    <MaterialIcons name={star <= rating ? 'star' : 'star-border'} size={25} color={'#B5C6A6'} />
+                                    <MaterialIcons name={star <= rating ? 'star' : 'star-border'} size={25} color={'rgb(149, 148, 186)'} />
                                 </Pressable>
                             </TouchableOpacity>)
                     }
@@ -82,7 +81,9 @@ const RatingBlock = (props) => {
                         style={styles.textInput}
                         defaultValue={!isNull ? userResponse['text'] : ''}
                         placeholder={"Enter a comment"}
+                        placeholderTextColor="rgba(255, 255, 255, 0.8)"
                         multiline={true}
+                        numberOfLines={4}
                         onChangeText={setText}></TextInput>
                     <TouchableOpacity>
                         <Pressable style={styles.btn} onPress={() => { PublishResponse(props.guideId, props.userId) }}>
@@ -100,36 +101,35 @@ export default RatingBlock
 const styles = StyleSheet.create({
     rating: {
         width: '90%',
-        fontSize: 16,
-        paddingHorizontal: 20,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        alignSelf: 'center'
     },
     text: {
-        fontSize: 17,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
+        fontSize: 18,
+        left: '6%',
+        paddingVertical: 2,
         color: 'black',
         fontWeight: '500',
     },
     stars: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     textInput: {
         marginTop: 10,
-        width: width * 0.9,
-        textAlign: 'justify',
-        padding: 5,
-        numberOfLines: 'auto',
+        width: '90%',
+        backgroundColor: 'rgba(123, 145, 170, 0.5)',
+        alignSelf: 'center',
+        textAlignVertical: 'top',
+        paddingHorizontal: 10,
+        color: 'white',
+        borderRadius: 5,
+        fontSize: 15,
     },
     view: {
         flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
-        width: width,
+        width: '100%',
         borderRadius: 5,
         backgroundColor: 'transparent',
-        overflow: 'hidden'
     },
     btn: {
         width: 85,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderRadius: 5,
         marginVertical: 10,
-        backgroundColor: 'rgba(0, 0, 0, 0.9)',
-        borderColor: 'rgba(0, 0, 0, 0.9)',
+        backgroundColor: 'rgba(123, 145, 170, 0.95)',
+        borderColor: 'rgba(123, 145, 170, 0.95)',
     }
 })

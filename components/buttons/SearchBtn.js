@@ -29,7 +29,7 @@ const SearchBtn = (props) => {
         }}>
             <TouchableOpacity>
                 <Pressable onPress={props.onPress}>
-                    <FontAwesome5 name='search' size={25} color="black" />
+                    <FontAwesome5 name='search' size={25} color="rgba(0, 0, 0, .75)" />
                 </Pressable>
             </TouchableOpacity>
         </View>

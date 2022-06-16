@@ -23,51 +23,56 @@ const ResponseCard = (props) => {
         })()
     }, [])
 
-    const Print = () =>{
-        console.log(responses)
-    };
     if (loading) {
         return (
             <View>
                 <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
             </View>
         )
-    }else if(!loading && responses === null){
-        return(
+    } else if (!loading && responses === null) {
+        return (
             <View>
             </View>
         )
-    }else{
-        return(
-            <ScrollView >
-                <Text style={styles.textTitle}>Users ratings</Text>
+    } else {
+        return (
+            <ScrollView contentContainerStyle={{paddingBottom: 10}}>
+                <Text style={styles.textTitle}>{`Users reviews (${responses.length})`}</Text>
                 {responses.map((data) => {
                     const stars = [];
-                    for(var i = 0; i < data['rating']; i++){
-                        stars.push(i+1);
+                    for (var i = 0; i < data['rating']; i++) {
+                        stars.push(i + 1);
                     }
-                    return<View style = {styles.view}>
-                        <View style = {styles.viewRating}>
-                            <Image
-                                source={{ uri: profile_img }}
-                                style={styles.profile_image}
-                                resizeMode="cover"
-                            />
-                            <View style = {styles.viewColumn}>
-                                <View style = {styles.star}>
-                                    {stars.map((star) => {
-                                        return (
-                                        <MaterialIcons name={'star'} size={25} color={'#B5C6A6'}/> 
+                    return (
+                        <View style={styles.view}>
+                            <View style={styles.userInfo}>
+                                <View style={styles.imageView}>
+                                    <Image
+                                        source={{ uri: profile_img }}
+                                        style={styles.profile_image}
+                                        resizeMode="cover"
+                                    />
+                                </View>
+
+                                <View style={styles.viewColumn}>
+                                    <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creatorName}>
+                                        {`${data['firstName']} ${data['lastName']}`}
+                                    </Text>
+                                    <View style={styles.star}>
+                                        {stars.map((star) => {
+                                            return (
+                                                <MaterialIcons name={'star'} size={25} color={'rgb(149, 148, 186)'} />
+                                            )
+                                        }
                                         )}
-                                    )}
-                                </View >
-                                <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creator}>
-                                    {'By: ' + data['firstName'] + " " + data['lastName']}
-                                </Text>
+                                    </View >
+                                </View>
                             </View>
-                        </View> 
-                        <Text style = {styles.text}>{data['text']}</Text>
-                    </View>
+                            <View style={styles.textView}>
+                                <Text style={styles.text}>{data['text']}</Text>
+                            </View>
+                        </View>
+                    )
                 }
                 )}
             </ScrollView>
@@ -79,65 +84,76 @@ export default ResponseCard
 
 const styles = StyleSheet.create({
     view: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        width: width * .9,
-        minHeight: height*0.1,
-        margin: 10,
-        marginLeft: width * 0.05,
+        width: '90%',
+        minHeight: 50,
+        alignSelf: 'center',
         borderRadius: 5,
-        backgroundColor: 'rgba(229, 229, 229, 0.5)',
+        backgroundColor: 'rgba(123, 145, 170, 0.6)',
     },
-    creator: {
-        color: 'black',
-        fontSize: 16,
-        fontWeight: '500',
-        left: 10,
-        width: width * 0.7,
-        overflow: 'hidden',
-    },
-    text:{
-        paddingTop: 10,
-        color: 'black',
-        backgroundColor: 'transparent',
-        textAlign: 'left',
-        width: width*0.8,
-        marginLeft: width*0.05,
-        fontSize: 15,
-        numberOfLines: 'auto'
-    },
-    textTitle:{
-        fontSize: 17,
-        color: 'black',
-        width: width*0.9,
-        marginLeft: width*0.05,
-        fontWeight: '500',
-    },
-    profile_image: {
-        marginLeft: width*0.03,
-        width: width * 0.1,
-        height: width * 0.1,
-        aspectRatio: 1,
-        borderWidth: 1,
-        borderColor: 'rgba(0, 0, 0, 0.15)', borderRadius: 180,
-    },
-    viewRating:{
+    userInfo: {
         flexDirection: 'row',
-        width: width * 0.15,
+        height: 60,
+        alignItems: 'center'
     },
-    textRating:{
-        color: 'black',
-        backgroundColor: 'transparent',
-        textAlign: 'left',
-        marginLeft: width*0.05,
-        fontSize: 17,
+    viewColumn: {
+        width: '80%',
+        flexDirection: 'column',
+        justifyContent: 'center'
     },
     star: {
-        marginLeft: 5,
-        flexDirection: 'row',
-        width: width * 0.3,
+        flexDirection: 'row'
     },
-    viewColumn:{
-        flexDirection: 'column',
+    creatorName: {
+        fontSize: 16,
+        fontWeight: '500',
+        paddingLeft: 3,
+        paddingVertical: 2,
+        color: 'white',
+        textShadowColor: 'rgba(0, 0, 0, 0.5)',
+        textShadowOffset: {
+            width: 1.75,
+            height: 1.5
+        },
+        textShadowRadius: 5
+    },
+    profile_image: {
+        width: 40,
+        height: 40,
+        aspectRatio: 1,
+        borderRadius: 180,
+        borderWidth: 1,
+        borderColor: 'rgba(0, 0, 0, .15)'
+    },
+    textTitle: {
+        color: 'black',
+        fontSize: 18,
+        marginLeft: '6%',
+        fontWeight: '500',
+        paddingVertical: 8
+    },
+    imageView: {
+        width: '20%',
+        minWidth: 42,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    textView: {
+        width: '100%',
+        padding: 5,
+        paddingHorizontal: 15,
+        paddingBottom: 12,
+        alignSelf: 'center'
+    },
+    text : {
+        left: 0,
+        position: 'relative',
+        color: 'rgba(255, 255, 255, .99)',
+        fontWeight: '400',
+        textAlign: 'justify',
+        borderTopWidth: 1,
+        borderTopColor: 'rgba(0, 0, 0, .3)',
+        paddingTop: 5,
+        paddingHorizontal: 3,
+        fontSize: 14
     }
 })

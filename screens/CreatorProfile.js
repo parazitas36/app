@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
     view: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'rgb(243, 246, 251)'
     },
     image_view: {
         width: 200,
