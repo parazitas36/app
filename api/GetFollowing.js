@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const GetFollowing = async (userid) => {
-    const resp = await fetch('http://localhost:5000/api/accounts/following/' + userid, {
+    const resp = await fetch('https://v-guide.herokuapp.com/api/accounts/following/' + userid, {
         method: 'GET',
         headers: {
             "Accept": "*/*",
