@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         alignContent: 'center',
-        paddingBottom: 75,
+        paddingTop: 10,
+        paddingBottom: 85,
     },
     input: {
         width: '80%',
@@ -51,7 +52,7 @@ const Favorites = ({ navigation }) => {
             setRefresh(false);
             setFirstLoad(false);
         })()
-    }, [refresh])
+    }, [refresh, userInfo])
 
     if (firstLoad) {
         return (
@@ -97,15 +98,13 @@ const Favorites = ({ navigation }) => {
                                         title={item['title']}
                                         description={item['description']}
                                         guideID={item['_id']}
+                                        price={item['price']}
                                         favorite={userInfo['savedguides'].includes(item['_id'])}
                                         savedguides={userInfo['savedguides']}
+                                        payedguides={userInfo['payedguides']}
                                         userID={userInfo['_id']}
-                                        onClick={() => {
-                                            setChosenGuideID(item['_id']);
-                                            console.log(item['_id'])
-                                            navigation.navigate("Guide")
-                                        }
-                                        }
+                                        navigation={navigation}
+                                        setChosenGuideID={setChosenGuideID}
                                     />
                                 }
                             })

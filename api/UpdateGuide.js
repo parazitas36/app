@@ -1,4 +1,4 @@
-export const PostGuide = async(blocks, title, description, creatorID, latitude, longtitude, city, category, publish, price) => {
+export const UpdateGuide = async(blocks, title, description, creatorID, latitude, longtitude, city, category, publish, price, guideId) => {
     const formData = new FormData();
     for (var i = 0; i < blocks.length; i++) {
         switch (blocks[i].type) {
@@ -22,6 +22,13 @@ export const PostGuide = async(blocks, title, description, creatorID, latitude, 
                     Type: "Video"
                 }));
                 break;
+            case "Videouri":
+                    formData.append('VideosUris', blocks[i].object);
+                    formData.append("Blocks", JSON.stringify({
+                        ID: i,
+                        Type: "Videouri"
+                    }));
+                    break;
             case "Image":
                 formData.append('Images',
                     {
@@ -35,6 +42,13 @@ export const PostGuide = async(blocks, title, description, creatorID, latitude, 
                     Type: "Image"
                 }));
                 break;
+            case "Imageuri":
+                    formData.append('ImagesUris', blocks[i].object);
+                    formData.append("Blocks", JSON.stringify({
+                        ID: i,
+                        Type: "Imageuri"
+                    }));
+                    break;
         }
     }
 
@@ -48,11 +62,14 @@ export const PostGuide = async(blocks, title, description, creatorID, latitude, 
     formData.append('City', city);
     formData.append('Visible', publish);
     formData.append('Category', category);
+    formData.append('GuideId', guideId);
 
+    console.log(formData);
 
     const resp = await fetch("https://v-guide.herokuapp.com/api/guides", {
-        method: 'POST',
-        headers: { 'Content-Type': 'multipart/form-data',
+        method: 'PUT',
+        headers: {
+        'Content-Type': 'multipart/form-data',
         "Connection": "keep-alive" },
         body: formData
     });

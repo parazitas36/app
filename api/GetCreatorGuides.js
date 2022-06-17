@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const GetUserGuides = async (userid) => {
-    const resp = await fetch('https://v-guide.herokuapp.com/api/guides/createdguides/' + userid, {
+export const GetCreatorGuides = async (userid) => {
+    const resp = await fetch('https://v-guide.herokuapp.com/api/guides/creatorguides/' + userid, {
         method: 'GET',
         headers: {
             "Accept": "*/*"

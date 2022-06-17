@@ -11,23 +11,60 @@ import VideoBlock from '../components/blocks/VideoBlock';
 import Rating from '../components/Rating';
 import ResponseCard from '../components/ResponseCard';
 import MapView, { Marker } from 'react-native-maps';
+import { UnsaveGuide } from '../api/UnsaveGuide';
+import { SaveGuide } from '../api/SaveGuide';
+import { GetCreator } from '../api/GetCreator'
 
 const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
 const tempText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius duis at consectetur lorem donec massa sapien. Egestas purus viverra accumsan in nisl nisi scelerisque eu.  Eget arcu dictum varius duis. Sodales neque sodales ut etiam sit amet nisl purus.  Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Facilisi morbi tempus iaculis urna id. Consequat nisl vel pretium lectus quam. Massa tempor nec feugiat nisl pretium fusce. Sit amet risus nullam eget felis eget. Nunc sed blandit libero volutpat sed cras ornare arcu. Odio ut enim blandit volutpat. Congue mauris rhoncus aenean vel. Nunc sed augue lacus viverra vitae congue eu. Semper viverra nam libero justo laoreet sit amet cursus. Risus quis varius quam quisque id diam. Sed turpis tincidunt id aliquet risus feugiat in ante. Non enim praesent elementum facilisis leo vel fringilla est."
 
-const Guide = ({navigation}) => {
-    const { guideID, creatorInfo, accInfo} = React.useContext(Context);
+const Guide = ({ navigation }) => {
+    const { guideID, creatorInfo, accInfo } = React.useContext(Context);
     const [userInfo, setUserInfo] = accInfo;
     const [chosenGuideID, setChosenGuideID] = guideID;
     const [guideInfo, setGuideInfo] = React.useState(null);
     const [chosenProfileID, setChosenProfileID] = creatorInfo;
+    const [isRatingZero, setIfZero] = React.useState(true);
+    const [favorite, setFavorite] = React.useState(userInfo['savedguides'].includes(chosenGuideID))
+    const [profileImage, setProfileImage] = React.useState(null)
+    const [profileData, setProfileData] = React.useState(null);
 
     React.useLayoutEffect(() => {
         (async () => {
             const resp = await GetGuideById(chosenGuideID);
             setGuideInfo(resp);
+            if (resp['rating'] !== 0) {
+                setIfZero(false);
+            }
+            const resp2 = await GetCreator(resp['creatorId']);
+            const json = await resp2.json();
+            setProfileData(json);
+            if(json['ppicture'] === "" || json['ppicture'] === null){
+                setProfileImage("https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg")
+            }else{
+                setProfileImage(json['ppicture']);
+            }
+            console.log(json);
         })()
     }, [])
+
+    const changeFavorite = async () => {
+        if (favorite) {
+            const resp = await UnsaveGuide(chosenGuideID, userInfo["_id"]);
+            if (resp.status === 200) {
+                const json = await resp.json();
+                setUserInfo(json);
+                setFavorite(false)
+            }
+        } else {
+            const resp = await SaveGuide(chosenGuideID, userInfo["_id"]);
+            if (resp.status === 200) {
+                const json = await resp.json();
+                setUserInfo(json);
+                setFavorite(true)
+            }
+        }
+    }
 
     if (!guideInfo) {
         // Loading... indikatorius
@@ -69,7 +106,7 @@ const Guide = ({navigation}) => {
                             }}
                         >
                             <Image
-                                source={{ uri: profile_img }}
+                                source={{ uri: profileImage }}
                                 style={styles.profile_image}
                                 resizeMode="cover"
                             />
@@ -80,22 +117,22 @@ const Guide = ({navigation}) => {
                 {/* Prideti i favorites */}
                 <View style={styles.guideButtons}>
                     <TouchableOpacity >
-                        <Pressable onPress={() => console.log('click')}>
-                            <IOnicons name={'heart-outline'} size={36} color={'white'} />
+                        <Pressable onPress={changeFavorite}>
+                            <IOnicons name={favorite ? 'heart' : 'heart-outline'} size={36} color={favorite ? "rgba(255, 30, 90, .85)" : 'white'} />
                         </Pressable>
                     </TouchableOpacity>
                 </View>
 
                 {/* Lokacija */}
-                <View style={[styles.guideButtons, { top: 125, flex: 1, flexDirection: 'row', alignItems: 'center'}]}>
+                <View style={[styles.guideButtons, { top: 125, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
                     <IOnicons name='location-outline' color="white" size={30} />
                     <Text numberOfLines={1} ellipsizeMode="tail" style={styles.city}>{guideInfo['city']}</Text>
                 </View>
 
                 {/* Reitingas */}
                 <View style={[styles.guideButtons, { top: 200 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
-                    <Text style={styles.rating}>Rating: {'-'}/5</Text>
-                    <IOnicons name={'star'} size={25} color={'gold'} />
+                    <Text style={styles.rating}>Rating: {isRatingZero ? "-" : guideInfo['rating']}/5</Text>
+                    <IOnicons name={'star'} size={25} color={'rgb(149, 148, 186)'} />
                 </View>
 
                 {/* Nuo cia gido vidus */}
@@ -115,33 +152,45 @@ const Guide = ({navigation}) => {
                     }
                 })}
 
+                <View style={styles.headerTextView}>
+                    <Text style={styles.headerText}>
+                        Location
+                    </Text>
+                </View>
+
                 <MapView
-                style={{
-                    height: 250,
-                    width: '98%',
-                    alignSelf: 'center',
-                    marginTop: 20
-                }}
-                initialRegion={{
-                    latitude: guideInfo['latitude'],
-                    longitude: guideInfo['longtitude'],
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                }}
-                >
-                <Marker 
-                    title={guideInfo['title']}
-                    coordinate={{
-                        latitude: guideInfo['latitude'],
-                        longitude: guideInfo['longtitude']
+                    style={{
+                        height: 250,
+                        width: '90%',
+                        alignSelf: 'center',
+                        marginTop: 20
                     }}
-                    pinColor='red'
+                    initialRegion={{
+                        latitude: guideInfo['latitude'],
+                        longitude: guideInfo['longtitude'],
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
                 >
-                </Marker>
+                    <Marker
+                        title={guideInfo['title']}
+                        coordinate={{
+                            latitude: guideInfo['latitude'],
+                            longitude: guideInfo['longtitude']
+                        }}
+                        pinColor='red'
+                    >
+                    </Marker>
                 </MapView>
 
-                <Rating styles = {styles} userId = {userInfo['_id']} guideId = {guideInfo['_id']}/>
-                <ResponseCard userId = {userInfo['_id']} guideId = {guideInfo['_id']}></ResponseCard>
+                <View style={styles.headerTextView}>
+                    <Text style={styles.headerText}>
+                        Reviews
+                    </Text>
+                </View>
+
+                <Rating styles={styles} userId={userInfo['_id']} guideId={guideInfo['_id']} />
+                <ResponseCard userId={userInfo['_id']} guideId={guideInfo['_id']}></ResponseCard>
 
             </ScrollView>
         )
@@ -156,7 +205,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         width: '90%',
         color: 'black',
-        paddingHorizontal: 25,
+        paddingHorizontal: 20,
         marginLeft: '5%',
         fontWeight: '00',
         textAlign: 'justify',
@@ -174,7 +223,7 @@ const styles = StyleSheet.create({
     },
     image: {
         flex: 1,
-        aspectRatio: 1.5,
+        aspectRatio: 1,
         borderRadius: 3,
     },
     imageview: {
@@ -188,8 +237,9 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     videoview: {
-        width: '88%',
-        marginLeft: '6%'
+        marginTop: 10,
+        width: '87%',
+        alignSelf: 'center',
     },
     headerimage: {
         width: '100%',
@@ -209,13 +259,14 @@ const styles = StyleSheet.create({
         height: 200,
         width: '100%',
         top: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.225)',
+        backgroundColor: 'rgba(0, 0, 0, 0.35)',
         borderBottomLeftRadius: 3,
         borderBottomRightRadius: 3,
     },
     view: {
         width: '100%',
         paddingBottom: 85,
+        backgroundColor: 'rgb(243, 246, 251)'
     },
     title: {
         color: 'white',
@@ -287,7 +338,19 @@ const styles = StyleSheet.create({
         aspectRatio: 1,
         borderWidth: 1,
         borderColor: 'rgba(0, 0, 0, 0.15)', borderRadius: 180,
-    }
+    },
+    headerTextView:{
+        marginTop: 10, 
+        marginBottom: 5, 
+        alignSelf: 'center',
+    },
+    headerText: {
+        color: 'black', 
+        fontSize: 28, 
+        fontWeight: '500', 
+        textDecorationLine: 'underline', 
+        textDecorationStyle: "double",
+    },
 })
 
 export default Guide

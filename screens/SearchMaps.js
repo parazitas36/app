@@ -5,12 +5,15 @@ import { ActivityIndicator } from 'react-native-paper';
 import { Searchbar } from 'react-native-paper';
 import { FindCityByName } from '../api/FindCityByName';
 import { GetAllGuides } from '../api/GetAllGuides';
+import { Context } from '../App';
 import Button from '../components/Button';
 import MapCard from '../components/MapCard';
 
 const image = require('../assets/images/background.png');
 
-const SearchMaps = () => {
+const SearchMaps = ({ navigation }) => {
+    const { guideID } = React.useContext(Context);
+    const [chosenGuideID, setChosenGuideID] = guideID;
     const [region, setRegion] = React.useState({
         latitude: 37.78825,
         longitude: -122.4324,
@@ -22,7 +25,7 @@ const SearchMaps = () => {
     const [guides, setGuides] = React.useState(null);
 
     React.useLayoutEffect(() => {
-        (async() => {
+        (async () => {
             const resp = await GetAllGuides();
             setGuides(resp);
         })()
@@ -33,26 +36,30 @@ const SearchMaps = () => {
         setRegion(reg[['region']]);
     }
 
-    const redirectToCity = async() => {
+    const redirectToCity = async () => {
         const result = await FindCityByName(findCity)
-        setRegion({latitude: Number(result[1]), longitude: Number(result[0]),
-         latitudeDelta: 0.0922,longitudeDelta: 0.0421,})
+        setRegion({
+            latitude: Number(result[1]), longitude: Number(result[0]),
+            latitudeDelta: 0.0922, longitudeDelta: 0.0421,
+        })
     }
 
-    if(!guides){
+    if (!guides) {
         <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
-                <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
+            <ActivityIndicator color="rgba(55, 155, 200, 1)" size={40} style={{ flex: 1, justifyContent: 'center', marginTop: 50 }} />
         </ImageBackground>
     }
 
     return (
         <View>
-            <Searchbar 
+            <Searchbar
                 placeholder='Search'
                 defaultValue=''
                 value={findCity}
                 onChangeText={setFindCity}
                 onIconPress={redirectToCity}
+                onKeyPress={redirectToCity}
+                onEndEditing={redirectToCity}
             />
             <MapView
                 style={{
@@ -71,21 +78,26 @@ const SearchMaps = () => {
                         if (item) {
                             return <Marker
                                 pinColor='red'
-                                coordinate={{latitude : item['latitude'], longitude: item['longtitude']}}
+                                coordinate={{ latitude: item['latitude'], longitude: item['longtitude'] }}
                             >
                                 <Callout tooltip={true}
+                                    onPress={() => {
+                                        setChosenGuideID(item['_id'])
+                                        navigation.navigate("Guide")
+                                    }
+                                    }
                                 >
-                                    <MapCard 
-                                    rating={item['rating']}
-                                    title={item['title']} 
-                                    image_uri={item['image']}
+                                    <MapCard
+                                        rating={item['rating']}
+                                        title={item['title']}
+                                        image_uri={item['image']}
                                     />
                                 </Callout>
                             </Marker>
                         }
                     })
                 }
-                
+
             </MapView>
         </View>
     )

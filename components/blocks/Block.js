@@ -7,8 +7,6 @@ import EditBlockBtn from '../buttons/EditBlockBtn';
 import RemoveBlockBtn from '../buttons/RemoveBlockBtn';
 
 const Block = (item, Up, Down, Edit, Remove) => {
-    const windowWidth = Dimensions.get('window').width;
-    const windowHeight = Dimensions.get('window').height;
 
     const styles = StyleSheet.create({
         blockView: {
@@ -23,8 +21,9 @@ const Block = (item, Up, Down, Edit, Remove) => {
             marginBottom: 5,
             alignItems: 'center',
             width: '96%',
-            marginLeft: '2%',
-            paddingHorizontal: 5
+            alignSelf: 'center',
+            paddingHorizontal: 5,
+            paddingVertical: 15
         },
         arrowView: {
             flex: 1,
@@ -36,7 +35,9 @@ const Block = (item, Up, Down, Edit, Remove) => {
             alignSelf: 'center',
             justifyContent: 'center',
             alignItems: 'center',
-            alignContent: 'center'
+            alignContent: 'center',
+            paddingVertical: 5,
+            marginVertical: 5
         },
         buttonView: {
             flex: 1,
@@ -92,6 +93,30 @@ const Block = (item, Up, Down, Edit, Remove) => {
                         </View>
                     </View>
                 )
+            case 'Imageuri':
+                return (
+                    <View style={styles.blockView}>
+                        <View style={styles.arrowView}>
+                            <ArrowUpBtn onPress={() => Up(item.id)} />
+                            <ArrowDownBtn onPress={() => Down(item.id)} />
+                        </View>
+                        <View style={styles.contentView}>
+                            <Image
+                                key={item.key}
+                                resizeMode="contain"
+                                paused={false}
+                                style={{
+                                    aspectRatio: 1,
+                                    width: "100%"
+                                }}
+                                source={{ uri: item.object }}
+                            />
+                        </View>
+                        <View style={styles.buttonView}>
+                            <RemoveBlockBtn onPress={() => Remove(item.id)} />
+                        </View>
+                    </View>
+                )
             case 'Video':
                 return (
                     <View style={styles.blockView}>
@@ -113,6 +138,30 @@ const Block = (item, Up, Down, Edit, Remove) => {
                         </View>
                         <View style={styles.buttonView}>
                             <EditBlockBtn onPress={() => Edit(item.id)} />
+                            <RemoveBlockBtn onPress={() => Remove(item.id)} />
+                        </View>
+                    </View>
+                )
+            case 'Videouri':
+                return (
+                    <View style={styles.blockView}>
+                        <View style={styles.arrowView}>
+                            <ArrowUpBtn onPress={() => Up(item.id)} />
+                            <ArrowDownBtn onPress={() => Down(item.id)} />
+                        </View>
+                        <View style={styles.contentView}>
+                            <Video
+                                key={item.key}
+                                resizeMode="contain"
+                                paused={false}
+                                style={{
+                                    aspectRatio: 1,
+                                    width: "100%"
+                                }}
+                                source={{ uri: item.object}}
+                            />
+                        </View>
+                        <View style={styles.buttonView}>
                             <RemoveBlockBtn onPress={() => Remove(item.id)} />
                         </View>
                     </View>

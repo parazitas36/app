@@ -1,28 +1,26 @@
 import React, { useContext } from 'react'
-import { Dimensions, StyleSheet, ScrollView, Modal, View, ImageBackground, Text } from 'react-native';
-import { CreateGuideContext } from '../../screens/CreateGuide';
-import AddPhotoBlock from '../blocks/AddPhotoBlock';
-import AddTextBlock from '../blocks/AddTextBlock';
-import AddVideoBlock from '../blocks/AddVideoBlock';
-import Button from '../Button';
-import PhotoBlockBtn from '../buttons/PhotoBlockBtn';
-import TextBlockBtn from '../buttons/TextBlockBtn';
-import VideoBlockBtn from '../buttons/VideoBlockBtn';
+import { Dimensions, StyleSheet, ScrollView, Modal, View } from 'react-native';
+import { EditGuideContext } from '../../../screens/EditGuide';
+import AddPhotoBlock from '../../blocks/AddPhotoBlock';
+import AddTextBlock from '../../blocks/AddTextBlock';
+import AddVideoBlock from '../../blocks/AddVideoBlock';
+import Button from '../../Button';
+import PhotoBlockBtn from '../../buttons/PhotoBlockBtn';
+import TextBlockBtn from '../../buttons/TextBlockBtn';
+import VideoBlockBtn from '../../buttons/VideoBlockBtn';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     btn: {
-        width: 90,
+        width: windowWidth * .2,
         alignItems: 'center',
         alignContent: 'center'
     },
     btntxt: {
         textAlign: 'center',
-        color: 'black',
-        fontWeight: '600',
-        fontSize: 14
+        color: 'black'
     },
     modal: {
         flex: 1,
@@ -38,30 +36,26 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         alignContent: 'center',
-        marginBottom: 50
+        marginBottom: 100
     },
 });
 
 const backBtnStyle = StyleSheet.create({
     btntxt: {
         fontSize: 16,
-        color: "black",
-        fontWeight: '500'
+        color: "black"
     },
     btn: {
-        borderWidth: 1.25,
-        padding: 7,
+        borderWidth: 1,
+        padding: 5,
         borderRadius: 10,
-        paddingHorizontal: 15,
-        backgroundColor: "rgba(255, 255, 255, 0.45)",
-        borderColor: 'rgba(0, 0, 0, 0.75)',
-        marginBottom: 5,
+        paddingHorizontal: 10
     }
 });
 
 const CreateBlockModal = (props) => {
     const [chosenBlock, setChosenBlock] = React.useState(null);
-    const { texts, photos, videos, blocks_arr, showBlocks, blockids } = useContext(CreateGuideContext);
+    const { texts, photos, videos, blocks_arr, showBlocks, blockids } = useContext(EditGuideContext);
 
     const [blocks, setBlocks] = blocks_arr;
     const [showBlock, setShowBlock] = showBlocks;
@@ -72,20 +66,9 @@ const CreateBlockModal = (props) => {
 
     return (
         <Modal animationType='slide' visible={showBlock}>
-            <View style={{flex: 1}}>
-            <ImageBackground source={require('../../assets/images/background.png')} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
             {
                 chosenBlock === null &&
                 <View style={styles.modalBtn}>
-                    <Text style={{
-                        position: 'absolute', 
-                        top: 45, 
-                        fontSize: 28, 
-                        color: 'rgba(0, 0, 0, 1)',
-                        fontWeight: '500',
-                    }}>
-                        Choose the block type
-                    </Text>
                     <View style={styles.modal}>
                         <TextBlockBtn styles={styles} onPress={() => setChosenBlock('Text')} />
                         <VideoBlockBtn styles={styles} onPress={() => setChosenBlock('Video')} />
@@ -99,7 +82,6 @@ const CreateBlockModal = (props) => {
                 <ScrollView>
                     <AddTextBlock
                         styles={styles}
-                        text={text}
                         onChangeText={setText}
                         onPress={() => {
                             if (text === null || text === "") { alert('No text has been entered!'); return; }
@@ -145,8 +127,6 @@ const CreateBlockModal = (props) => {
                     />
                 </ScrollView>
             }
-            </ImageBackground>
-            </View>
         </Modal>
     )
 }

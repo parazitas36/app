@@ -7,6 +7,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SetInvisible } from '../api/SetInvisible';
 import { SetVisible } from '../api/SetVisible';
 
+export const MyCardContext = React.createContext();
+
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -15,88 +17,91 @@ const defaultImageURI = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%
 const MyCard = (props) => {
     const [visible, setVisible2] = useState(null);
     const [uri, setUri] = useState(null);
+    const [guideId, setGuideId] = React.useState('62849e68fd614b3e9b5e2d0a')
+    
     if (visible === null) {
         setVisible2(props.visible);
     }
     if(uri === null){
         setUri(props.uri)
     }
-    return (
-        <View style={styles.view}>
-            <Image blurRadius={1} style={styles.image} source={{ uri: !props.uri ? defaultImageURI : uri }} />
-            <View style={styles.imageOpacity} />
+    if(guideId === null){
+        setGuideId(props.guideID)
+    }
 
-            <View style={styles.guideButtons}>
-                <TouchableOpacity >
-                    <Pressable onPress={async () => {
-                        let resp = null;
-                        if (visible === true) {
-                            resp = await SetInvisible(props.guideID);
-                            if (resp.status === 200) {
-                                for (let i = 0; i < props.savedguides.length; i++) {
-                                    if (props.savedguides[i] === props.guideID) {
-                                        if (i !== props.savedguides.length - 1) {
-                                            for (let j = i; j < props.savedguides.length - 1; j++) {
-                                                props.savedguides[j] = props.savedguides[j + 1]
-                                            }
-                                        }
-                                        props.savedguides.pop();
-                                        break;
-                                    }
+    return (
+        <MyCardContext.Provider value={guideId}>
+            <View style={styles.view}>
+                <Image blurRadius={1} style={styles.image} source={{ uri: !props.uri ? defaultImageURI : uri }} />
+                <View style={styles.imageOpacity} />
+
+                <View style={styles.guideButtons}>
+                    <TouchableOpacity >
+                        <Pressable onPress={async () => {
+                            let resp = null;
+                            if (visible === true) {
+                                resp = await SetInvisible(props.guideID);
+                                if (resp.status === 200) {
+                                    setVisible2(false)
                                 }
-                                setVisible2(false)
-                            }
-                        } else if (visible === false) {
-                            resp = await SetVisible(props.guideID);
-                            if (resp.status === 200) {
-                                props.savedguides.push(props.guideID);
-                                setVisible2(true)
+                            } else if (visible === false) {
+                                resp = await SetVisible(props.guideID);
+                                if (resp.status === 200) {
+                                    setVisible2(true)
+                                }
                             }
                         }
-                    }
-                    }>
-                        <IOnicons name={visible ? 'eye' : 'eye-off'} size={30} color={'white'} />
-                    </Pressable>
-                </TouchableOpacity>
+                        }>
+                            <IOnicons name={visible ? 'eye' : 'eye-off'} size={30} color={'white'} />
+                        </Pressable>
+                    </TouchableOpacity>
+                </View>
+                <View style={[styles.guideButtons, { top: 55, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
+                    <TouchableOpacity>
+                        <Pressable onPress={props.navigateToEdit}>
+                            <FontAwesome5  name='edit' size={30} color={'white'} />
+                        </Pressable>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={[styles.guideButtons, { top: 95, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
+                    <IOnicons name='location-outline' color="white" size={30} />
+                    <Text style={styles.city}>{props.city ? props.city : "City"}</Text>
+                </View>
+
+                <View style={[styles.guideButtons, { top: 165 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
+                    <Text style={styles.rating}>Rating: {props.rating ? props.rating : '-'}/5</Text>
+                    <IOnicons name={'star'} size={25} color={'rgb(149, 148, 186)'} />
+                </View>
+
+
+                <Text numberOfLines={2} ellipsizeMode='tail' style={styles.title}>{props.title ? props.title : 'Pavadinimas'}</Text>
+
+                <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creator}>{props.creator ? props.creator : 'by Username'}</Text>
+
+                <Text style={styles.text}>
+                    {props.description}
+                </Text>
+
+                <View style={
+                    styles.readMore
+                }>
+                    <TouchableOpacity>
+                        <Pressable style={{
+                            width: '100%',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'column',
+                        }}
+                            onPress={props.onClick}
+                        >
+                            <FontAwesome5 style={{marginBottom: -8}} name='chevron-down' size={22} color={'rgba(255, 255, 255, 0.85)'} />
+                            <Text style={styles.btntxt}>Show all</Text>
+                        </Pressable>
+                    </TouchableOpacity>
+                </View>
             </View>
-
-            <View style={[styles.guideButtons, { top: 95, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
-                <IOnicons name='location-outline' color="white" size={30} />
-                <Text style={styles.city}>{props.city ? props.city : "City"}</Text>
-            </View>
-
-            <View style={[styles.guideButtons, { top: 165 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
-                <Text style={styles.rating}>Rating: {props.rating ? props.rating : '-'}/5</Text>
-                <IOnicons name={'star'} size={25} color={'gold'} />
-            </View>
-
-
-            <Text numberOfLines={2} ellipsizeMode='tail' style={styles.title}>{props.title ? props.title : 'Pavadinimas'}</Text>
-
-            <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creator}>{props.creator ? props.creator : 'by Username'}</Text>
-
-            <Text style={styles.text}>
-                {props.description}
-            </Text>
-
-            <View style={
-                styles.readMore
-            }>
-                <TouchableOpacity>
-                    <Pressable style={{
-                        width: '100%',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        flexDirection: 'column',
-                    }}
-                        onPress={props.onClick}
-                    >
-                        <FontAwesome5 style={{marginBottom: -8}} name='chevron-down' size={22} color={'rgba(255, 255, 255, 0.8)'} />
-                        <Text style={styles.btntxt}>Show all</Text>
-                    </Pressable>
-                </TouchableOpacity>
-            </View>
-        </View>
+        </MyCardContext.Provider>
     )
 }
 
@@ -158,7 +163,7 @@ const styles = StyleSheet.create({
     },
     btntxt: {
         fontSize: 16,
-        color: 'rgba(255, 255, 255, 0.8)',
+        color: 'rgba(255, 255, 255, 0.85)',
         fontWeight: '500',
         marginBottom: 5
     },
@@ -207,7 +212,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'column',
         paddingVertical: 5,
-        backgroundColor: 'rgba( 93, 122, 152, 0.85 )',
+        backgroundColor: 'rgba(95, 119, 147, 0.9)',
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
         position: 'absolute',
@@ -216,7 +221,7 @@ const styles = StyleSheet.create({
     },
     imageOpacity: {
         height: 165,
-        backgroundColor: 'rgba(0, 0, 0, 0.2)',
+        backgroundColor: 'rgba(0, 0, 0, 0.175)',
         width: '100%',
         position: 'absolute',
         top: 0,

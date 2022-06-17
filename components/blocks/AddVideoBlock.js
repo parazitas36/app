@@ -1,4 +1,4 @@
-import { Dimensions, View, Text, StyleSheet, Image } from 'react-native';
+import { Dimensions, View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import React from 'react';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 import Button from '../Button';
@@ -37,8 +37,9 @@ const AddVideoBlock = (props) => {
         }
     }
     return (
-        <View style={styles.view}>
-            <UploadBtn onPress={uploadVideo} />
+        <ScrollView contentContainerStyle={styles.view}>
+            <Text style={styles.title}>Video Block</Text>
+            <UploadBtn onPress={uploadVideo} title={video ? "Change": "Upload"}/>
             {video &&
                 <View style={styles.videoView}>
                     <Video
@@ -50,10 +51,10 @@ const AddVideoBlock = (props) => {
                 </View>
             }
             <View style={styles.viewButtons}>
-                <AgreeBtn onPress={() => { props.onPress() }} />
-                <DiscardBtn onPress={() => { props.resetChosen(null) }} />
+                {video && <AgreeBtn onPress={() => { props.onPress() }} />}
+                <DiscardBtn onPress={() => { props.resetChosen(null) }}/>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -69,17 +70,26 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 20,
+        paddingBottom: 20,
     },
     viewButtons: {
         flex: 1,
         flexDirection: 'row',
-        marginTop: 20
+        marginTop: 10
     },
     videoView: {
         flex: 1,
         height: windowHeight * .6,
         width: '100%'
+    },
+    title: {
+      fontSize: 28,
+      color: 'black',
+      fontWeight: '500',
+      textAlign: 'center',
+      paddingVertical: 10,
+      marginBottom: 10,
+      marginTop: 10,
     }
 });
 

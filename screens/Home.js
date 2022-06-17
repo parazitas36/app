@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         alignContent: 'center',
-        paddingBottom: 75,
+        paddingBottom: 85,
     },
     input: {
         width: '80%',
@@ -88,11 +88,12 @@ const Home = ({ navigation }) => {
     React.useLayoutEffect(() => {
         (async () => {
             const temp = await GetAllGuides();
+            setGuides([]);
             setGuides(temp);
             setRefresh(false);
             setFirstLoad(false);
         })()
-    }, [refresh])
+    }, [refresh, userInfo])
 
     if (firstLoad) {
         return (
@@ -106,6 +107,7 @@ const Home = ({ navigation }) => {
 
     return (
         <View style={{ flex: 1 }}>
+            <SearchBtn onPress={() => setShowSearch(true)}></SearchBtn>
             <ImageBackground source={image} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
                 <ScrollView
                     style={styles.mainView}
@@ -117,10 +119,26 @@ const Home = ({ navigation }) => {
                     }
                 >
 
-                    <View style={{ alignSelf: 'center', marginBottom: -5 }}>
-                        <SearchBtn onPress={() => setShowSearch(true)}></SearchBtn>
-                    </View>
-
+                    <Text style={{
+                        fontSize: 36,
+                        fontWeight: '700',
+                        textAlign: 'center',
+                        color: 'rgba(255, 255, 255, .95)',
+                        marginVertical: 15,
+                        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+                        textShadowOffset: {
+                            width: 3,
+                            height: 3
+                        },
+                        textShadowRadius: 1,
+                        backgroundColor: 'rgba(0, 0, 0, .2)',
+                        width: '90%',
+                        alignSelf: 'center',
+                        borderRadius: 5,
+                        paddingVertical: 5,
+                    }}>
+                        Most Recent
+                    </Text>
 
                     <SearchModal visible={showSearch}
                         goBack={() => setShowSearch(false)}
@@ -140,15 +158,13 @@ const Home = ({ navigation }) => {
                                         title={item['title']}
                                         description={item['description']}
                                         guideID={item['_id']}
+                                        price={item['price']}
                                         favorite={userInfo['savedguides'].includes(item['_id'])}
                                         savedguides={userInfo['savedguides']}
+                                        payedguides={userInfo['payedguides']}
                                         userID={userInfo['_id']}
-                                        onClick={() => {
-                                            setChosenGuideID(item['_id']);
-                                            console.log(item['_id'])
-                                            navigation.navigate("Guide")
-                                        }
-                                        }
+                                        navigation={navigation}
+                                        setChosenGuideID={setChosenGuideID}
                                     />
                                 }
                             })
@@ -171,15 +187,13 @@ const Home = ({ navigation }) => {
                                         title={item['title']}
                                         description={item['description']}
                                         guideID={item['_id']}
+                                        price={item['price']}
                                         favorite={userInfo['savedguides'].includes(item['_id'])}
                                         savedguides={userInfo['savedguides']}
+                                        payedguides={userInfo['payedguides']}
                                         userID={userInfo['_id']}
-                                        onClick={() => {
-                                            setChosenGuideID(item['_id']);
-                                            console.log(item['_id'])
-                                            navigation.navigate("Guide")
-                                        }
-                                        }
+                                        navigation={navigation}
+                                        setChosenGuideID={setChosenGuideID}
                                     />
                                 }
                             })

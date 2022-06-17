@@ -5,7 +5,8 @@ import {
     TextInput,
     StyleSheet,
     Dimensions,
-    ImageBackground
+    ImageBackground,
+    ToastAndroid
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { ActivityIndicator } from 'react-native-paper';
@@ -37,9 +38,15 @@ const Register = ({ navigation }) => {
 
     const Post_Register = async () => {
         if (!fname || !lname || !email || !password || !rpassword) {
+            ToastAndroid.show(
+                "All fields must be filled!",
+                ToastAndroid.SHORT)
             return;
         }
         if (password !== rpassword) {
+            ToastAndroid.show(
+                "Passwords do not match!",
+                ToastAndroid.SHORT)
             return;
         }
         if (checkEmail()) {
@@ -59,6 +66,9 @@ const Register = ({ navigation }) => {
             }
 
         } else {
+            ToastAndroid.show(
+                "Email address you have entered is invalid!",
+                ToastAndroid.SHORT)
             return;
         }
     }

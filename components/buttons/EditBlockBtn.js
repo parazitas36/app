@@ -9,8 +9,8 @@ const windowHeight = Dimensions.get('window').height;
 const EditBlockBtn = (props) => {
     return (
         <TouchableOpacity>
-            <Pressable onPress={props.onPress}>
-                <FontAwesome name='pencil' size={windowWidth*.1} color="#434343"/>
+            <Pressable onPress={props.onPress} style={{marginVertical: 5}}>
+                <FontAwesome name='pencil' size={38} color="rgba(0, 0, 0, 0.75)"/>
             </Pressable>
         </TouchableOpacity>
     );

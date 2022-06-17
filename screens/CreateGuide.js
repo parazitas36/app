@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react'
-import { Dimensions, ScrollView, Text, StyleSheet, Image, View } from 'react-native';
+import { Dimensions, ScrollView, Text, StyleSheet, Image, View, ImageBackground, ToastAndroid } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import Video from 'react-native-video';
 import AddBlockBtn from '../components/buttons/AddBlockBtn';
@@ -12,7 +12,7 @@ import EditVideoModal from '../components/modals/EditVideoModal';
 import EditPhotoModal from '../components/modals/EditPhotoModal';
 import { PostGuide } from '../api/PostGuide';
 import SaveBtn from '../components/buttons/SaveBtn';
-import DiscardBtn from '../components/buttons/DiscardBtn';
+import ClearBtn from '../components/buttons/ClearBtn';
 import { Context } from '../App';
 import LocationBtn from '../components/buttons/LocationBtn';
 import { ActivityIndicator } from 'react-native-paper';
@@ -37,8 +37,9 @@ const CreateGuide = ({ navigation }) => {
     const [description, setDescription] = React.useState(null);
     const [location, setLocation] = React.useState(null);
     const [city, setCity] = React.useState(null);
-    const [category, setCategory] = React.useState(null);
+    const [category, setCategory] = React.useState("Museums");
     const [publish, setPublish] = React.useState(false);
+    const [price, setPrice] = React.useState(0);
 
     const [showBlock, setShowBlock] = React.useState(false);
     const [showEditText, setShowEditText] = React.useState(false);
@@ -130,6 +131,24 @@ const CreateGuide = ({ navigation }) => {
         setBlockID(block_id - 1);
     }
 
+    // Vedant kaina pakeicia simbolius, kurie nera skaiciai i tuscia character
+    const onPriceChange = (text) => {
+        text = text.replace(/([A-Za-z])/g, '');
+        text = text.replace(',', '.');
+        text = text.replace('..', '.')
+        text = text.replace(" ", "")
+        text = text.replace("-", "");
+        const parts = text.split(".");
+        if(parts.length > 1){
+            text = parts[0]+"."+parts[1]
+            for(let i = 2; i < parts.length; i++){
+                text+=parts[i]
+            }
+        }
+        setPrice(text);
+        console.log(price)
+    }
+
     React.useLayoutEffect(() => {
         if ((text !== null || photo !== null || video !== null)
             && showBlock === true) {
@@ -151,100 +170,197 @@ const CreateGuide = ({ navigation }) => {
 
     return (
         <CreateGuideContext.Provider value={value}>
-            <ScrollView contentContainerStyle={styles.container}>
-                <CreateBlockModal
-                    visible={showBlock}
-                    goBack={() => setShowBlock(false)}
-                />
-                <EditTextModal />
-                <EditVideoModal />
-                <EditPhotoModal />
-                <TextInput
-                    style={styles.txtInput}
-                    placeholder='Title'
-                    multiline={true}
-                    onChangeText={setTitle}
-                    placeholderTextColor={'grey'}
-                />
+            <View style={{ flex: 1 }}>
+                <ImageBackground source={require('../assets/images/background.png')} style={{ flex: 1, resizeMode: 'cover', justifyContent: 'center' }}>
+                    <ScrollView contentContainerStyle={styles.container}>
+                        <CreateBlockModal
+                            visible={showBlock}
+                            goBack={() => setShowBlock(false)}
+                        />
+                        <EditTextModal />
+                        <EditVideoModal />
+                        <EditPhotoModal />
 
-                <TextInput
-                    style={styles.description}
-                    placeholder='Description'
-                    multiline={true}
-                    numberOfLines={3}
-                    onChangeText={setDescription}
-                    placeholderTextColor={'grey'}
-                />
+                        <Text style={{
+                            fontSize: 36,
+                            fontWeight: '700',
+                            textAlign: 'center',
+                            color: 'rgba(255, 255, 255, .95)',
+                            marginVertical: 15,
+                            textShadowColor: 'rgba(0, 0, 0, 0.75)',
+                            textShadowOffset: {
+                                width: 3,
+                                height: 3
+                            },
+                            textShadowRadius: 1,backgroundColor: 'rgba(0, 0, 0, .2)',
+                            width: '90%',
+                            alignSelf: 'center',
+                            borderRadius: 5,
+                            paddingVertical: 5,
+                        }}>
+                            Create Guide
+                        </Text>
 
-                {
-                    blocks.map((item) => {
-                        return Block(item, Up, Down, Edit, Remove);
-                    })
-                }
+                        <TextInput
+                            style={styles.txtInput}
+                            placeholder='Enter a title'
+                            multiline={true}
+                            onChangeText={setTitle}
+                            placeholderTextColor={'rgba(255, 255, 255, 0.75)'}
+                        />
 
-                <AddBlockBtn onPress={() => setShowBlock(true)} />
+                        <TextInput
+                            style={styles.description}
+                            placeholder='Enter a description'
+                            multiline={true}
+                            numberOfLines={3}
+                            onChangeText={setDescription}
+                            placeholderTextColor={'rgba(255, 255, 255, 0.75)'}
+                        />
 
-                <LocationBtn function={city ? "edit" : "add"} onPress={() => navigation.navigate("Maps", { lct: [location, setLocation], setCity })} />
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{
-                        color: 'black',
-                        width: '30%',
-                        textAlign: 'center',
-                        fontWeight: '500',
-                        fontSize: 16
-                    }}>
-                        Category:
-                    </Text>
-                    <Picker
-                        style={{ width: '70%' }}
-                        selectedValue={category}
-                        onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
-                    >
                         {
-                            categories.map((cat) => {
-                                return <Picker.Item label={cat} value={cat} />
+                            blocks.map((item) => {
+                                return Block(item, Up, Down, Edit, Remove);
                             })
                         }
-                    </Picker>
-                </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                    <Text style={{
-                        color: 'black',
-                        fontWeight: '500',
-                        fontSize: 16
-                    }}>Public: </Text>
-                    <CheckBox value={publish} onValueChange={setPublish} />
-                </View>
-                {blocks.length > 0 &&
-                    <View style={styles.viewButtons}>
-                        <SaveBtn
-                            text={publish ? "Post" : "Save"}
-                            onPress={async () => {
-                                setWaiting(true);
-                                const resp = await PostGuide(
-                                    blocks, 
-                                    title, 
-                                    description, 
-                                    userInfo['_id'], 
-                                    location['latitude'], 
-                                    location['longitude'], city,
-                                    category,
-                                    publish
-                                )
-                                if (resp) {
-                                    setWaiting(false);
+
+                        <AddBlockBtn onPress={() => setShowBlock(true)} />
+
+                        <LocationBtn function={city ? "edit" : "add"} onPress={() => navigation.navigate("Maps", { lct: [location, setLocation], setCity })} />
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{
+                                color: 'black',
+                                width: '30%',
+                                textAlign: 'center',
+                                fontWeight: '500',
+                                fontSize: 16
+                            }}>
+                                Category:
+                            </Text>
+                            <Picker
+                                style={{ width: '70%', color: 'black', borderColor: 'black', placeholderTextColor: 'black' }}
+                                itemStyle={{ backgroundColor: '#fff' }}
+                                dropdownIconColor='black'
+                                selectedValue={category}
+                                onValueChange={(itemValue, itemIndex) => setCategory(itemValue)}
+                            >
+                                {
+                                    categories.map((cat) => {
+                                        return <Picker.Item label={cat} value={cat} />
+                                    })
+                                }
+                            </Picker>
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                            <Text style={{
+                                color: 'black',
+                                fontWeight: '500',
+                                fontSize: 16
+                            }}>Price: </Text>
+                            <TextInput
+                                style={{ 
+                                    color: 'black', 
+                                    fontWeight: '500', 
+                                    fontSize: 16, 
+                                    marginRight: 3,
+                                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                                    borderRadius: 5,
+                                    height: 36,
+                                    width: 72,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    textAlign: 'center',
+                                    textAlignVertical: 'center',
+                                    padding: 0
+                                 }}
+                                maxLength={6}
+                                keyboardType='number-pad'
+                                value={price}
+                                onChangeText={onPriceChange}
+                                placeholder="Free"
+                                placeholderTextColor={"rgba(0, 0, 0, 0.75)"}
+                            />
+                            <Text style={{
+                                color: 'black',
+                                fontWeight: '500',
+                                fontSize: 16
+                            }}>Public: </Text>
+                            <CheckBox tintColors={{ true: 'rgba(255, 255, 255, .75)', false: 'black' }} value={publish} onValueChange={setPublish} />
+                        </View>
+                        {blocks.length > 0 &&
+                            <View style={styles.viewButtons}>
+                                <SaveBtn
+                                    text={publish ? "Post" : "Save"}
+                                    onPress={async () => {
+                                        let reg = /^\d{0,8}(\.\d{2})+$/;
+                                        const priceTxt = String(price)
+                                        if (price && !reg.test(priceTxt)) {
+                                            ToastAndroid.show("Invalid price! Enter in format {$.cc}",
+                                                ToastAndroid.SHORT);
+                                            return;
+                                        }
+                                        if (!title || title === "") {
+                                            ToastAndroid.show("You must enter the title of guide!",
+                                                ToastAndroid.SHORT);
+                                            return;
+                                        }
+                                        if (!description || description === "") {
+                                            ToastAndroid.show("You must enter the description of guide!",
+                                                ToastAndroid.SHORT);
+                                            return;
+                                        }
+                                        if (blocks.filter(x => x.type === 'Image').length === 0) {
+                                            ToastAndroid.show("You must add at least one block of image!",
+                                                ToastAndroid.SHORT);
+                                            return;
+                                        }
+                                        if (blocks.filter(x => x.type === 'Text').length === 0) {
+                                            ToastAndroid.show("You must add at least one block of text!",
+                                                ToastAndroid.SHORT);
+                                            return;
+                                        }
+                                        if (!location) {
+                                            ToastAndroid.show("You must add the location!",
+                                                ToastAndroid.SHORT);
+                                            return;
+                                        }
+                                        setWaiting(true);
+                                        const resp = await PostGuide(
+                                            blocks,
+                                            title,
+                                            description,
+                                            userInfo['_id'],
+                                            location['latitude'],
+                                            location['longitude'], city,
+                                            category,
+                                            publish,
+                                            price
+                                        )
+                                        if (resp) {
+                                            setWaiting(false);
+                                            setBlocks([]);
+                                            setTitle(null);
+                                            setDescription(null);
+                                            setCity(null);
+                                            setLocation(null);
+                                        }
+                                    }
+                                    } />
+                                <ClearBtn title="Clear" onPress={() => {
                                     setBlocks([]);
                                     setTitle(null);
                                     setDescription(null);
                                     setCity(null);
                                     setLocation(null);
-                                }
-                            }
-                            } />
-                        <DiscardBtn title="Clear" onPress={() => { setBlocks([]); setTitle(null); setDescription(null); setCity(null); setLocation(null); setRerender(true); }} />
-                    </View>
-                }
-            </ScrollView>
+                                    setPrice(0);
+                                    setCategory("Museums");
+                                    setRerender(true);
+                                }} />
+                            </View>
+                        }
+                    </ScrollView>
+                </ImageBackground>
+            </View>
         </CreateGuideContext.Provider>
     )
 }
@@ -254,12 +370,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
         borderWidth: 1,
         width: '80%',
-        borderTopWidth: 0,
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
         alignSelf: 'center',
         textAlign: 'center',
-        color: 'black'
+        color: 'white',
+        borderRadius: 3,
+        backgroundColor: 'rgba(0, 0, 0, .25)',
+        borderColor: 'rgba(255, 255, 255, .25)'
     }, btn: {
 
     },
@@ -267,8 +383,7 @@ const styles = StyleSheet.create({
         color: 'black'
     },
     container: {
-        paddingVertical: 10,
-        paddingBottom: 85,
+        paddingBottom: 100,
     },
     viewButtons: {
         flex: 1,
@@ -287,7 +402,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
         width: '96%',
         marginLeft: '2%',
-        color: 'black'
+        color: 'white',
+        backgroundColor: 'rgba(0, 0, 0, .25)',
+        paddingHorizontal: 10
     }
 })
 

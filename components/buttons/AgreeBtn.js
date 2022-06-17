@@ -3,27 +3,23 @@ import { Dimensions, Pressable, StyleSheet, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
 const styles = StyleSheet.create({
     pressable: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        width: 120,
-        height: 50,
-        borderWidth: 3,
+        width: 110,
+        height: 45,
+        borderWidth: 1.25,
         borderRadius: 6,
-        borderColor: "rgba(55, 155, 200, 1)",
-        backgroundColor: "#fefefe",
-        marginRight: 3,
+        borderColor: "rgba(0, 0, 0, 0.9)",
+        backgroundColor: "rgba(123, 145, 170, 0.8)",
+        marginRight: 5,
     },
     text: {
-        color: 'rgba(55, 155, 200, 1)',
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginLeft: 5
+        color: 'rgba(255, 255, 255, 0.9)',
+        fontSize: 25,
+        fontWeight: '500',
     }
 })
 
@@ -31,8 +27,7 @@ const AgreeBtn = (props) => {
     return (
         <TouchableOpacity>
             <Pressable style={styles.pressable} onPress={props.onPress}>
-                <FontAwesome5 name='check-square' size={windowWidth*.1} color="rgba(55, 155, 200, 1)"/>
-                <Text style={styles.text}>Add</Text>
+                <Text style={styles.text}>{props.title ? props.title : "Add"}</Text>
             </Pressable>
         </TouchableOpacity>
     );

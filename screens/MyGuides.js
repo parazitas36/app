@@ -7,6 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Guide from './Guide';
 import CreatorProfile from './CreatorProfile';
+import EditGuide from './EditGuide';
+import PaymentScreen from './PaymentScreen';
 
 const TopTab = createMaterialTopTabNavigator();
 const MyGuidesScreenNavigator = createStackNavigator();
@@ -16,12 +18,13 @@ const MyGuidesScreen = () => {
   return (
     <MyGuidesScreenNavigator.Navigator
       screenOptions={{
-        headerTitleAlign: 'center'
+        headerTitleAlign: 'center',
       }}
     >
       <MyGuidesScreenNavigator.Screen options={{ headerShown: false, animationEnabled: true }} name="MyGuides" component={UserGuides} />
       <MyGuidesScreenNavigator.Screen options={{animationEnabled: true, headerShown: false}} name="Guide" component={Guide} />
       <MyGuidesScreenNavigator.Screen options={{animationEnabled: true, headerShown: false}} name="CreatorProfile" component={CreatorProfile} />
+      <MyGuidesScreenNavigator.Screen options={{animationEnabled: true, headerShown: false}} name="EditGuide" component={EditGuide} />
     </MyGuidesScreenNavigator.Navigator>
   );
 }
@@ -36,6 +39,7 @@ const FavoritesScreen = () => {
       <FavoritesScreenNavigator.Screen options={{ headerShown: false, animationEnabled: true }} name="Favorites" component={Favorites} />
       <FavoritesScreenNavigator.Screen options={{animationEnabled: true, headerShown: false}} name="Guide" component={Guide} />
       <FavoritesScreenNavigator.Screen options={{animationEnabled: true, headerShown: false}} name="CreatorProfile" component={CreatorProfile} />
+      <FavoritesScreenNavigator.Screen options={{ animationEnabled: true, headerShown: false }} name="Payments" component={PaymentScreen} />
     </FavoritesScreenNavigator.Navigator>
   );
 }
@@ -45,8 +49,15 @@ const MyGuides = () => {
     <TopTab.Navigator
       screenOptions={{
         tabBarStyle: {
-          marginBottom: 0.2
-        }
+          marginBottom: 0.2,
+        },
+        tabBarLabelStyle: {
+          fontWeight: '500'
+        },
+        tabBarIndicatorStyle: {
+          backgroundColor: '#A7A6C6'
+        },
+        tabBarActiveTintColor: '#A7A6C6',
       }}
     >
         <TopTab.Screen options={{title: "My Guides"}} name="MyGuidesScreen" component={MyGuidesScreen}/>

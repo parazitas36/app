@@ -11,19 +11,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        width: 120,
-        height: 50,
-        borderWidth: 3,
+        width: 110,
+        height: 45,
+        borderWidth: 1.25,
         borderRadius: 6,
-        borderColor: "#D82A17",
-        backgroundColor: "#fefefe",
-        marginLeft: 3,
+        borderColor: "rgba(0, 0, 0, 0.85)",
+        backgroundColor: "rgba(255, 255, 255, 0.4)",
+        marginLeft: 5,
     },
     text: {
-        color: '#D82A17',
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginLeft: 5
+        color: 'rgba(0, 0, 0, 0.85)',
+        fontSize: 25,
+        fontWeight: '500',
     }
 })
 
@@ -31,8 +30,7 @@ const DiscardBtn = (props) => {
     return (
         <TouchableOpacity>
             <Pressable style={styles.pressable} onPress={props.onPress}>
-                <FontAwesome name='remove' size={windowWidth*.1} color="#D82A17"/>
-                <Text style={styles.text}>{!props.title ? "Discard" : props.title}</Text>
+                <Text style={styles.text}>{!props.title ? "Return" : props.title}</Text>
             </Pressable>
         </TouchableOpacity>
     );

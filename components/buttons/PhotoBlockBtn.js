@@ -11,7 +11,7 @@ const PhotoBlockBtn = (props) => {
         <TouchableOpacity>
             <Pressable style={props.styles.btn} onPress={props.onPress}>
                 <FontAwesome name='photo' size={windowWidth*.1} color="black"/>
-                <Text style={props.styles.btntxt}>Photo</Text>
+                <Text style={props.styles.btntxt}>Image</Text>
             </Pressable>
         </TouchableOpacity>
     );

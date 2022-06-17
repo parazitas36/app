@@ -24,7 +24,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center',
         alignContent: 'center',
-        paddingBottom: 75,
+        paddingTop: 10,
+        paddingBottom: 85,
     },
     input: {
         width: '80%',
@@ -47,6 +48,7 @@ const UserGuides = ({ navigation }) => {
     React.useLayoutEffect(() => {
         (async () => {
             const temp = await GetUserGuides(userInfo['_id']);
+            console.log("temp", temp)
             setGuides(temp);
             setRefresh(false);
             setFirstLoad(false);
@@ -107,6 +109,7 @@ const UserGuides = ({ navigation }) => {
                                             navigation.navigate("Guide")
                                         }
                                         }
+                                        navigateToEdit={()=>{navigation.navigate("EditGuide", {guideId: item['_id']})} }
                                     />
                                 }
                             })
