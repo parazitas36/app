@@ -131,6 +131,11 @@ const Home = ({ navigation }) => {
                             height: 3
                         },
                         textShadowRadius: 1,
+                        backgroundColor: 'rgba(0, 0, 0, .2)',
+                        width: '90%',
+                        alignSelf: 'center',
+                        borderRadius: 5,
+                        paddingVertical: 5,
                     }}>
                         Most Recent
                     </Text>

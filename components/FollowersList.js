@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.6)',
+        backgroundColor: 'rgba(149, 148, 186, 1)',
         borderRadius: 7,
         width: '100%',
         height: 70,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         height: 58,
         borderRadius: 180,
         borderWidth: 2,
-        borderColor: 'rgba(255, 255, 255, .2)',
+        borderColor: 'rgba(0, 0, 0, .2)',
     },
     textview: {
         width: '75%',
@@ -90,7 +90,13 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 24,
         fontWeight: '500',
-        color: 'rgba(255, 255, 255, 0.9)'
+        color: 'rgba(255, 255, 255, 0.9)',
+        textShadowColor: 'rgba(0, 0, 0, 0.5)',
+        textShadowRadius: 5,
+        textShadowOffset: {
+            width: 3,
+            height: 3
+        }
     }
 })
 

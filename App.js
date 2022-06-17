@@ -115,7 +115,7 @@ const App = () => {
         refreshProfilePicture: [refreshPicture, setRefreshPicture]
       }}
       >
-        <StatusBar barStyle="dark-content" backgroundColor="rgb(243, 246, 251)" />
+        <StatusBar barStyle="light-content" backgroundColor={loggedIn ? "rgba(123, 145, 170, 0.8)" : "#4D4041"} />
         <NavigationContainer>
           {
             loggedIn === false

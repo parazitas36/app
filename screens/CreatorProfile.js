@@ -199,16 +199,24 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center'
     },
     userGuidesTitle: {
-        color: 'black',
+        color: 'white',
+        textShadowColor: 'rgba(0, 0, 0, .75)',
+        textShadowOffset: {
+            width: 3,
+            height: 2
+        },
+        textShadowRadius: 15,
         fontSize: 26,
         fontWeight: '700',
         textAlign: 'center',
         textAlignVertical: 'center',
         paddingBottom: 10,
         borderBottomWidth: 2,
-        borderBottomColor: 'rgba(0, 0, 0, .6)',
+        borderBottomColor: 'white',
         width: 220,
         marginBottom: 10,
+        backgroundColor: 'rgba(0, 0, 0, .2)',
+        borderRadius: 5
     }
 });
 

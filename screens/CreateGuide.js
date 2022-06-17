@@ -192,14 +192,18 @@ const CreateGuide = ({ navigation }) => {
                                 width: 3,
                                 height: 3
                             },
-                            textShadowRadius: 1
+                            textShadowRadius: 1,backgroundColor: 'rgba(0, 0, 0, .2)',
+                            width: '90%',
+                            alignSelf: 'center',
+                            borderRadius: 5,
+                            paddingVertical: 5,
                         }}>
                             Create Guide
                         </Text>
 
                         <TextInput
                             style={styles.txtInput}
-                            placeholder='Title'
+                            placeholder='Enter a title'
                             multiline={true}
                             onChangeText={setTitle}
                             placeholderTextColor={'rgba(255, 255, 255, 0.75)'}
@@ -207,7 +211,7 @@ const CreateGuide = ({ navigation }) => {
 
                         <TextInput
                             style={styles.description}
-                            placeholder='Description'
+                            placeholder='Enter a description'
                             multiline={true}
                             numberOfLines={3}
                             onChangeText={setDescription}

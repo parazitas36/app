@@ -34,7 +34,9 @@ const Card = (props) => {
             props.navigation.navigate("Payments", {
                 guideID : props.guideID,
                 price : props.price,
-                title: props.title
+                title: props.title,
+                guideImage: props.uri ? props.uri : defaultImageURI,
+                creatorName: props.creator
             });
         }
     }
