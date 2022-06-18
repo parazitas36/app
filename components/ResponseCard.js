@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         borderRadius: 5,
         backgroundColor: 'rgba(123, 145, 170, 0.6)',
+        marginBottom: 15,
     },
     userInfo: {
         flexDirection: 'row',

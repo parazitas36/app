@@ -61,11 +61,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(149, 148, 186, 1)',
+        backgroundColor: 'rgba(149, 148, 186, .3)',
         borderRadius: 7,
         width: '100%',
         height: 70,
-        marginVertical: 10,
+        marginVertical: 5,
     },
     imageview: {
         width: '25%',
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     textview: {
         width: '75%',
         justifyContent: 'center',
-        alignItems: 'flex-end',
+        alignItems: 'flex-start',
         paddingRight: 20,
     },
     text: {

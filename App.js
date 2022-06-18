@@ -157,8 +157,8 @@ const App = () => {
                     fontSize: 13,
                     position: 'absolute',
                   },
-                  tabBarActiveTintColor: 'rgba(149, 148, 186, 1)',
-                  tabBarInactiveTintColor: 'rgba(123, 145, 170, 0.8)',
+                  tabBarActiveTintColor: '#A894BA',
+                  tabBarInactiveTintColor: 'rgba(123, 145, 170, 0.7)',
                   headerShown: false,
                   tabBarHideOnKeyboard: true
                 }}
@@ -214,7 +214,7 @@ const App = () => {
                         width: 71,
                         height: 71,
                       }}>
-                        <Entypo size={70} name={"circle-with-plus"} color={props.focused ? 'rgba(149, 148, 186, 0.95)' : 'rgba(123, 145, 170, 0.95)'} />
+                        <Entypo size={70} name={"circle-with-plus"} color={props.focused ? '#A894BA' : 'rgba(123, 145, 170, 0.7)'} />
                       </View>
                     )
                   }}

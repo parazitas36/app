@@ -118,7 +118,7 @@ const Guide = ({ navigation }) => {
                 <View style={styles.guideButtons}>
                     <TouchableOpacity >
                         <Pressable onPress={changeFavorite}>
-                            <IOnicons name={favorite ? 'heart' : 'heart-outline'} size={36} color={favorite ? "rgba(255, 30, 90, .85)" : 'white'} />
+                            <IOnicons name={favorite ? 'heart' : 'heart-outline'} size={36} color={favorite ? "#d6000bF0" : 'white'} />
                         </Pressable>
                     </TouchableOpacity>
                 </View>
@@ -132,7 +132,7 @@ const Guide = ({ navigation }) => {
                 {/* Reitingas */}
                 <View style={[styles.guideButtons, { top: 200 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
                     <Text style={styles.rating}>Rating: {isRatingZero ? "-" : guideInfo['rating']}/5</Text>
-                    <IOnicons name={'star'} size={25} color={'rgb(149, 148, 186)'} />
+                    <IOnicons name={'star-outline'} size={25} color={'rgb(255, 255, 255)'} />
                 </View>
 
                 {/* Nuo cia gido vidus */}

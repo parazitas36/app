@@ -262,7 +262,7 @@ const CreateGuide = ({ navigation }) => {
                                     color: 'black', 
                                     fontWeight: '500', 
                                     fontSize: 16, 
-                                    marginRight: 3,
+                                    marginRight: 5,
                                     backgroundColor: 'rgba(255, 255, 255, 0.5)',
                                     borderRadius: 5,
                                     height: 36,
@@ -283,7 +283,8 @@ const CreateGuide = ({ navigation }) => {
                             <Text style={{
                                 color: 'black',
                                 fontWeight: '500',
-                                fontSize: 16
+                                fontSize: 16,
+                                marginLeft: 5,
                             }}>Public: </Text>
                             <CheckBox tintColors={{ true: 'rgba(255, 255, 255, .75)', false: 'black' }} value={publish} onValueChange={setPublish} />
                         </View>

@@ -71,7 +71,7 @@ const MyCard = (props) => {
 
                 <View style={[styles.guideButtons, { top: 165 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
                     <Text style={styles.rating}>Rating: {props.rating ? props.rating : '-'}/5</Text>
-                    <IOnicons name={'star'} size={25} color={'rgb(149, 148, 186)'} />
+                    <IOnicons name={'star-outline'} size={24} color={'rgb(255, 255, 255)'} />
                 </View>
 
 

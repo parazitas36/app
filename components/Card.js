@@ -79,7 +79,7 @@ const Card = (props) => {
                         }
                     }
                     }>
-                        <IOnicons name={!favorite ? 'heart-outline' : 'heart'} size={30} color={favorite ? "rgba(255, 30, 90, .85)" : 'white'} />
+                        <IOnicons name={!favorite ? 'heart-outline' : 'heart'} size={30} color={favorite ? "#d6000bF0" : 'white'} />
                     </Pressable>
                 </TouchableOpacity>
             </View>
@@ -91,7 +91,7 @@ const Card = (props) => {
 
             <View style={[styles.guideButtons, { top: 165 - 35, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
                 <Text style={styles.rating}>Rating: {props.rating ? props.rating : '-'}/5</Text>
-                <IOnicons name={'star'} size={25} color={'rgb(149, 148, 186)'} />
+                <IOnicons name={'star-outline'} size={24} color={'rgb(255, 255, 255)'} />
             </View>
 
 
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: 'white',
-        fontSize: 28,
+        fontSize: 26,
         fontWeight: '500',
         position: 'absolute',
         top: 10,

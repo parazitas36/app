@@ -143,12 +143,12 @@ const styles = StyleSheet.create({
     },
     image_view: {
         marginTop: 50,
-        width: 200,
+        width: 180,
         marginBottom: 30,
     },
     image: {
         aspectRatio: 1,
-        width: 200,
+        width: 180,
         borderRadius: 180,
         borderWidth: 3,
         borderColor: 'rgba(0, 0, 0, 0.125)',
@@ -159,8 +159,8 @@ const styles = StyleSheet.create({
         width: '70%',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingBottom: 10,
-        paddingTop: 10,
+        paddingBottom: 5,
+        paddingTop: 5,
         backgroundColor: 'rgba(0, 0, 0, 0.35)',
         borderRadius: 15,
     },
@@ -178,14 +178,14 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: 'rgba(255, 255, 255, 0.85)',
         fontWeight: '500',
-        fontSize: 18
+        fontSize: 16
     },
     btn: {
-        width: 90,
+        width: 100,
         height: 30,
         backgroundColor: 'rgba(255, 255, 255, 0.7)',
         borderRadius: 12,
-        borderWidth: 0.5,
+        borderWidth: 0.75,
         alignSelf: 'center',
         marginTop: 15,
         justifyContent: 'center',
