@@ -117,9 +117,8 @@ const SearchModal = (props) => {
                     <TouchableOpacity>
                         <Pressable onPress={
                             () => {
-                                setPressed([true, false, false, false, false, false]);
-                                setCategory('Museums');
-
+                                {pressed[0] ? setCategory('') : setCategory('Museums')}
+                                {pressed[0] ? setPressed([false, false, false, false, false, false]) : setPressed([true, false, false, false, false, false])}
                             }}>
                             <View style={pressed[0] ? styles.viewButtonPressed : styles.viewButton}>
                                 <Text style={styles.textVieButton}>Museums</Text>
@@ -130,8 +129,8 @@ const SearchModal = (props) => {
 
                     <TouchableOpacity>
                         <Pressable onPress={() => {
-                            setPressed([false, true, false, false, false, false]);
-                            setCategory('Ancient Buildings');
+                            {pressed[1] ? setCategory('') : setCategory('Ancient Buildings')}
+                            {pressed[1] ? setPressed([false, false, false, false, false, false]) : setPressed([false, true, false, false, false, false])}
                         }}>
                             <View style={pressed[1] ? styles.viewButtonPressed : styles.viewButton}>
                                 <Text style={styles.textVieButton} >Ancient Buildings</Text>
@@ -144,8 +143,8 @@ const SearchModal = (props) => {
                 <View style={styles.viewTwoButtonsRow}>
                     <TouchableOpacity>
                         <Pressable onPress={() => {
-                            setPressed([false, false, true, false, false, false]);
-                            setCategory('Art Galleries');
+                            {pressed[2] ? setCategory('') : setCategory('Art Galleries')}
+                            {pressed[2] ? setPressed([false, false, false, false, false, false]) : setPressed([false, false, true, false, false, false])}
                         }}>
                             <View style={pressed[2] ? styles.viewButtonPressed : styles.viewButton}>
                                 <Text style={styles.textVieButton}>Art Galleries</Text>
@@ -156,8 +155,8 @@ const SearchModal = (props) => {
 
                     <TouchableOpacity>
                         <Pressable onPress={() => {
-                            setPressed([false, false, false, true, false, false]);
-                            setCategory('Nature Walks');
+                            {pressed[3] ? setCategory('') : setCategory('Nature Walks')}
+                            {pressed[3] ? setPressed([false, false, false, false, false, false]) : setPressed([false, false, false, true, false, false])}
                         }}>
                             <View style={pressed[3] ? styles.viewButtonPressed : styles.viewButton}>
                                 <Text style={styles.textVieButton} >Nature Walks</Text>
@@ -170,8 +169,8 @@ const SearchModal = (props) => {
                 <View style={styles.viewTwoButtonsRow}>
                     <TouchableOpacity>
                         <Pressable onPress={() => {
-                            setPressed([false, false, false, false, true, false]);
-                            setCategory('Zoos');
+                            {pressed[4] ? setCategory('') : setCategory('Zoos')}
+                            {pressed[4] ? setPressed([false, false, false, false, false, false]) : setPressed([false, false, false, false, true, false])}
                         }}>
                             <View style={pressed[4] ? styles.viewButtonPressed : styles.viewButton}>
                                 <Text style={styles.textVieButton}>Zoos</Text>
@@ -182,8 +181,8 @@ const SearchModal = (props) => {
 
                     <TouchableOpacity>
                         <Pressable onPress={() => {
-                            setPressed([false, false, false, false, false, true]);
-                            setCategory('Other');
+                            {pressed[5] ? setCategory('') : setCategory('Other')}
+                            {pressed[5] ? setPressed([false, false, false, false, false, false]) : setPressed([false, false, false, false, false, true])} 
                         }}>
                             <View style={pressed[5] ? styles.viewButtonPressed : styles.viewButton}>
                                 <Text style={styles.textVieButton}>Other</Text>
@@ -196,7 +195,6 @@ const SearchModal = (props) => {
                 <View style={backBtnStyle.view}>
                     <Button styles={backBtnStyle} title={'Return'} onPress={props.goBack} />
                 </View>
-
             </ScrollView>
             </ImageBackground>
         </Modal>
