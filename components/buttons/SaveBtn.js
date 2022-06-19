@@ -13,17 +13,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 110,
         height: 45,
-        borderWidth: 2,
+        borderWidth: 1.25,
         borderRadius: 6,
-        borderColor: "rgba(255, 255, 255, 0.85)",
-        backgroundColor: "rgba(255, 255, 255, 0.85)",
-        marginRight: 3,
+        borderColor: "rgba(255, 255, 255, 0.9)",
+        backgroundColor: "rgba(123, 145, 170, 1)",
+        marginRight: 5,
     },
     text: {
-        color: 'rgba(0, 0, 0, 0.7)',
+        color: 'rgba(255, 255, 255, 0.9)',
         fontSize: 22,
         fontWeight: 'bold',
-        marginLeft: 7
     }
 })
 
@@ -31,7 +30,6 @@ const SaveBtn = (props) => {
     return (
         <TouchableOpacity>
             <Pressable style={styles.pressable} onPress={props.onPress}>
-                <FontAwesome5 name={props.text !== "Post" ? "save" : "check"} size={30} color="rgba(0, 0, 0, 0.7)"/>
                 <Text style={styles.text}>{props.text ? props.text : "Save"}</Text>
             </Pressable>
         </TouchableOpacity>

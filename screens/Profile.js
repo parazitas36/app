@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
     btn: {
-        width: 110,
+        width: 105,
         height: 35,
         backgroundColor: 'rgba(255, 255, 255, 0.9)',
         justifyContent: 'center',
@@ -76,7 +76,7 @@ const LogoutButtonStyleSheet = StyleSheet.create({
     btn: {
         width: 90,
         height: 35,
-        backgroundColor: 'rgba(223, 71, 89, 1)',
+        backgroundColor: 'rgba(123, 145, 170, 1)',
         justifyContent: 'center',
         borderRadius: 5,
         padding: 5,

@@ -13,15 +13,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 110,
         height: 45,
-        borderWidth: 2,
+        borderWidth: 1,
         borderRadius: 6,
-        borderColor: "rgba(223, 71, 89, 0.85)",
-        backgroundColor: "rgba(223, 71, 89, 0.85)",
+        borderColor: "rgba(255, 255, 255, 1)",
+        backgroundColor: "rgba(149, 148, 186, 1)",
         marginLeft: 5,
     },
     text: {
         color: 'rgba(255, 255, 255, 0.85)',
-        fontSize: 25,
+        fontSize: 22,
         fontWeight: '500',
     }
 })

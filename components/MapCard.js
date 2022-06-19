@@ -29,7 +29,7 @@ const MapCard = (props) => {
             <Text numberOfLines={2} ellipsizeMode='tail' style={styles.title}>{props.title ? props.title : Pavadinimas}</Text>
             <View style={styles.ratingview}>
                 <Text style={styles.rating}>{props.rating ? props.rating : '-'}/5</Text>
-                <IOnicons name={'star'} size={24} color={'gold'} />
+                <IOnicons name={'star-outline'} size={24} color={'rgb(255, 255, 255)'} />
             </View>
             <View style={styles.arrow}/>
         </View>

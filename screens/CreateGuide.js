@@ -192,14 +192,18 @@ const CreateGuide = ({ navigation }) => {
                                 width: 3,
                                 height: 3
                             },
-                            textShadowRadius: 1
+                            textShadowRadius: 1,backgroundColor: 'rgba(0, 0, 0, .2)',
+                            width: '90%',
+                            alignSelf: 'center',
+                            borderRadius: 5,
+                            paddingVertical: 5,
                         }}>
                             Create Guide
                         </Text>
 
                         <TextInput
                             style={styles.txtInput}
-                            placeholder='Title'
+                            placeholder='Enter a title'
                             multiline={true}
                             onChangeText={setTitle}
                             placeholderTextColor={'rgba(255, 255, 255, 0.75)'}
@@ -207,7 +211,7 @@ const CreateGuide = ({ navigation }) => {
 
                         <TextInput
                             style={styles.description}
-                            placeholder='Description'
+                            placeholder='Enter a description'
                             multiline={true}
                             numberOfLines={3}
                             onChangeText={setDescription}
@@ -258,7 +262,7 @@ const CreateGuide = ({ navigation }) => {
                                     color: 'black', 
                                     fontWeight: '500', 
                                     fontSize: 16, 
-                                    marginRight: 3,
+                                    marginRight: 5,
                                     backgroundColor: 'rgba(255, 255, 255, 0.5)',
                                     borderRadius: 5,
                                     height: 36,
@@ -279,7 +283,8 @@ const CreateGuide = ({ navigation }) => {
                             <Text style={{
                                 color: 'black',
                                 fontWeight: '500',
-                                fontSize: 16
+                                fontSize: 16,
+                                marginLeft: 5,
                             }}>Public: </Text>
                             <CheckBox tintColors={{ true: 'rgba(255, 255, 255, .75)', false: 'black' }} value={publish} onValueChange={setPublish} />
                         </View>
@@ -290,7 +295,7 @@ const CreateGuide = ({ navigation }) => {
                                     onPress={async () => {
                                         let reg = /^\d{0,8}(\.\d{2})+$/;
                                         const priceTxt = String(price)
-                                        if (!reg.test(priceTxt)) {
+                                        if (price && !reg.test(priceTxt)) {
                                             ToastAndroid.show("Invalid price! Enter in format {$.cc}",
                                                 ToastAndroid.SHORT);
                                             return;
