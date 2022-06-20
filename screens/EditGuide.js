@@ -251,7 +251,7 @@ const EditGuide = ({ navigation, route }) => {
     
                     <AddBlockBtn onPress={() => setShowBlock(true)} />
     
-                    <LocationBtn function={city ? "edit" : "add"} onPress={() => navigation.navigate("Maps", { lct: [location, setLocation], setCity })} />
+                    {/* <LocationBtn function={city ? "edit" : "add"} onPress={() => navigation.navigate("Maps", { lct: [location, setLocation], setCity })} /> */}
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={{
                             color: 'black',
@@ -274,14 +274,14 @@ const EditGuide = ({ navigation, route }) => {
                             }
                         </Picker>
                     </View>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    {/* <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={{
                             color: 'black',
                             fontWeight: '500',
                             fontSize: 16
                         }}>Public: </Text>
                         <CheckBox tintColors={{ true: 'rgba(255, 255, 255, .75)', false: 'black' }} value={publish} onValueChange={setPublish} />
-                    </View>
+                    </View> */}
                     {blocks.length > 0 &&
                         <View style={styles.viewButtons}>
                             <SaveBtn

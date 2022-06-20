@@ -1,7 +1,6 @@
 import React from 'react'
 
 export const UploadProfilePicture = async(photo, uid) => {
-    // const resp = await fetch('https://v-guide.herokuapp.com/api/accounts/uploadphoto' + uid, {
     const formData = new FormData();
     formData.append('file',
                     {
@@ -11,7 +10,7 @@ export const UploadProfilePicture = async(photo, uid) => {
                     }
                 )
     console.log(photo);
-    const resp = await fetch('http://localhost:5000/api/accounts/uploadphoto/' + uid, {
+    const resp = await fetch('https://v-guide.herokuapp.com/api/accounts/uploadphoto/' + uid, {
         method: 'POST',
         headers: {
             "Accept" : "*/*",
