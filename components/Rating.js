@@ -69,7 +69,7 @@ const RatingBlock = (props) => {
         return (
             <ScrollView>
                 <View>
-                    <Text style={styles.text}>{!isNull ? "" : "Rate the guide"}</Text>
+                    <Text style={styles.text}>{!isNull ? "Your rating" : "Rate the guide"}</Text>
                 </View>
                 <View style={styles.view1}>
                     <View style={styles.userInfo}>

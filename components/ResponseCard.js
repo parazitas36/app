@@ -37,7 +37,7 @@ const ResponseCard = (props) => {
     } else {
         return (
             <ScrollView contentContainerStyle={{paddingBottom: 10}}>
-                {/* <Text style={styles.textTitle}>{`Users reviews (${responses.length})`}</Text> */}
+                <Text style={styles.textTitle}>{`Users reviews (${responses.length})`}</Text>
                 {responses.map((data) => {
                     const stars = [];
                     for (var i = 0; i < data['rating']; i++) {
