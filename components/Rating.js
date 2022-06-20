@@ -1,4 +1,4 @@
-import { View, StyleSheet, Dimensions, Text, Pressable, Alert, TextInput } from 'react-native'
+import { View, StyleSheet, Dimensions, Text, Pressable, Alert, TextInput, Image } from 'react-native'
 import React from 'react'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Fontisto from 'react-native-vector-icons/Fontisto'
@@ -6,12 +6,17 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { GetUserResponse } from '../api/GetUserResponse';
 import { SendResponse } from '../api/SendResponse';
 import { ActivityIndicator } from 'react-native-paper';
+import { Context } from '../App';
 
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 const RatingBlock = (props) => {
+
+    const { accInfo } = React.useContext(Context);
+    const [userInfo, setUserInfo] = accInfo;
+    const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
 
     const [stars, setStars] = React.useState([1, 2, 3, 4, 5]);
     const [rating, setRating] = React.useState(0);
@@ -36,9 +41,10 @@ const RatingBlock = (props) => {
         })()
     }, []);
 
+    console.log(userInfo);
+
     const PublishResponse = async (gid, uid) => {
         if (rating > 0) {
-            console.log(gid);
             var res = await SendResponse(gid, uid, text, rating)
             Alert.alert("Successful", "Rating published", [
                 { text: "Ok" }
@@ -63,33 +69,54 @@ const RatingBlock = (props) => {
         return (
             <ScrollView>
                 <View>
-                    <Text style={styles.text}>{!isNull ? "Your rating" : "Rate the guide"}</Text>
+                    <Text style={styles.text}>{!isNull ? "" : "Rate the guide"}</Text>
                 </View>
-                <View style={styles.rating}>
-                    {stars.map((star) => {
-                        return (
-                            <TouchableOpacity >
-                                <Pressable onPress={() => setRating(star)}>
-                                    <MaterialIcons name={star <= rating ? 'star' : 'star-border'} size={25} color={'rgb(149, 148, 186)'} />
-                                </Pressable>
-                            </TouchableOpacity>)
-                    }
-                    )}
+                <View style={styles.view1}>
+                    <View style={styles.userInfo}>
+                        <View style={styles.imageView}>
+                            <Image
+                                source={{ uri: userInfo['ppicture']? userInfo['ppicture'] : profile_img }}
+                                style={styles.profile_image}
+                                resizeMode="cover"
+                                />
+                        </View>
+                        <View style={styles.viewColumn}>
+                            <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creatorName}>
+                                {`${userInfo['firstname']} ${userInfo['lastname']}`}
+                            </Text>
+                            <View style={styles.star}>
+                                {stars.map((star) => {
+                                    return (
+                                        <TouchableOpacity >
+                                            <Pressable onPress={() => setRating(star)}>
+                                                <MaterialIcons name={star <= rating ? 'star' : 'star-border'} size={25} color={'rgb(149, 148, 186)'} />
+                                            </Pressable>
+                                        </TouchableOpacity>)
+                                }
+                                )}
+                            </View>
+                        </View>
+                    </View>
+                    <View style={styles.view}>
+                        <TextInput
+                            style={styles.textInput}
+                            defaultValue={!isNull ? userResponse['text'] : ''}
+                            placeholder={"Enter a comment"}
+                            placeholderTextColor="rgba(255, 255, 255, 0.8)"
+                            multiline={true}
+                            numberOfLines={4}
+                            onChangeText={setText}></TextInput>
+                    </View>
+                    <View style = {styles.btnview}>
+                        <TouchableOpacity>
+                            <Pressable style={styles.btn} onPress={() => { PublishResponse(props.guideId, props.userId) }}>
+                                <Text style={{color: 'rgba(255, 255, 255, .95)', fontSize: 18, fontWeight: '500'}}>{isNull ? "Rate" : "Change"}</Text>
+                            </Pressable>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={styles.view}>
-                    <TextInput
-                        style={styles.textInput}
-                        defaultValue={!isNull ? userResponse['text'] : ''}
-                        placeholder={"Enter a comment"}
-                        placeholderTextColor="rgba(255, 255, 255, 0.8)"
-                        multiline={true}
-                        numberOfLines={4}
-                        onChangeText={setText}></TextInput>
-                    <TouchableOpacity>
-                        <Pressable style={styles.btn} onPress={() => { PublishResponse(props.guideId, props.userId) }}>
-                            <Text style={{color: 'rgba(255, 255, 255, .95)', fontSize: 18, fontWeight: '500'}}>{isNull ? "Rate" : "Change"}</Text>
-                        </Pressable>
-                    </TouchableOpacity>
+                <View style = {styles.spacer}>
+
                 </View>
             </ScrollView>
         )
@@ -143,5 +170,71 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         backgroundColor: 'rgba(149, 148, 186, 1)',
         borderColor: 'rgba(123, 145, 170, 1)',
+    },
+    btnview: {
+        width: 85,
+        height: 35,
+        borderWidth: .5,
+        textAlign: 'center',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'flex-end',
+        borderRadius: 5,
+        marginVertical: 10,
+        backgroundColor: 'rgba(149, 148, 186, 1)',
+        borderColor: 'rgba(123, 145, 170, 1)',
+        marginRight: width * 0.05
+    },
+    userInfo: {
+        flexDirection: 'row',
+        height: 60,
+        alignItems: 'center'
+    },
+    imageView: {
+        width: '20%',
+        minWidth: 42,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    profile_image: {
+        width: 40,
+        height: 40,
+        aspectRatio: 1,
+        borderRadius: 180,
+        borderWidth: 1,
+        borderColor: 'rgba(0, 0, 0, .15)'
+    },
+    creatorName: {
+        fontSize: 16,
+        fontWeight: '500',
+        paddingLeft: 3,
+        paddingVertical: 2,
+        color: 'white',
+        textShadowColor: 'rgba(0, 0, 0, 0.5)',
+        textShadowOffset: {
+            width: 1.75,
+            height: 1.5
+        },
+        textShadowRadius: 5
+    },
+    view1: {
+        width: '90%',
+        minHeight: 50,
+        alignSelf: 'center',
+        borderRadius: 5,
+        backgroundColor: 'rgba(123, 145, 170, 0.6)',
+        marginBottom: 3,
+        paddingBottom: 10,
+    },
+    viewColumn: {
+        width: '80%',
+        flexDirection: 'column',
+        justifyContent: 'center'
+    },
+    star: {
+        flexDirection: 'row'
+    },
+    spacer: {
+        height: 10,
     }
 })

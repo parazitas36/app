@@ -37,7 +37,7 @@ const ResponseCard = (props) => {
     } else {
         return (
             <ScrollView contentContainerStyle={{paddingBottom: 10}}>
-                <Text style={styles.textTitle}>{`Users reviews (${responses.length})`}</Text>
+                {/* <Text style={styles.textTitle}>{`Users reviews (${responses.length})`}</Text> */}
                 {responses.map((data) => {
                     const stars = [];
                     for (var i = 0; i < data['rating']; i++) {
@@ -48,7 +48,7 @@ const ResponseCard = (props) => {
                             <View style={styles.userInfo}>
                                 <View style={styles.imageView}>
                                     <Image
-                                        source={{ uri: profile_img }}
+                                        source={{ uri: data['ppicture']? data['ppicture'] : profile_img }}
                                         style={styles.profile_image}
                                         resizeMode="cover"
                                     />
