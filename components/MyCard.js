@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Button from '../components/Button';
 import IOnicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SetInvisible } from '../api/SetInvisible';
 import { SetVisible } from '../api/SetVisible';
@@ -17,7 +18,7 @@ const defaultImageURI = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%
 const MyCard = (props) => {
     const [visible, setVisible2] = useState(null);
     const [uri, setUri] = useState(null);
-    const [guideId, setGuideId] = React.useState('62849e68fd614b3e9b5e2d0a')
+    const [guideId, setGuideId] = React.useState(null)
     
     if (visible === null) {
         setVisible2(props.visible);
@@ -56,6 +57,14 @@ const MyCard = (props) => {
                         </Pressable>
                     </TouchableOpacity>
                 </View>
+                {/* <View style={[styles.guideButtons, { right: 60, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
+                    <TouchableOpacity>
+                        <Pressable onPress={() => {}}>
+                            <MaterialIcons  name='delete-forever' size={30} color={'red'} />
+                        </Pressable>
+                    </TouchableOpacity>
+                </View> */}
+
                 <View style={[styles.guideButtons, { top: 55, flex: 1, flexDirection: 'row', alignItems: 'center' }]}>
                     <TouchableOpacity>
                         <Pressable onPress={props.navigateToEdit}>

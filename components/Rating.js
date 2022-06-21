@@ -112,6 +112,7 @@ export default RatingBlock
 
 const styles = StyleSheet.create({
     rating: {
+        marginLeft: width * 0.05,
         width: '90%',
         flexDirection: 'row',
         alignSelf: 'center'
@@ -129,7 +130,7 @@ const styles = StyleSheet.create({
     textInput: {
         marginTop: 10,
         width: '90%',
-        backgroundColor: 'rgba(123, 145, 170, 0.5)',
+        backgroundColor: 'rgba(123, 145, 170, 0.6)',
         alignSelf: 'center',
         textAlignVertical: 'top',
         paddingHorizontal: 10,
