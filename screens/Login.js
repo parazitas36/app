@@ -26,8 +26,8 @@ const image = require('../assets/images/welcome.png');
 const Login = () => {
     const { loggedIn, setLoggedIn, accInfo } = React.useContext(Context);
     const [userInfo, setUserInfo] = accInfo;
-    const [email, setEmail] = React.useState("Gidaskurimas@gmail.com");
-    const [password, setPassword] = React.useState("gidas");
+    const [email, setEmail] = React.useState();
+    const [password, setPassword] = React.useState();
     const [waiting, setWaiting] = React.useState(false);
 
     const checkEmail = () => {
