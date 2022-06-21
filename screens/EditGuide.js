@@ -285,7 +285,7 @@ const EditGuide = ({ navigation, route }) => {
                     {blocks.length > 0 &&
                         <View style={styles.viewButtons}>
                             <SaveBtn
-                                text={publish ? "Post" : "Save"}
+                                text="Update"
                                 onPress={async () => {
                                     let reg = /^\d{0,8}(\.\d{2})+$/;
                                     const priceTxt = String(price)

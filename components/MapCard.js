@@ -8,32 +8,44 @@ import { UnsaveGuide } from '../api/UnsaveGuide';
 import { SaveGuide } from '../api/SaveGuide';
 import WebView from 'react-native-webview';
 import { Svg, Image as ImageSvg } from 'react-native-svg';
-
+import FastImage from 'react-native-fast-image';
+import { Marker, Callout } from 'react-native-maps';
 
 const defaultImageURI = "https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2017%2F02%2Feiffel-tower-paris-france-EIFFEL0217.jpg&q=60";
 
 const MapCard = (props) => {
+    const [trackView, setTrackViewChanges] = React.useState(true)
+    const [show, setShow] = React.useState(false);
     return (
-        <View style={styles.wrapper}>
-            <View style={styles.view}>
-                <Svg style={styles.image}>
-                    <ImageSvg
-                        width={'100%'}
-                        height={'100%'}
-                        preserveAspectRatio="xMidYMid slice"
-                        href={{ uri: props.image_uri? props.image_uri :  defaultImageURI }}
-                    />
-                </Svg>
-                <View style={styles.overflow}/>
-            </View>
-            <Text numberOfLines={2} ellipsizeMode='tail' style={styles.title}>{props.title ? props.title : Pavadinimas}</Text>
-            <View style={styles.ratingview}>
-                <Text style={styles.rating}>{props.rating ? props.rating : '-'}/5</Text>
-                <IOnicons name={'star-outline'} size={24} color={'rgb(255, 255, 255)'} />
-            </View>
-            <View style={styles.arrow}/>
-        </View>
+        <Marker
+            pinColor='red'
+            coordinate={{ latitude: props.item['latitude'], longitude: props.item['longtitude'] }}
+            tracksViewChanges={trackView}
+            onPress={() => {if(!show) {setShow(true); return;} props.setChosenGuideID(props.item["_id"], props.navigation.navigate("Guide"))}}
+        >
 
+                {show && 
+                <View style={styles.wrapper}>
+                    <View style={styles.view}>
+                        <Svg style={styles.image}>
+                            <FastImage
+                                style={{ width: '100%', aspectRatio: 1 }}
+                                source={{ uri: props.image_uri ? props.image_uri : defaultImageURI, priority: FastImage.priority.high }}
+                                resizeMode={FastImage.resizeMode.cover}
+                                onLoadEnd={() => setTrackViewChanges(false)}
+                            />
+                        </Svg>
+                        <View style={styles.overflow} />
+                    </View>
+                    <Text numberOfLines={2} ellipsizeMode='tail' style={styles.title}>{props.title ? props.title : Pavadinimas}</Text>
+                    <View style={styles.ratingview}>
+                        <Text style={styles.rating}>{props.rating ? props.rating : '-'}/5</Text>
+                        <IOnicons name={'star-outline'} size={24} color={'rgb(255, 255, 255)'} />
+                    </View>
+                    <View style={styles.arrow} />
+                </View>}
+         
+        </Marker>
     )
 }
 
@@ -68,7 +80,7 @@ const styles = StyleSheet.create({
         width: '105%',
         height: '105%',
         backgroundColor: 'white',
-        resizeMode: 'cover',
+        alignSelf: 'center',
         borderRadius: 5,
     },
     arrow: {
@@ -112,7 +124,7 @@ const styles = StyleSheet.create({
     },
     rating: {
         fontSize: 16,
-        marginRight: 5, 
+        marginRight: 5,
         fontWeight: '500',
         color: 'white',
         textShadowColor: 'black',

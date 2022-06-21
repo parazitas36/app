@@ -7,6 +7,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { SetInvisible } from '../api/SetInvisible';
 import { SetVisible } from '../api/SetVisible';
+import FastImage from 'react-native-fast-image';
 
 export const MyCardContext = React.createContext();
 
@@ -33,7 +34,7 @@ const MyCard = (props) => {
     return (
         <MyCardContext.Provider value={guideId}>
             <View style={styles.view}>
-                <Image blurRadius={1} style={styles.image} source={{ uri: !props.uri ? defaultImageURI : uri }} />
+                <FastImage blurRadius={1} style={styles.image} source={{ uri: !props.uri ? defaultImageURI : uri, priority: FastImage.priority.normal }} />
                 <View style={styles.imageOpacity} />
 
                 <View style={styles.guideButtons}>

@@ -43,6 +43,13 @@ const Register = ({ navigation }) => {
                 ToastAndroid.SHORT)
             return;
         }
+        if(password.length < 8){
+            ToastAndroid.show(
+                "Password must be at least 8 characters long!",
+                ToastAndroid.SHORT
+            )
+            return;
+        }
         if (password !== rpassword) {
             ToastAndroid.show(
                 "Passwords do not match!",

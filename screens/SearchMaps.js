@@ -75,25 +75,17 @@ const SearchMaps = ({ navigation }) => {
             >
                 {guides && guides.length > 0 &&
                     guides.map((item) => {
-                        if (item) {
-                            return <Marker
-                                pinColor='red'
-                                coordinate={{ latitude: item['latitude'], longitude: item['longtitude'] }}
-                            >
-                                <Callout tooltip={true}
-                                    onPress={() => {
-                                        setChosenGuideID(item['_id'])
-                                        navigation.navigate("Guide")
-                                    }
-                                    }
-                                >
-                                    <MapCard
-                                        rating={item['rating']}
-                                        title={item['title']}
-                                        image_uri={item['image']}
-                                    />
-                                </Callout>
-                            </Marker>
+                        if (item && item['price'] === 0) {
+                            return (
+                                <MapCard
+                                    rating={item['rating']}
+                                    title={item['title']}
+                                    image_uri={item['image']}
+                                    item={item}
+                                    setChosenGuideID={setChosenGuideID}
+                                    navigation={navigation}
+                                />
+                            )
                         }
                     })
                 }

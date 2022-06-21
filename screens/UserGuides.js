@@ -47,6 +47,7 @@ const UserGuides = ({ navigation }) => {
 
     React.useLayoutEffect(() => {
         (async () => {
+            setGuides(null);
             const temp = await GetUserGuides(userInfo['_id']);
             console.log("temp", temp)
             setGuides(temp);

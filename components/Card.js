@@ -7,6 +7,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { UnsaveGuide } from '../api/UnsaveGuide';
 import { SaveGuide } from '../api/SaveGuide';
 import { Context } from '../App';
+import FastImage from 'react-native-fast-image';
 
 const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
@@ -43,7 +44,7 @@ const Card = (props) => {
 
     return (
         <View style={styles.view}>
-            <Image blurRadius={1} style={styles.image} source={{ uri: !props.uri ? defaultImageURI : uri }} />
+            <FastImage blurRadius={1} style={styles.image} source={{ uri: !props.uri ? defaultImageURI : uri, priority: FastImage.priority.normal }} />
             <View style={styles.imageOpacity} />
 
             <View style={styles.guideButtons}>

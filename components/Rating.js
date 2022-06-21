@@ -112,10 +112,10 @@ export default RatingBlock
 
 const styles = StyleSheet.create({
     rating: {
-        marginLeft: width * 0.05,
         width: '90%',
         flexDirection: 'row',
-        alignSelf: 'center'
+        alignSelf: 'center',
+        marginLeft: 7,
     },
     text: {
         fontSize: 18,

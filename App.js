@@ -57,6 +57,7 @@ const ProfileScreen = () => {
       <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Profile" component={Profile} />
       <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="EditProfile" component={EditProfile} />
       <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="CreatorProfile" component={CreatorProfile} />
+      <ProfileScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Guide" component={Guide} />
     </ProfileScreenStack.Navigator>
   )
 }
@@ -86,10 +87,12 @@ const CreateGuideScreen = () => {
 }
 
 const ExploreScreen = () => {
-  return(
+  return (
     <ExploreScreenStack.Navigator>
       <ExploreScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="SearchMaps" component={SearchMaps} />
       <ExploreScreenStack.Screen options={{ headerShown: false, animationEnabled: true }} name="Guide" component={Guide} />
+      <ExploreScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="CreatorProfile" component={CreatorProfile} />
+      <ExploreScreenStack.Screen options={{ animationEnabled: true, headerShown: false }} name="Payments" component={PaymentScreen} />
     </ExploreScreenStack.Navigator>
   )
 }

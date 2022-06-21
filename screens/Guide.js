@@ -14,6 +14,7 @@ import MapView, { Marker } from 'react-native-maps';
 import { UnsaveGuide } from '../api/UnsaveGuide';
 import { SaveGuide } from '../api/SaveGuide';
 import { GetCreator } from '../api/GetCreator'
+import FastImage from 'react-native-fast-image';
 
 const profile_img = "https://i.pinimg.com/736x/1e/ea/13/1eea135a4738f2a0c06813788620e055.jpg"
 const tempText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Varius duis at consectetur lorem donec massa sapien. Egestas purus viverra accumsan in nisl nisi scelerisque eu.  Eget arcu dictum varius duis. Sodales neque sodales ut etiam sit amet nisl purus.  Eleifend donec pretium vulputate sapien nec sagittis aliquam malesuada. Quam lacus suspendisse faucibus interdum posuere lorem ipsum dolor. Facilisi morbi tempus iaculis urna id. Consequat nisl vel pretium lectus quam. Massa tempor nec feugiat nisl pretium fusce. Sit amet risus nullam eget felis eget. Nunc sed blandit libero volutpat sed cras ornare arcu. Odio ut enim blandit volutpat. Congue mauris rhoncus aenean vel. Nunc sed augue lacus viverra vitae congue eu. Semper viverra nam libero justo laoreet sit amet cursus. Risus quis varius quam quisque id diam. Sed turpis tincidunt id aliquet risus feugiat in ante. Non enim praesent elementum facilisis leo vel fringilla est."
@@ -88,7 +89,7 @@ const Guide = ({ navigation }) => {
             <ScrollView contentContainerStyle={styles.view}>
                 {/* Pagrindines foto vaizdas */}
                 <View style={styles.headerview}>
-                    <Image style={styles.headerimage} source={{ uri: headerImageURI }} />
+                    <FastImage style={styles.headerimage} source={{ uri: headerImageURI, priority: FastImage.priority.high }} />
                 </View>
                 {/* Pagrindines foto vaizdo uztamsinimas */}
                 <View style={styles.headeroverflow} />
@@ -199,17 +200,17 @@ const Guide = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     textview: {
-        width: "100%",
+        width: "90%",
+        alignSelf: 'center',
+        marginVertical: 3
     },
     text: {
         fontSize: 16,
-        width: '90%',
+        width: '100%',
         color: 'black',
         paddingHorizontal: 20,
-        marginLeft: '5%',
-        fontWeight: '00',
+        fontWeight: '400',
         textAlign: 'justify',
-        paddingVertical: 5,
     },
     texttitle: {
         textAlign: 'left',
@@ -222,16 +223,14 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     image: {
-        flex: 1,
-        aspectRatio: 1,
+        width: '100%',
+        aspectRatio: 1.25,
         borderRadius: 3,
     },
     imageview: {
-        width: '90%',
-        margin: 0,
-        marginLeft: '5%',
-        paddingHorizontal: 20,
-        marginVertical: 3,
+        width: '85%',
+        alignSelf: 'center',
+        marginVertical: 3
     },
     video: {
         width: '100%',
