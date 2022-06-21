@@ -71,30 +71,17 @@ const RatingBlock = (props) => {
                 <View>
                     <Text style={styles.text}>{!isNull ? "Your rating" : "Rate the guide"}</Text>
                 </View>
-                <View style={styles.view1}>
-                    <View style={styles.userInfo}>
-                        <View style={styles.imageView}>
-                            <Image
-                                source={{ uri: userInfo['ppicture']? userInfo['ppicture'] : profile_img }}
-                                style={styles.profile_image}
-                                resizeMode="cover"
-                                />
-                        </View>
-                        <View style={styles.viewColumn}>
-                            <Text numberOfLines={1} ellipsizeMode='tail' style={styles.creatorName}>
-                                {`${userInfo['firstname']} ${userInfo['lastname']}`}
-                            </Text>
-                            <View style={styles.star}>
-                                {stars.map((star) => {
-                                    return (
-                                        <TouchableOpacity >
-                                            <Pressable onPress={() => setRating(star)}>
-                                                <MaterialIcons name={star <= rating ? 'star' : 'star-border'} size={25} color={'rgb(149, 148, 186)'} />
-                                            </Pressable>
-                                        </TouchableOpacity>)
-                                }
-                                )}
-                            </View>
+                    <View style={styles.viewColumn}>
+                        <View style={styles.rating}>
+                            {stars.map((star) => {
+                                return (
+                                    <TouchableOpacity >
+                                        <Pressable onPress={() => setRating(star)}>
+                                            <MaterialIcons name={star <= rating ? 'star' : 'star-border'} size={25} color={'rgb(149, 148, 186)'} />
+                                        </Pressable>
+                                    </TouchableOpacity>)
+                            }
+                            )}
                         </View>
                     </View>
                     <View style={styles.view}>
@@ -114,9 +101,7 @@ const RatingBlock = (props) => {
                             </Pressable>
                         </TouchableOpacity>
                     </View>
-                </View>
-                <View style = {styles.spacer}>
-
+                    <View style = {styles.spacer}>
                 </View>
             </ScrollView>
         )
