@@ -4,7 +4,11 @@
 
 # Xcode
 #
-build/
+android/app/build/generated
+android/app/build/tmp
+android/app/build/intermediates
+android/app/build/outputs/logs
+android/app/build/outputs/sdk-dependencies
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -23,8 +27,6 @@ DerivedData
 
 # Android/IntelliJ
 #
-build/generated
-build/intermediates
 .idea
 .gradle
 local.properties
