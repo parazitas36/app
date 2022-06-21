@@ -1,13 +1,17 @@
 import React from 'react'
-import { View, ImageBackground } from 'react-native';
+import { View, ImageBackground, Pressable } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { ReverseGeocoding } from '../api/ReverseGeocoding';
 import Button from '../components/Button';
 import MapCard from '../components/MapCard';
 import { Searchbar } from 'react-native-paper';
 import { FindCityByName } from '../api/FindCityByName';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import { CurrentLocation } from '../api/CurrentLocation';
 
 const Maps = ({ navigation, route }) => {
+    const [coords, setCoords] = React.useState(null)
+    const [clicked, setClicked] = React.useState(false)
     const [region, setRegion] = React.useState({
         latitude: 37.78825,
         longitude: -122.4324,
@@ -33,10 +37,20 @@ const Maps = ({ navigation, route }) => {
         })
     }
 
+    if (clicked && coords && region.latitude != coords['latitude'] && region.longitude != coords['longitude']) {
+        setRegion({
+            latitude: coords['latitude'],
+            longitude: coords['longitude'],
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+        })
+        setClicked(false);
+    }
+
     return (
         <View style={{ flex: 1 }}>
-            <ImageBackground source={require('../assets/images/background.png')} style={{ flex: 1, resizeMode: 'cover'}}>
-                <View style={{top: 0}}>
+            <ImageBackground source={require('../assets/images/background.png')} style={{ flex: 1, resizeMode: 'cover' }}>
+                <View style={{ top: 0 }}>
                     <Searchbar
                         placeholder='Search'
                         defaultValue=''
@@ -46,6 +60,24 @@ const Maps = ({ navigation, route }) => {
                         onKeyPress={redirectToCity}
                         onEndEditing={redirectToCity}
                     />
+
+                    <Pressable style={{
+                        width: 50,
+                        height: 50,
+                        position: 'absolute',
+                        bottom: 150,
+                        right: 10,
+                        borderRadius: 45,
+                        zIndex: 9999,
+                        backgroundColor: 'rgba(255, 255, 255, .75)',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}
+                        onPress={async () => { await CurrentLocation([coords, setCoords]); setClicked(true) }}
+                    >
+                        <MaterialIcons name="my-location" size={36} color="rgba(0, 0, 0, .75)" />
+                    </Pressable>
+
                     <MapView
                         style={{
                             height: '70%',
